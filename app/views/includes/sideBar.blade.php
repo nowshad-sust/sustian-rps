@@ -25,10 +25,29 @@
                   <li>
 
                       <a href="{{route('classmates')}}">
-                          <i class="fa fa-plane"></i>
+                          <i class="fa fa-users"></i>
                           <span>Classmates</span>
                       </a>
                   </li>
+
+                  {{-- Results --}}
+                  <li>
+
+                      <a href="{{route('resultsDataTable')}}">
+                          <i class="fa fa-table"></i>
+                          <span>Results</span>
+                      </a>
+                  </li>
+                  @if(Entrust::hasRole(Config::get('customConfig.roles.admin')))
+
+                      <li>
+
+                          <a href="{{route('viewNotifications')}}">
+                              <i class="fa fa-bell-o"></i>
+                              <span>Notifications</span>
+                          </a>
+                      </li>
+                      @endif
 
 
               </ul>

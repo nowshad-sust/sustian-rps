@@ -45,4 +45,21 @@ Route::group(array('before' => 'auth|activation'), function()
 	Route::get('classmates',['as'=>'classmates', 'uses'=>'UserController@showClassmates']);
 	//others profile view
 	Route::get('showProfile/{id}', ['as'=>'showProfile', 'uses'=>'UserController@showOthersProfile']);
+
+	//STAT section
+	Route::get('resultsDataTable',['as'=>'resultsDataTable', 'uses'=>'StatController@showResultsDataTable']);
+	Route::get('addResult',['as'=>'addResult', 'uses'=>'StatController@addResultForm']);
+	Route::post('addResult',['as'=>'addResult', 'uses'=>'StatController@validateResult']);
+	Route::get('editResult/{id}',['as'=>'editResult', 'uses'=>'StatController@showResultEditForm']);
 });
+
+Route::group(array('before' => 'auth|admin'), function()
+{
+	Route::get('addNotification',['as'=>'addNotification', 'uses'=>'AdminController@showNotificationForm']);
+	Route::post('addNotification',['as'=>'addNotification', 'uses'=>'AdminController@addNotification']);
+	Route::get('viewNotifications', ['as'=>'viewNotifications', 'uses'=>'AdminController@viewNotification']);
+	Route::get('deleteNotification/{id}',['as'=>'deleteNotification','uses'=>'AdminController@deleteNotification']);
+	Route::get('activateNotification/{id}',['as'=>'activateNotification','uses'=>'AdminController@activateNotification']);
+	Route::get('deactivateNotification/{id}',['as'=>'deactivateNotification','uses'=>'AdminController@deactivateNotification']);
+});
+

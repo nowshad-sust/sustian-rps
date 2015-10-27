@@ -187,8 +187,9 @@ class UserController extends \BaseController {
     }
 
     public function showClassmates(){
-        //all users except admin users
-        $classmatesInfo = User::with('UserInfo')->get();
+        //all users of the same batch & same dept
+        $classmatesInfo = UserInfo::where('batch',Auth::user()->userInfo->batch)
+                            ->where('dept',Auth::user()->userInfo->dept)->get();
 
         return View::make('user.classmates')->with(['title'=>'Classmates','classmatesInfo'=>$classmatesInfo]);
     }

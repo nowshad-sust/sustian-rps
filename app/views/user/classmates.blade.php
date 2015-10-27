@@ -19,12 +19,12 @@
                             <section class="panel">
                                 <div class="user-heading alt green-bg">
                                     <a href="">
-                                        <img alt="" src="{{'../'.$Info->userInfo->avatar_url}}">
+                                        <img alt="" src="{{'../'.$Info->avatar_url}}">
                                     </a>
-                                    <h1>{{$Info->userInfo->fullName}}</h1>
+                                    <h1>{{$Info->fullName}}</h1>
                                     <p>Joined: {{$Info->created_at->diffForHumans()}}</p>
                                     <div class="text-center">
-                                        <a class="btn btn-xs btn-success btn-edit" href="{{ URL::route('showProfile',$Info->userInfo->user_id) }}">details</a>
+                                        <a class="btn btn-xs btn-success btn-edit" href="{{ URL::route('showProfile',$Info->user_id) }}">details</a>
                                     </div>
                                 </div>
 

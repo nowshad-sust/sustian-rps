@@ -10,17 +10,17 @@
         </div>
         <div class="weather-category twt-category">
             <ul>
+                <li>
+                    <h4>{{$userInfo->email}}</h4>
+                    Email
+                </li>
                 <li class="active">
-                    <h5>{{$userInfo->userInfo->company}}</h5>
-                    Compnay
+                    <h5>{{$userInfo->userInfo->dept}}</h5>
+                    Department
                 </li>
                 <li>
                     <h5>{{$userInfo->created_at->diffForHumans()}}</h5>
                     Registered since
-                </li>
-                <li>
-                    <h4>{{$userInfo->email}}</h4>
-                    Email
                 </li>
             </ul>
         </div>

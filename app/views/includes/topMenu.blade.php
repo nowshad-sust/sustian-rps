@@ -3,8 +3,43 @@
               <div data-original-title="Toggle Navigation" data-placement="right" class="fa fa-bars tooltips"></div>
           </div>
           <!--logo start-->
-          <a href="{{route('dashboard')}}" class="logo" >rate<span>lancer</span></a>
+          <a href="{{route('dashboard')}}" class="logo" >result<span>sust</span></a>
           <!--logo end-->
+
+            <!-- notification option -->
+            <div class="nav notify-row" id="top_menu">
+                <!--  notification start -->
+
+                <ul class="nav top-menu">
+                    <!-- notification dropdown start-->
+                    <li id="header_notification_bar" class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+
+                            <i class="fa fa-bell-o"></i>
+                            @if($notification = Notification::where('status',1)->get())
+                                @if($count=count($notification)>0)
+                                    <span class="badge bg-warning">{{$count}}</span>
+                                @endif
+                            @endif
+                        </a>
+                        <ul class="dropdown-menu extended notification">
+                            <div class="notify-arrow notify-arrow-yellow"></div>
+                            @foreach($notification as $notification)
+                            <li>
+                                    <span class="label label-warning"><i class="fa fa-bell"></i>
+                                    </span>
+                                    {{$notification->notification_text}}
+                            </li>
+                            @endforeach
+                        </ul>
+                    </li>
+
+                    <!-- notification dropdown end -->
+                </ul>
+            </div>
+
+
+
 
           <div class="top-nav ">
               <ul class="nav pull-right top-menu">
