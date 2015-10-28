@@ -72,7 +72,7 @@ class AdminController extends \BaseController {
             $notification->notification_text = $data['notification'];
             $notification->status = true;
             if($notification->save()){
-                return Redirect::route('addNotification')->with(['success'=>'notification added']);
+                return Redirect::route('viewNotifications')->with(['success'=>'notification added']);
             }else{
                 return Redirect::back()->with(['error'=>'error adding notification']);
             }

@@ -18,7 +18,7 @@
                             <i class="fa fa-bell-o"></i>
                             @if($notification = Notification::where('status',1)->get())
                                 @if($count=count($notification)>0)
-                                    <span class="badge bg-warning">{{$count}}</span>
+                                    <span class="badge bg-warning">{{count($notification)}}</span>
                                 @endif
                             @endif
                         </a>

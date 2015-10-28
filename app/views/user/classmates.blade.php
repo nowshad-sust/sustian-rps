@@ -6,7 +6,7 @@
         <table class="display table table-bordered table-stripe" id="example">
             <thead>
             <tr>
-                <th>Freelancer Profile</th>
+                <th>Classmates</th>
 
             </tr>
             </thead>

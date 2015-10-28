@@ -86,9 +86,7 @@ class UserController extends \BaseController {
     public function validateProfileUpdate(){
         $rules =[
             'fullName'  =>  'required',
-            'reg_no'    =>  'required|digits:10',
-            'batch'     =>  'required|digits:4',
-            'dept'      =>  'required'
+            'reg_no'    =>  'required|digits:10'
         ];
 
         $data = Input::all();
@@ -99,12 +97,31 @@ class UserController extends \BaseController {
             return Redirect::back()->withErrors($validation)->withInput();
         }else{
 
+            try{
+                //dept & batch extraction from reg_no
+                $batch = (int) substr($data['reg_no'],0,4);
+                $dept = (int) substr($data['reg_no'],4,3);
+                //extraction finished
+
+                //now find the batch id & dept id
+                $batch_id = Batch::where('batch',$batch)->first()->id;
+                $dept_id = Dept::where('deptCode',$dept)->first()->id;
+                //finding ends
+
+                if($batch_id==null||$dept_id==null){
+                    throw new Exception;
+                }
+            }catch (Exception $ex){
+                return Redirect::back()->withInput()->with(['error'=>'no valid batch or dept could not be extracted from the given registration number,
+                                                please recheck your registration number']);
+            }
+
             if($userInfo = UserInfo::where('id',$data['id'])
                 ->update(array(
                                 'fullName' => $data['fullName'],
                                 'reg_no' => $data['reg_no'],
-                                'batch' => $data['batch'],
-                                'dept' => $data['dept']
+                                'batch_id' => $batch_id,
+                                'dept_id' => $dept_id
                 ))){
                 return Redirect::route('profile')->with('success','profile updated successfully');
             }else{
@@ -188,8 +205,8 @@ class UserController extends \BaseController {
 
     public function showClassmates(){
         //all users of the same batch & same dept
-        $classmatesInfo = UserInfo::where('batch',Auth::user()->userInfo->batch)
-                            ->where('dept',Auth::user()->userInfo->dept)->get();
+        $classmatesInfo = UserInfo::where('batch_id',Auth::user()->userInfo->batch_id)
+                            ->where('dept_id',Auth::user()->userInfo->dept_id)->get();
 
         return View::make('user.classmates')->with(['title'=>'Classmates','classmatesInfo'=>$classmatesInfo]);
     }

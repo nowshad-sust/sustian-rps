@@ -11,6 +11,8 @@ class CoursesTableSeeder extends Seeder {
 			[
 				'course_number'  =>  'CSE101',
 				'course_title'   =>  'Introduction to Computer Science & Engineering',
+				'dept_id'		=>	1,
+				'batch_id'		=>	1,
 				'course_semester' => 1,
 				'course_credit'	 =>	3,
 				'created_at' => date('Y-m-d H:i:s'),

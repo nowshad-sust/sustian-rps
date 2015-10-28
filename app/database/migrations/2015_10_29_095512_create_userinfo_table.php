@@ -20,13 +20,15 @@ class CreateUserinfoTable extends Migration {
 			$table->boolean('activation');
 			$table->string('activation_key')->nullable();
 			$table->string('reg_no')->nullable();
-			$table->string('batch')->nullable();
-			$table->string('dept')->nullable();
+			$table->integer('batch_id')->unsigned()->nullable();
+			$table->integer('dept_id')->unsigned()->nullable();
 			$table->string('avatar_url')->nullable();
 			$table->string('icon_url')->nullable();
 			$table->timestamps();
 
 			$table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+			$table->foreign('batch_id')->references('id')->on('batch')->onUpdate('cascade')->onDelete('cascade');
+			$table->foreign('dept_id')->references('id')->on('dept')->onUpdate('cascade')->onDelete('cascade');
 		});
 	}
 

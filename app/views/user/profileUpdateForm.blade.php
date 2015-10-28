@@ -10,12 +10,6 @@
         {{ Form::label('reg_no', 'Reg no', array('' => '')) }}
         {{ Form::text('reg_no', null, array('class' => 'form-control', 'autofocus')) }}
 
-        {{ Form::label('batch', 'Batch', array('' => '')) }}
-        {{ Form::text('batch', null, array('class' => 'form-control', 'autofocus')) }}
-
-        {{ Form::label('dept', 'Department', array('' => '')) }}
-        {{ Form::text('dept', null, array('class' => 'form-control', 'autofocus')) }}
-
         {{ Form::hidden('id',$profileInfo->id) }}
         {{ Form::submit('Update', array('class' => 'btn btn-lg btn-login btn-block')) }}
     </div>

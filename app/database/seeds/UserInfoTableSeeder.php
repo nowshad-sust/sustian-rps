@@ -10,12 +10,12 @@ class UserInfoTableSeeder extends Seeder {
         $userInfo = [
             [
                 'fullName'  =>  'yousuf Khan Ratul',
-                'user_id'   =>  '1',
+                'user_id'   =>  1,
                 'activation' => true,
                 'activation_key' => null,
                 'reg_no'  =>    '2012331000',
-                'batch'  => '2012',
-                'dept'  =>  'CSE',
+                'batch_id'  => 1,
+                'dept_id'  =>  1,
                 'avatar_url' => null,
                 'icon_url'     => null,
                 'created_at' => date('Y-m-d H:i:s'),

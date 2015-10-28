@@ -15,7 +15,7 @@
                     Email
                 </li>
                 <li class="active">
-                    <h5>{{$userInfo->userInfo->dept}}</h5>
+                    <h5>{{$userInfo->userInfo->dept->deptName}}</h5>
                     Department
                 </li>
                 <li>
