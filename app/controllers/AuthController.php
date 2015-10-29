@@ -66,7 +66,7 @@ class AuthController extends \BaseController {
 
 	public function dashboard(){
 		return View::make('dashboard')
-					->with('title','Dashboard');
+					->with(['title'=>'Dashboard']);
 	}
 
 	public function changePassword(){

@@ -14,7 +14,20 @@
             @foreach($classmatesInfo as $Info)
 
                 <tr class="">
+
                     <td>
+                        <div class="media">
+                            <a href="{{ URL::route('showProfile',$Info->user_id) }}" class="pull-left media-thumb">
+                                <img style="height: 75px;" alt="" src="{{'../'.$Info->avatar_url}}" class="media-object">
+                            </a>
+                            <div class="media-body">
+                                <strong>{{$Info->fullName}}</strong>
+                                <small>registered {{$Info->created_at->diffForHumans()}}</small>
+                                <br>
+                                <a class="btn btn-xs btn-success btn-edit" href="{{ URL::route('showProfile',$Info->user_id) }}">details</a>
+                            </div>
+                        </div>
+                        <!--
                         <aside class="profile-nav alt green-border">
                             <section class="panel">
                                 <div class="user-heading alt green-bg">
@@ -30,6 +43,7 @@
 
                             </section>
                         </aside>
+                        -->
                     </td>
                 </tr>
 

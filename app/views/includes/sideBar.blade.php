@@ -38,6 +38,15 @@
                           <span>Results</span>
                       </a>
                   </li>
+
+                  <li>
+
+                      <a href="{{route('chart')}}">
+                          <i class="fa fa-bell-o"></i>
+                          <span>Chart</span>
+                      </a>
+                  </li>
+
                   @if(Entrust::hasRole(Config::get('customConfig.roles.admin')))
 
                       <li>

@@ -56,6 +56,8 @@ Route::group(array('before' => 'auth|activation'), function()
 
 	//chart section
 	Route::get('chart',['as'=>'chart','uses'=>'ChartController@showChart']);
+
+	Route::get('gpa',['as'=>'gpa','uses'=>'ChartController@calculateGPA']);
 });
 
 Route::group(array('before' => 'auth|admin'), function()

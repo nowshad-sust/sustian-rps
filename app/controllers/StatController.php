@@ -169,7 +169,7 @@ class StatController extends \BaseController {
             case 3.75:
                 $grade_letter = 'A';
                 break;
-            case 3.00:
+            case 4.00:
                 $grade_letter = 'A+';
                 break;
 
