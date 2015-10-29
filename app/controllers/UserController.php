@@ -18,10 +18,11 @@ class UserController extends \BaseController {
      */
     public function validateRegistration(){
         $rules =[
-            'fullName'              =>'required',
-            'email'                 => 'required|email|unique:users',
-            'password'              => 'required|confirmed',
-            'password_confirmation' => 'required'
+            'fullName'              =>  'required',
+            'reg_no'                =>  'required|unique:userinfo,reg_no|digits:10',
+            'email'                 =>  'required|email|unique:users',
+            'password'              =>  'required|confirmed',
+            'password_confirmation' =>  'required'
         ];
 
         $data = Input::all();
@@ -31,6 +32,24 @@ class UserController extends \BaseController {
         if($validation->fails()){
             return Redirect::back()->withErrors($validation)->withInput(Input::except('password', 'password_confirmation'));
         }else{
+            try{
+                //dept & batch extraction from reg_no
+                $batch = (int) substr($data['reg_no'],0,4);
+                $dept = (int) substr($data['reg_no'],4,3);
+                //extraction finished
+
+                //now find the batch id & dept id
+                $batch_id = Batch::where('batch',$batch)->first()->id;
+                $dept_id = Dept::where('deptCode',$dept)->first()->id;
+                //finding ends
+
+                if($batch_id==null||$dept_id==null){
+                    throw new Exception;
+                }
+            }catch (Exception $ex){
+                return Redirect::back()->withInput()->with(['error'=>'no valid batch or dept could be extracted from the given registration number,
+                                                please recheck your registration number']);
+            }
 
             $confirmation_code = str_random(30);
 
@@ -49,6 +68,9 @@ class UserController extends \BaseController {
                 $user_info->user_id = $user->id;
                 $user_info->activation = false;
                 $user_info->activation_key = $confirmation_code;
+                $user_info->reg_no  = $data['reg_no'];
+                $user_info->batch_id = $batch_id;
+                $user_info->dept_id   = $dept_id;
                 //set a default avatar
                 $user_info->icon_url = 'uploads/image/defaultAvatar.png';
                 $user_info->avatar_url = 'uploads/image/defaultAvatar.png';
@@ -57,12 +79,14 @@ class UserController extends \BaseController {
                     //send a activation mail
                     //genrate a activation key
 
-                    Mail::send('user.activation', ['confirmation_code'=>$confirmation_code, 'fullName'=>$data['fullName']], function($message) {
-                        $message->to(Input::get('email'), Input::get('fullName'))
-                            ->subject('Verify your email address');
+                    Mail::send('user.activation', ['confirmation_code'=>$confirmation_code,
+                                                    'fullName'=>$data['fullName']],
+                        function($message) {
+                            $message->to(Input::get('email'), Input::get('fullName'))
+                                    ->subject('Verify your email address');
                     });
 
-                    return Redirect::route('login')->with('success',"Your Account Created Successfully. Please login now");
+                    return Redirect::route('login')->with('success',"Your Account Created Successfully. Please check your email");
                 }else{
                     return Redirect::back()->withInput()->withErrors($validation);
                 }
@@ -86,7 +110,6 @@ class UserController extends \BaseController {
     public function validateProfileUpdate(){
         $rules =[
             'fullName'  =>  'required',
-            'reg_no'    =>  'required|digits:10'
         ];
 
         $data = Input::all();
@@ -97,31 +120,9 @@ class UserController extends \BaseController {
             return Redirect::back()->withErrors($validation)->withInput();
         }else{
 
-            try{
-                //dept & batch extraction from reg_no
-                $batch = (int) substr($data['reg_no'],0,4);
-                $dept = (int) substr($data['reg_no'],4,3);
-                //extraction finished
-
-                //now find the batch id & dept id
-                $batch_id = Batch::where('batch',$batch)->first()->id;
-                $dept_id = Dept::where('deptCode',$dept)->first()->id;
-                //finding ends
-
-                if($batch_id==null||$dept_id==null){
-                    throw new Exception;
-                }
-            }catch (Exception $ex){
-                return Redirect::back()->withInput()->with(['error'=>'no valid batch or dept could not be extracted from the given registration number,
-                                                please recheck your registration number']);
-            }
-
             if($userInfo = UserInfo::where('id',$data['id'])
                 ->update(array(
-                                'fullName' => $data['fullName'],
-                                'reg_no' => $data['reg_no'],
-                                'batch_id' => $batch_id,
-                                'dept_id' => $dept_id
+                                'fullName' => $data['fullName']
                 ))){
                 return Redirect::route('profile')->with('success','profile updated successfully');
             }else{

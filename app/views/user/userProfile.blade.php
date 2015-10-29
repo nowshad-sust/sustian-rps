@@ -15,7 +15,11 @@
                     Email
                 </li>
                 <li class="active">
-                    <h5>{{$userInfo->userInfo->dept->deptName}}</h5>
+                        @if($userInfo->userInfo->dept_id != null)
+                        <h5>{{$userInfo->userInfo->dept->deptName}}</h5>
+                        @else
+                            <h6>Dept Info not set yet</h6>
+                        @endif
                     Department
                 </li>
                 <li>

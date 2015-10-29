@@ -4,7 +4,7 @@
 
     <div class="form-group last">
         <label class="control-label col-md-3">Image Upload</label>
-        {{ Form::open(array('role'=>'form','route' => 'uploadAvatar', 'class' => 'form-horizontal','files' => true)) }}
+        {{ Form::open(array('role'=>'form','route' => 'storeAvatar', 'class' => 'form-horizontal','files' => true)) }}
         <div class="col-md-9">
             <div class="fileupload fileupload-new" data-provides="fileupload">
                 <div class="fileupload-new thumbnail" style="width: 300px; height: 250px;">

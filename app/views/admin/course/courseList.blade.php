@@ -2,34 +2,37 @@
 @section('content')
     @include('includes.alert')
 
-    <h3>Results</h3>
-    <a href="{{route('addResult')}}"><button class="btn btn-default">Add new</button></a>
     <div class="panel-body">
+        <a style="float:right;" href="{{route('addCourse')}}"><button class="btn btn-default">Add new</button></a>
         <table class="display table table-bordered table-stripe" id="example">
             <thead>
             <tr>
-                <th>Course ID</th>
+                <th>ID</th>
+                <th>Course Number</th>
+                <th>Course Title</th>
+                <th>Dept</th>
+                <th>Batch</th>
                 <th>Semester</th>
-                <th>Course Credit</th>
-                <th>Grade point</th>
-                <th>Grade Letter</th>
+                <th>Credit</th>
 
                 <th class="text-center">Actions</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($resultsInfo as $Info)
+            @foreach($courseInfo as $Info)
 
                 <tr class="">
-                    <td>{{$Info->course->course_number}}</td>
-                    <td>{{$Info->course->course_semester}}</td>
-                    <td>{{$Info->course->course_credit}}</td>
-                    <td>{{$Info->grade_point}}</td>
-                    <td>{{$Info->grade_letter}}</td>
+                    <td>{{$Info->id}}</td>
+                    <td>{{$Info->course_number}}</td>
+                    <td>{{$Info->course_title}}</td>
+                    <td>{{$Info->dept->dept}}</td>
+                    <td>{{$Info->batch->batch}}</td>
+                    <td>{{$Info->course_semester}}</td>
+                    <td>{{$Info->course_credit}}</td>
 
                     <td class="text-center">
-                        <a class="btn btn-xs btn-warning btn-edit" href="{{ URL::route('editResult',$Info->id) }}">Edit</a>
-                        <a class="btn btn-xs btn-danger btn-edit" href="{{ URL::route('deleteResult',$Info->id) }}">Delete</a>
+                        <a class="btn btn-xs btn-warning btn-edit" href="{{ route('editCourse',$Info->id) }}">Edit</a>
+                        <a class="btn btn-xs btn-danger btn-edit" href="{{ route('deleteCourse',$Info->id) }}">Delete</a>
                     </td>
                 </tr>
 
@@ -37,7 +40,6 @@
             </tbody>
         </table>
     </div>
-
 
 
 @stop

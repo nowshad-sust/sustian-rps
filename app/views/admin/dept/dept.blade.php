@@ -2,34 +2,31 @@
 @section('content')
     @include('includes.alert')
 
-    <h3>Results</h3>
-    <a href="{{route('addResult')}}"><button class="btn btn-default">Add new</button></a>
     <div class="panel-body">
+        <a style="float:right;" href="{{route('addDept')}}"><button class="btn btn-default">Add new</button></a>
         <table class="display table table-bordered table-stripe" id="example">
             <thead>
             <tr>
-                <th>Course ID</th>
-                <th>Semester</th>
-                <th>Course Credit</th>
-                <th>Grade point</th>
-                <th>Grade Letter</th>
+                <th>ID</th>
+                <th>Dept Code</th>
+                <th>Dept Short Name</th>
+                <th>Dept Full Name</th>
 
                 <th class="text-center">Actions</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($resultsInfo as $Info)
+            @foreach($deptInfo as $Info)
 
                 <tr class="">
-                    <td>{{$Info->course->course_number}}</td>
-                    <td>{{$Info->course->course_semester}}</td>
-                    <td>{{$Info->course->course_credit}}</td>
-                    <td>{{$Info->grade_point}}</td>
-                    <td>{{$Info->grade_letter}}</td>
+                    <td>{{$Info->id}}</td>
+                    <td>{{$Info->deptCode}}</td>
+                    <td>{{$Info->dept}}</td>
+                    <td>{{$Info->deptName}}</td>
 
                     <td class="text-center">
-                        <a class="btn btn-xs btn-warning btn-edit" href="{{ URL::route('editResult',$Info->id) }}">Edit</a>
-                        <a class="btn btn-xs btn-danger btn-edit" href="{{ URL::route('deleteResult',$Info->id) }}">Delete</a>
+                        <a class="btn btn-xs btn-warning btn-edit" href="{{ URL::route('editDept',$Info->id) }}">Edit</a>
+                        <a class="btn btn-xs btn-danger btn-edit" href="{{ URL::route('deleteDept',$Info->id) }}">Delete</a>
                     </td>
                 </tr>
 

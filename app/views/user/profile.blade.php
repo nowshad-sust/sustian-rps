@@ -20,10 +20,14 @@
                     </h5>
                     <div class="product_meta">
                         <span class="posted_in"> <strong>Reg no: </strong> {{Auth::user()->userInfo->reg_no}}</span>
-                        <span class="tagged_as"><strong>Batch: </strong> {{Auth::user()->userInfo->batch->batch}}</span>
 
+                        @if(Auth::user()->userInfo->batch_id!=null)
+                        <span class="tagged_as"><strong>Batch: </strong> {{Auth::user()->userInfo->batch->batch}}</span>
+                        @endif
                     </div>
+                    @if(Auth::user()->userInfo->dept_id!=null)
                     <div class="m-bot15"> <strong>Department: </strong> <span>{{Auth::user()->userInfo->dept->deptName}}</span></div>
+                    @endif
                     <p>
                         <a href="{{route('updateProfile')}}"><button class="btn btn-round btn-danger" type="button"><i class="fa fa-pencil"></i> Edit Profile</button></a>
                     </p>

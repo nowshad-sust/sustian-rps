@@ -47,6 +47,30 @@
                               <span>Notifications</span>
                           </a>
                       </li>
+
+                      <li>
+
+                          <a href="{{route('showDept')}}">
+                              <i class="fa fa-bell-o"></i>
+                              <span>Departments</span>
+                          </a>
+                      </li>
+
+                      <li>
+
+                          <a href="{{route('showBatch')}}">
+                              <i class="fa fa-bell-o"></i>
+                              <span>Batch</span>
+                          </a>
+                      </li>
+
+                      <li>
+
+                          <a href="{{route('showCourse')}}">
+                              <i class="fa fa-bell-o"></i>
+                              <span>Course</span>
+                          </a>
+                      </li>
                       @endif
 
 

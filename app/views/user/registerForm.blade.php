@@ -34,6 +34,9 @@
         {{ Form::label('fullName', 'Full Name', array('' => '')) }}
         {{ Form::text('fullName', '', array('class' => 'form-control', 'placeholder' => 'Mario Gomez', 'autofocus')) }}
 
+        {{ Form::label('reg_no', 'Reg no* (fixed once given)', array('' => '')) }}
+        {{ Form::text('reg_no', null, array('class' => 'form-control', 'placeholder' => '20********','autofocus')) }}
+
         {{ Form::label('email', 'Email', array('' => '')) }}
         {{ Form::text('email', '', array('class' => 'form-control', 'placeholder' => 'Email Address', 'autofocus')) }}
 
