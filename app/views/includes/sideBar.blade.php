@@ -41,9 +41,16 @@
 
                   <li>
 
-                      <a href="{{route('chart')}}">
+                      <a href="{{route('chart.course-grade')}}">
                           <i class="fa fa-bell-o"></i>
-                          <span>Chart</span>
+                          <span>Charts</span>
+                      </a>
+                  </li>
+
+                  <li>
+                      <a href="{{route('results')}}">
+                          <i class="fa fa-bell-o"></i>
+                          <span>Results Tab</span>
                       </a>
                   </li>
 

@@ -10,6 +10,10 @@ class StatController extends \BaseController {
         return View::make('stat.resultsDataTable')->with(['title'=>'Results','resultsInfo'=>$results]);
     }
 
+    public function showResultsTab(){
+        return View::make('stat.resultsTab')->with(['title'=>'Results Tab']);
+    }
+
     public function showResultEditForm($id){
         try{
             if($id != null){
@@ -31,6 +35,55 @@ class StatController extends \BaseController {
             }
         }catch(Exception $ex){
 
+        }
+    }
+    public function gpaBySemester($semester){
+        try{
+            $user_id = Auth::user()->id;
+            $semester_courses = Course::where('course_semester', $semester)->lists('id');
+            $semesterGPA = $this->calculateSemesterGPA($semester);
+            if($semesterGPA==0){
+                return Redirect::back()->with(['warning'=>'no semester data added yet']);
+            }
+            $results = Result::where('user_id',$user_id)->whereIn('course_id',$semester_courses)->with('Course')->get();
+            return View::make('stat.semesterGPA')->with(['title'=>'Semester GPA',
+                'semesterGPA'=>$semesterGPA,
+                'resultsInfo'=>$results,
+                'semester'=>$semester]);
+        }catch (Exception $ex){
+            return Redirect::back()->with(['error'=>'semester data not found']);
+        }
+
+    }
+
+    public function calculateCGPA(){
+        try{
+            $user_id = Auth::user()->id;
+            $taken_courses_id = Result::where('user_id',$user_id)->lists('course_id');
+            $results = Result::where('user_id',$user_id)->whereIn('course_id',$taken_courses_id)->with('Course')->get();
+            $CGPA = $this->calculateTotalCGPA($results);
+
+            if($CGPA==0){
+                return Redirect::back()->with(['warning'=>'not enough data to count your CGPA']);
+            }
+            //enlist all avaiable semester GPA
+            //available semesters
+            $available_semesters = array();
+            $semestersGPA = array();
+            foreach($results as $result){
+                if(!in_array($result->course->course_semester, $available_semesters)){
+                    $available_semesters[]= $result->course->course_semester;
+                    $semestersGPA[] = $this->calculateSemesterGPA($result->course->course_semester);
+                }
+
+            }
+            return View::make('stat.CGPA')->with(['title'=>'CGPA',
+                'semesters'=>$available_semesters,
+                'semestersGPA'=>$semestersGPA,
+                'cgpa'=>$CGPA]);
+
+        }catch(Exception $ex){
+            return Redirect::back()->with(['error'=>'could not count CGPA']);
         }
     }
 
@@ -84,8 +137,10 @@ class StatController extends \BaseController {
         //dept & courses that are not added already
         $userDeptId = Auth::user()->userinfo->dept_id;
         $userBatchId = Auth::user()->userinfo->batch_id;
-        $courseList = Course::where('dept_id',$userDeptId)
-            ->where('batch_id',$userBatchId)->lists('course_number','id');
+        $user_id = Auth::user()->id;
+
+        $taken_courses_id = Result::where('user_id',$user_id)->lists('course_id');
+        $courseList = Course::whereNotIn('id',$taken_courses_id)->lists('course_number','id');
 
         $gradesList = [
             '2.00'    =>  'C-',
@@ -175,5 +230,44 @@ class StatController extends \BaseController {
 
         }
         return  $grade_letter;
+    }
+    private function calculateSemesterGPA($semester){
+        try{
+            $user_id = Auth::user()->id;
+            //GPA: (course_credit X obtained_grade_point)/total_credits
+            //total course_credit = add all course_credit from each result
+            $semester_courses = Course::where('course_semester', $semester)->lists('id');
+            $results = Result::where('user_id',$user_id)->whereIn('course_id',$semester_courses)->with('Course')->get();
+            if($semester_courses==null||$results==null){
+                return 0;
+            }
+
+            $total_credits = 0;
+            $TGP = 0;
+            foreach($results as $result){
+                $total_credits += $result->course->course_credit;
+                $TGP += $result->grade_point*$result->course->course_credit;
+            }
+            $gpa = $TGP/$total_credits;
+            return $gpa;
+        }catch (Exception $ex){
+
+        }
+    }
+
+    private function calculateTotalCGPA($results){
+        try{
+            $total_credits = 0;
+            $TGP = 0;
+            foreach($results as $result){
+                $total_credits += $result->course->course_credit;
+                $TGP += $result->grade_point*$result->course->course_credit;
+            }
+            $cgpa = $TGP/$total_credits;
+            return $cgpa;
+
+        }catch (Exception $ex){
+
+        }
     }
 }

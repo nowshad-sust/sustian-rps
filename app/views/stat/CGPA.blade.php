@@ -2,9 +2,9 @@
 @section('content')
     @include('includes.alert')
 
-    <h3>Results</h3>
+    <h3>CGPA</h3>
     <ul class="breadcrumb">
-        <li class="active"><i class="fa fa-home"></i> Data</li>
+        <li><a href="{{route('resultsDataTable')}}"><i class="fa fa-home"></i> Data</a></li>
         <li><a href="{{route('addResult')}}"> Add Result</a></li>
         <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true">
@@ -28,38 +28,38 @@
         </li>
         <li><a href="{{route('cgpa')}}"> CGPA</a></li>
 
-
     </ul>
     <div class="panel-body">
         <table class="display table table-bordered table-stripe" id="example">
             <thead>
             <tr>
-                <th>Course ID</th>
                 <th>Semester</th>
-                <th>Course Credit</th>
-                <th>Grade point</th>
-                <th>Grade Letter</th>
+                <th>GPA</th>
 
-                <th class="text-center">Actions</th>
+                <th class="text-center">CGPA</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($resultsInfo as $Info)
+
+            <?php
+            $i = 0;
+            $rowCount = floor(count($semestersGPA)/2);
+            ?>
+
+            @foreach($semestersGPA as $Info)
 
                 <tr class="">
-                    <td>{{$Info->course->course_number}}</td>
-                    <td>{{$Info->course->course_semester}}</td>
-                    <td>{{$Info->course->course_credit}}</td>
-                    <td>{{$Info->grade_point}}</td>
-                    <td>{{$Info->grade_letter}}</td>
-
-                    <td class="text-center">
-                        <a class="btn btn-xs btn-warning btn-edit" href="{{ URL::route('editResult',$Info->id) }}">Edit</a>
-                        <a class="btn btn-xs btn-danger btn-edit" href="{{ URL::route('deleteResult',$Info->id) }}">Delete</a>
-                    </td>
+                    <td>{{$semesters[$i]}}</td>
+                    <td>{{$Info}}</td>
+                    @if($rowCount-- == 0)
+                        <td class="text-center" >
+                            <b>{{$cgpa}}</b>
+                        </td>
+                    @endif
+                    <?php $i++; ?>
+                    @endforeach
                 </tr>
 
-            @endforeach
             </tbody>
         </table>
     </div>
@@ -71,18 +71,4 @@
 @section('style')
     {{ HTML::style('assets/data-tables/DT_bootstrap.css') }}
 
-@stop
-
-
-@section('script')
-    {{ HTML::script('assets/data-tables/jquery.dataTables.js') }}
-    {{ HTML::script('assets/data-tables/DT_bootstrap.js') }}
-
-    <script type="text/javascript" charset="utf-8">
-        $(document).ready(function() {
-
-            $('#example').dataTable({
-            });
-        });
-    </script>
 @stop
