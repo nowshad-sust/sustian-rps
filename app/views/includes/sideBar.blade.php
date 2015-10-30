@@ -42,7 +42,7 @@
                   <li>
 
                       <a href="{{route('chart.course-grade')}}">
-                          <i class="fa fa-bell-o"></i>
+                          <i class=" fa fa-bar-chart-o"></i>
                           <span>Charts</span>
                       </a>
                   </li>

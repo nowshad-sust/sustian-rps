@@ -57,6 +57,7 @@ Route::group(array('before' => 'auth|activation'), function()
 	//chart section
 	Route::get('chart/course-grade',['as'=>'chart.course-grade','uses'=>'ChartController@showcoursegrade']);
     Route::get('chart/course-cgpa',['as'=>'chart.course-cgpa','uses'=>'ChartController@showcoursecgpa']);
+	Route::get('chart/class-cgpa',['as'=>'chart.class-cgpa','uses'=>'ChartController@showclasscgpa']);
 
 	//Route::get('gpa',['as'=>'gpa','uses'=>'ChartController@calculateGPA']);
 	Route::get('gpa/{semester}',['as'=>'gpaBySemester','uses'=>'StatController@gpaBySemester']);

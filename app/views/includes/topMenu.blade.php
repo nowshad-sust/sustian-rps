@@ -24,12 +24,15 @@
                         </a>
                         <ul class="dropdown-menu extended notification">
                             <div class="notify-arrow notify-arrow-yellow"></div>
-                            @foreach($notification as $notification)
                             <li>
-                                    <span class="label label-warning"><i class="fa fa-bell"></i>
-                                    </span>
-                                    {{$notification->notification_text}}
+                                <p class="yellow">You have {{count($notification)}} new notifications</p>
                             </li>
+                            @foreach($notification as $notification)
+                                <li>
+                                        <span class="label label-success"><i class="fa fa-plus"></i></span>
+                                        {{$notification->notification_text}}
+                                        <span class="small italic"> {{$notification->updated_at->diffForHumans()}}</span>
+                                </li>
                             @endforeach
                         </ul>
                     </li>
