@@ -20,19 +20,36 @@
                         Class Stat
                     </a>
                 </li>
+                <li class="">
+                    <a href="{{route('chart.semester-cgpa')}}" aria-expanded="false">
+                        Semester CGPA
+                    </a>
+                </li>
             </ul>
         </header>
+        @if($courseList!=null||$grades!=null)
         <div class="panel-body">
             <div class="tab-content tasi-tab">
                 <div class="tab-pane active" id="popular">
                     <article class="media">
-                        <h3 class="text-center">Result Chart</h3>
+                        <h4 class="text-center">Result Chart</h4>
                         <h5 class="text-center">(course vs grade)</h5>
                         <canvas id="myChart" ></canvas>
                     </article>
                 </div>
             </div>
         </div>
+            @else
+            <div class="panel-body">
+                <div class="tab-content tasi-tab">
+                    <div class="tab-pane active" id="popular">
+                        <article class="media">
+                            <h4 class="text-center">you don't have enough data to populate the graph</h4>
+                        </article>
+                    </div>
+                </div>
+            </div>
+            @endif
     </section>
 
 @stop

@@ -2,7 +2,6 @@
 @section('content')
     @include('includes.alert')
 
-    <h3>CGPA</h3>
     <ul class="breadcrumb">
         <li><a href="{{route('resultsDataTable')}}"><i class="fa fa-home"></i> Data</a></li>
         <li><a href="{{route('addResult')}}"> Add Result</a></li>
@@ -27,9 +26,10 @@
             </ul>
         </li>
         <li><a href="{{route('cgpa')}}"> CGPA</a></li>
-
+        <li><a href="{{route('classStanding')}}"> Class Standing</a></li>
     </ul>
     <div class="panel-body">
+        <h4>CGPA</h4>
         <table class="display table table-bordered table-stripe" id="example">
             <thead>
             <tr>

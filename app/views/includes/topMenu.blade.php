@@ -50,7 +50,7 @@
                   <!-- user login dropdown start-->
                   <li class="dropdown">
                       <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                          <img alt="" src="{{'../'.Auth::user()->userInfo->icon_url}}" height="35" width="35">
+                          {{ HTML::image(Auth::user()->userInfo->icon_url, 'alt', array( 'width' => 35, 'height' => 35 )) }}
                           <span class="username">{{Auth::user()->userInfo->fullName}}</span>
                           <b class="caret"></b>
                       </a>

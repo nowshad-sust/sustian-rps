@@ -270,4 +270,77 @@ class StatController extends \BaseController {
 
         }
     }
+
+
+    public function getStanding(){
+
+        try{
+            //get cgpa list of each of your batch & dept
+            //sort them by cgpa
+            //get your position
+            $classmates_id = UserInfo::where('batch_id',Auth::user()->userInfo->batch_id)
+                ->where('dept_id',Auth::user()->userInfo->dept_id)->lists('user_id');
+
+            //calculate cgpa of each user
+            $classmates_cgpa = array();
+            foreach($classmates_id as $classmate_id){
+                $classmates_cgpa[] = $this->calculateUserCGPA($classmate_id);
+            }
+
+            $combinedArray = array_combine($classmates_id, $classmates_cgpa);
+
+
+            arsort($combinedArray);
+            $combinedArray=array_filter($combinedArray);
+            $compared_with = count($combinedArray);
+
+
+
+            if($compared_with <= 0){
+
+                return View::make('stat.classStanding')->with(['title'=>'Class Standing',
+                    'standing'=>'not found',
+                    'comparison'=>$compared_with]);
+            }else{
+
+                $classStanding = array_search(Auth::user()->userinfo->user_id,array_keys($combinedArray)) + 1;
+                return View::make('stat.classStanding')->with(['title'=>'Class Standing',
+                    'standing'=>$classStanding,
+                    'comparison'=>$compared_with]);
+            }
+
+        }catch (Exception $ex){
+            return Redirect::back()->with(['error'=>'standing could not be counted']);
+        }
+
+    }
+    private function calculateUserCGPA($classmate_id)
+    {
+        try{
+            $user_id = $classmate_id;
+            $taken_courses_id = Result::where('user_id',$user_id)->lists('course_id');
+            $results = Result::where('user_id',$user_id)->whereIn('course_id',$taken_courses_id)->with('Course')->get();
+
+            return $CGPA = $this->calculateSingleCGPA($results);
+
+        }catch (Exception $ex){
+            return Redirect::back()->with(['error'=>'error calculating cgpa']);
+        }
+    }
+
+    private function calculateSingleCGPA($results){
+        try{
+            $total_credits = 0;
+            $TGP = 0;
+            foreach($results as $result){
+                $total_credits += $result->course->course_credit;
+                $TGP += $result->grade_point*$result->course->course_credit;
+            }
+            $cgpa = $TGP/$total_credits;
+            return $cgpa;
+
+        }catch (Exception $ex){
+
+        }
+    }
 }

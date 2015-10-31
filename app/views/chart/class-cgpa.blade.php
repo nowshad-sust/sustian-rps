@@ -20,19 +20,35 @@
                         Class Stat
                     </a>
                 </li>
+                <li class="">
+                    <a href="{{route('chart.semester-cgpa')}}" aria-expanded="false">
+                        Semester CGPA
+                    </a>
+                </li>
             </ul>
         </header>
-        <div class="panel-body">
-            <div class="tab-content tasi-tab">
-                <div class="tab-pane active" id="popular">
-                    <article class="media">
-                        <h3 class="text-center">Result Chart</h3>
-                        <h5 class="text-center">Class CGPA stat</h5>
-                        <canvas id="myChart" ></canvas>
-                    </article>
+        @if($data!=null && $categories!=null && $user_number!=null)
+            <div class="panel-body">
+                <div class="tab-content tasi-tab">
+                    <div class="tab-pane active" id="popular">
+                        <article class="media">
+                            <h4 class="text-center">Class CGPA Population</h4>
+                            <canvas id="myChart" ></canvas>
+                        </article>
+                    </div>
                 </div>
             </div>
-        </div>
+        @else
+            <div class="panel-body">
+                <div class="tab-content tasi-tab">
+                    <div class="tab-pane active" id="popular">
+                        <article class="media">
+                            <h4 class="text-center">you don't have enough data to populate the graph</h4>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        @endif
     </section>
 
 @stop
@@ -45,7 +61,7 @@
             margin: 0 auto;
 
             background-color:whitesmoke;
-            width: 70%;
+            width: 80%;
             height: auto;
         }
     </style>
@@ -61,6 +77,7 @@
             var data = {{ json_encode($data) }}
             var ctx = document.getElementById('myChart').getContext('2d');
             var myPieChart = new Chart(ctx).Pie(data, { bezierCurve: false,
+                animateScale: true,
                 multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"});
             //var myBarChart = new Chart(ctx).Bar(data, { bezierCurve: false});
 

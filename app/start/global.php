@@ -48,11 +48,16 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 
 App::error(function(Exception $exception, $code)
 {
-	Log::error($exception);
+	//return Redirect::route('dashboard')->with('error','your request could not be completed');
+    //if($code==500){
+    //    return Redirect::route('dashboard')->with('error','your request could not be completed');
+    //}else
+	    Log::error($exception);
 });
 /*
 App::missing(function($exception)
 {
+	return Redirect::route('dashboard')->with('error','route not found');
 	// return Response::view('errors.missing', array(), 404);
 	return Redirect::route('dashboard')->with('error','route not found');
 });

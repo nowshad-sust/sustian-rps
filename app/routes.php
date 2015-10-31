@@ -53,11 +53,14 @@ Route::group(array('before' => 'auth|activation'), function()
 	Route::get('editResult/{id}',['as'=>'editResult', 'uses'=>'StatController@showResultEditForm']);
 	Route::post('editResult',['as'=>'updateResult', 'uses'=>'StatController@updateResult']);
 	Route::get('deleteResult/{id}',['as'=>'deleteResult', 'uses'=>'StatController@deleteResult']);
+	Route::get('classStanding',['as'=>'classStanding','uses'=>'StatController@getStanding']);
 
 	//chart section
 	Route::get('chart/course-grade',['as'=>'chart.course-grade','uses'=>'ChartController@showcoursegrade']);
     Route::get('chart/course-cgpa',['as'=>'chart.course-cgpa','uses'=>'ChartController@showcoursecgpa']);
 	Route::get('chart/class-cgpa',['as'=>'chart.class-cgpa','uses'=>'ChartController@showclasscgpa']);
+	Route::get('chart/semester-cgpa',['as'=>'chart.semester-cgpa', 'uses'=>'ChartController@showsemestercgpa']);
+	Route::get('chart/coursewise-stat/{course_id}',['as'=>'chart.coursewise-stat','uses'=>'ChartController@coursewisestat']);
 
 	//Route::get('gpa',['as'=>'gpa','uses'=>'ChartController@calculateGPA']);
 	Route::get('gpa/{semester}',['as'=>'gpaBySemester','uses'=>'StatController@gpaBySemester']);

@@ -1,7 +1,6 @@
 @extends('layouts.default')
 @section('content')
     @include('includes.alert')
-
     <ul class="breadcrumb">
         <li><a href="{{route('resultsDataTable')}}"><i class="fa fa-home"></i> Data</a></li>
         <li><a href="{{route('addResult')}}"> Add Result</a></li>
@@ -26,42 +25,12 @@
             </ul>
         </li>
         <li><a href="{{route('cgpa')}}"> CGPA</a></li>
-        <li><a href="{{route('classStanding')}}"> Class Standing</a></li>
+        <li><a href="#"> Class Standing</a></li>
     </ul>
     <div class="panel-body">
-        <h4>Semester-<b>{{$semester}}</b> GPA</h4>
-        <table class="display table table-bordered table-stripe" id="example">
-            <thead>
-            <tr>
-                <th>Course ID</th>
-                <th>Course Credit</th>
-                <th>Grade point</th>
-                <th>Grade Letter</th>
 
-                <th class="text-center">GPA</th>
-            </tr>
-            </thead>
-            <tbody>
+        <h2>your position: <strong>{{$standing}}</strong> among {{$comparison}} of your classmates !</h2>
 
-            <?php $rowCount = floor(count($resultsInfo)/2); ?>
-
-            @foreach($resultsInfo as $Info)
-
-                <tr class="">
-                    <td>{{$Info->course->course_number}}</td>
-                    <td>{{$Info->course->course_credit}}</td>
-                    <td>{{$Info->grade_point}}</td>
-                    <td>{{$Info->grade_letter}}</td>
-                    @if($rowCount-- == 0)
-                        <td class="text-center" >
-                            <b>{{$semesterGPA}}</b>
-                        </td>
-                    @endif
-                    @endforeach
-                </tr>
-
-            </tbody>
-        </table>
     </div>
 
 
