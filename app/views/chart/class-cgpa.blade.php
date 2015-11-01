@@ -3,37 +3,19 @@
     @include('includes.alert')
 
     <section class="panel">
-        <header class="panel-heading tab-bg-dark-navy-blue">
-            <ul class="nav nav-tabs nav-justified ">
-                <li>
-                    <a href="{{route('chart.course-grade')}}" aria-expanded="true">
-                        Course vs Grade
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('chart.course-cgpa')}}" aria-expanded="false">
-                        Course vs CGPA
-                    </a>
-                </li>
-                <li  class="active">
-                    <a href="#" aria-expanded="false">
-                        Class Stat
-                    </a>
-                </li>
-                <li class="">
-                    <a href="{{route('chart.semester-cgpa')}}" aria-expanded="false">
-                        Semester CGPA
-                    </a>
-                </li>
-            </ul>
-        </header>
+        @include('includes.chartmenu')
+
         @if($data!=null && $categories!=null && $user_number!=null)
             <div class="panel-body">
                 <div class="tab-content tasi-tab">
                     <div class="tab-pane active" id="popular">
                         <article class="media">
-                            <h4 class="text-center">Class CGPA Population</h4>
-                            <canvas id="myChart" ></canvas>
+                            <div class="labeled-chart-container">
+                                <div class="canvas-holder">
+                                    <h4 class="text-center">Class CGPA Population</h4>
+                                    <canvas id="myChart" ></canvas>
+                                </div>
+                            </div>
                         </article>
                     </div>
                 </div>
@@ -61,25 +43,31 @@
             margin: 0 auto;
 
             background-color:whitesmoke;
-            width: 80%;
+            width: 70%;
             height: auto;
         }
     </style>
+    {{HTML::script('css/demo.css')}}
 
 @stop
 
 
 @section('script')
     {{HTML::script('js/Chart.min.js')}}
+    {{HTML::script('js/legend.js')}}
+    {{HTML::script('js/legend.legacy.js')}}
 
     <script>
         (function() {
             var data = {{ json_encode($data) }}
             var ctx = document.getElementById('myChart').getContext('2d');
-            var myPieChart = new Chart(ctx).Pie(data, { bezierCurve: false,
+            /*var myPieChart = new Chart(ctx).Pie(data, { bezierCurve: false,
                 animateScale: true,
                 multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"});
-            //var myBarChart = new Chart(ctx).Bar(data, { bezierCurve: false});
+            */
+            var doughnutChartWithCustomLegend = new Chart(ctx).Doughnut(data,{tooltipTemplate:"<%=label%>: <%=value%>"});
+
+            legend(document.getElementById("doughnutChartCustomLegend"), data, doughnutChartWithCustomLegend, "<%=label%>: <%=value%>");
 
         })();
     </script>

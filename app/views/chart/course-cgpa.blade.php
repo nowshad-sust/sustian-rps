@@ -3,30 +3,8 @@
     @include('includes.alert')
 
     <section class="panel">
-        <header class="panel-heading tab-bg-dark-navy-blue">
-            <ul class="nav nav-tabs nav-justified ">
-                <li>
-                    <a href="{{route('chart.course-grade')}}" aria-expanded="true">
-                        Course vs Grade
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="#" aria-expanded="false">
-                        Course vs CGPA & GPA
-                    </a>
-                </li>
-                <li class="">
-                    <a href="{{route('chart.class-cgpa')}}" aria-expanded="false">
-                        Class Stat
-                    </a>
-                </li>
-                <li class="">
-                    <a href="{{route('chart.semester-cgpa')}}" aria-expanded="false">
-                        Semester CGPA
-                    </a>
-                </li>
-            </ul>
-        </header>
+        @include('includes.chartmenu')
+
         @if($courseList!=null && $grades!=null && $cgpa!=null)
             <div class="panel-body">
                 <div class="tab-content tasi-tab">

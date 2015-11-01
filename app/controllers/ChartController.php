@@ -18,16 +18,18 @@ class ChartController extends \BaseController {
             foreach($taken_courses_sorted_id as $taken_courses_sorted_id){
                 $resultsArray[] = (float) Result::where('course_id',$taken_courses_sorted_id)->pluck('grade_point');
             }
-
+            $list = $this->getCourseList();
             if(count($resultsArray)<=0){
                 return View::make('chart.course-grade')->with(['title'=>'Chart',
                     'courseList'=>null,
-                    'grades'=>null
+                    'grades'=>null,
+                    'lists'=>$list
                 ])->with('error','not enough data to generate graph');
             }
             return View::make('chart.course-grade')->with(['title'=>'Chart',
                 'courseList'=>$taken_courses_sorted_number,
-                'grades'=>$resultsArray
+                'grades'=>$resultsArray,
+                'lists'=>$list
             ]);
         }catch (Exception $ex){
             return Redirect::back()->with(['error'=>'could not find data to calculate']);
@@ -55,12 +57,13 @@ class ChartController extends \BaseController {
                 $gradesArray[]  = (float) $resultsArray[$i]->grade_point;
                 ++$i;
             }
-
+            $list = $this->getCourseList();
             if(count($resultsArray)<=0){
                 return View::make('chart.course-cgpa')->with(['title'=>'Chart',
                     'courseList'=>null,
                     'cgpa'=>null,
-                    'grades'=>null
+                    'grades'=>null,
+                    'lists'=>$list
                 ]);
             }
 
@@ -70,7 +73,8 @@ class ChartController extends \BaseController {
             return View::make('chart.course-cgpa')->with(['title'=>'Chart',
                 'courseList'=>$taken_courses_sorted_number,
                 'cgpa'=>$progressiveCGPA,
-                'grades'=>$gradesArray
+                'grades'=>$gradesArray,
+                'lists'=>$list
             ]);
         }catch(Exception $ex){
             return Redirect::back()->with(['error'=>'Error generating subject vs CGPA graph']);
@@ -89,19 +93,24 @@ class ChartController extends \BaseController {
                 $classmates_cgpa[] = $this->calculateUserCGPA($classmate_id);
             }
             $finalData =  $this->cgpaToPie($classmates_cgpa, $classmate_id);
-
+            $list = $this->getCourseList();
             if((is_null($classmates_cgpa[0])&&count($classmates_cgpa)<=1) || $finalData == null){
                 return View::make('chart.class-cgpa')->with(['title'=>'Class-CGPA',
                     'data'  =>  null,
                     'categories'=>null,
-                    'user_number'=>null]);
+                    'user_number'=>null,
+                    'lists'=>$list
+                ]);
             }
 
             $chartData = $this->pieChartFormat($finalData);
+
+
             return View::make('chart.class-cgpa')->with(['title'=>'Class-CGPA',
                                                         'data'  =>  $chartData,
                                                         'categories'=>$finalData[0],
-                                                        'user_number'=>$finalData[1]]);
+                                                        'user_number'=>$finalData[1],
+                                                        'lists'=>$list]);
         }catch(Exception $ex){
             return Redirect::back()->with(['error'=>'Error generating subject vs CGPA graph']);
         }
@@ -138,32 +147,71 @@ class ChartController extends \BaseController {
                 return Redirect::back()->with(['error'=>'could not calculate your data']);
             }*/
 
+            $list = $this->getCourseList();
+
             return View::make('chart.semester-cgpa')->with(['title'=>'Semester-CGPA',
                 'semesters'=>$available_semesters,
                 'semestersGPA'=>$semestersGPA,
-                'cgpa'=>$semestersCGPA]);
+                'cgpa'=>$semestersCGPA,
+                'lists'=>$list]);
 
         }catch(Exception $ex){
             return Redirect::back()->with(['error'=>'could not count CGPA']);
         }
 
     }
+    private function getCourseList(){
+        $userInfo = Auth::user()->userInfo;
 
+        $courseInfo = Course::where(['dept_id'=>$userInfo->dept_id, 'batch_id'=>$userInfo->batch_id])->get();
+        $courseList = $courseInfo->sortBy('course_semester')->lists('course_number','id');
+
+        return $courseList;
+
+    }
     public function coursewisestat($course_id = null){
+
         try{
+            $list = $this->getCourseList();
             if($course_id==null)
                 return 'null given';
             else{
-                $CourseName = Course::find($course_id)->pluck('course_title');
-                $results = Result::where('course_id',$course_id)->lists('grade_point');
-                $counts = array_count_values($results);
+                try{
+                    $userInfo = Auth::user()->userinfo;
+                    if(Course::find($course_id)!=null){
+                        //unauthorised access
+                        //check user has access to that course info
+                        $courseInfo = Course::find($course_id);
 
-                $data =  $this->pieChartFormatOfCourseWiseData($counts,$results);
+                        if($courseInfo->batch->batch == $userInfo->batch->batch
+                        && $courseInfo->dept->dept == $userInfo->dept->dept){
+                            $CourseName = $courseInfo->course_title;
+                            $results = Result::where('course_id',$course_id)->lists('grade_point');
+                            $counts = array_count_values($results);
+                            $data =  $this->pieChartFormatOfCourseWiseData($counts,$results);
+                        }else{
+                            throw new Exception;
+                        }
+
+                    }else{
+                        throw new Exception;
+                    }
+                }catch (Exception $exc){
+
+                    return View::make('chart.coursewise-stat')->with([
+                        'title' =>  'Coursewise Statistics',
+                        'course_title'  =>  null,
+                        'data'  =>  null,
+                        'lists'=>$list
+                    ]);
+                }
+
 
                 return View::make('chart.coursewise-stat')->with([
                     'title' =>  'Coursewise Statistics',
                     'course_title'  =>  $CourseName,
-                    'data'  =>  $data
+                    'data'  =>  $data,
+                    'lists'    =>  $list,
                 ]);
 
             }
@@ -203,23 +251,34 @@ class ChartController extends \BaseController {
 
     private function pieChartFormatOfCourseWiseData($counts,$results){
         $data = array();
-        $i=0;
         foreach($counts as $count){
             $data[] = [
                 'value'=> $count,
                 'color'=>"#F7464A",
                 'highlight'=> "#FF5A5E",
-                'label'=> (float) $results[$i]
+                'label'=> (float) array_search ($count, $counts)
             ];
-            ++$i;
         }
         return $data;
-
     }
 
     private function pieChartFormat($finalData){
         $categories = $finalData[0];
         $user_numbers = $finalData[1];
+
+        $data = array();
+        $i=0;
+        foreach($categories as $category){
+            $data[] = [
+                'value'=> $user_numbers[$i],
+                'color'=>"#F7464A",
+                'highlight'=> "#FF5A5E",
+                'label'=> $category
+            ];
+            ++$i;
+        }
+        return $data;
+
         $data = [
             [
                 'value'=> $user_numbers[0],
