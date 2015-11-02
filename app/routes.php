@@ -46,10 +46,15 @@ Route::group(array('before' => 'auth|activation'), function()
 	//others profile view
 	Route::get('showProfile/{id}', ['as'=>'showProfile', 'uses'=>'UserController@showOthersProfile']);
 
+	//message section
+	Route::get('writeMessage',['as'=>'writeMessage', 'uses'=>'MessageController@showMessageForm']);
+    Route::post('writeMessage',['as'=>'postMessage', 'uses'=>'MessageController@sendMessage']);
+
 	//STAT section
 	Route::get('resultsDataTable',['as'=>'resultsDataTable', 'uses'=>'StatController@showResultsDataTable']);
 	Route::get('addResult',['as'=>'addResult', 'uses'=>'StatController@addResultForm']);
 	Route::post('addResult',['as'=>'addResult', 'uses'=>'StatController@validateResult']);
+	Route::get('dropList', ['as'=>'dropList', 'uses'=>'StatController@showDropList']);
 	Route::get('editResult/{id}',['as'=>'editResult', 'uses'=>'StatController@showResultEditForm']);
 	Route::post('editResult',['as'=>'updateResult', 'uses'=>'StatController@updateResult']);
 	Route::get('deleteResult/{id}',['as'=>'deleteResult', 'uses'=>'StatController@deleteResult']);

@@ -47,15 +47,12 @@
             height: auto;
         }
     </style>
-    {{HTML::script('css/demo.css')}}
 
 @stop
 
 
 @section('script')
     {{HTML::script('js/Chart.min.js')}}
-    {{HTML::script('js/legend.js')}}
-    {{HTML::script('js/legend.legacy.js')}}
 
     <script>
         (function() {
@@ -70,6 +67,7 @@
             legend(document.getElementById("doughnutChartCustomLegend"), data, doughnutChartWithCustomLegend, "<%=label%>: <%=value%>");
 
         })();
+
     </script>
 
 @stop

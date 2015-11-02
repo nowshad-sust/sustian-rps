@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
     @include('includes.alert')
-        @include('includes.statMenu')
+    @include('includes.statMenu')
 
     <div class="panel-body">
         <table class="display table table-bordered table-stripe" id="example">
@@ -17,25 +17,24 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($resultsInfo as $Info)
+            @foreach($dropInfo as $Info)
                 @if($Info->grade_point == 0)
                     <tr class="danger">
-                 @else
+                @else
                     <tr class="">
-                @endif
-                    <td>{{$Info->course->course_number}}</td>
-                    <td>{{$Info->course->course_semester}}</td>
-                    <td>{{$Info->course->course_credit}}</td>
-                    <td>{{$Info->grade_point}}</td>
-                    <td>{{$Info->grade_letter}}</td>
+                        @endif
+                        <td>{{$Info->course->course_number}}</td>
+                        <td>{{$Info->course->course_semester}}</td>
+                        <td>{{$Info->course->course_credit}}</td>
+                        <td>{{$Info->grade_point}}</td>
+                        <td>{{$Info->grade_letter}}</td>
 
-                    <td class="text-center">
-                        <a class="btn btn-xs btn-warning btn-edit" href="{{ URL::route('editResult',$Info->id) }}">Edit</a>
-                        <a class="btn btn-xs btn-danger btn-edit" href="{{ URL::route('deleteResult',$Info->id) }}">Delete</a>
-                    </td>
-                </tr>
+                        <td class="text-center">
+                            <a class="btn btn-xs btn-info btn-edit" href="{{ URL::route('editResult',$Info->id) }}">update</a>
+                        </td>
+                    </tr>
 
-            @endforeach
+                    @endforeach
             </tbody>
         </table>
     </div>

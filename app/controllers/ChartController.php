@@ -251,13 +251,26 @@ class ChartController extends \BaseController {
 
     private function pieChartFormatOfCourseWiseData($counts,$results){
         $data = array();
+        $colours = [
+            "#bf616a",
+            "#5B90BF",
+            "#d08770",
+            "#ebcb8b",
+            "#a3be8c",
+            "#96b5b4",
+            "#8fa1b3",
+            "#b48ead",
+            "#ab7967"
+        ];
+        $i=0;
         foreach($counts as $count){
             $data[] = [
                 'value'=> $count,
-                'color'=>"#F7464A",
-                'highlight'=> "#FF5A5E",
+                'color'=> $colours[$i],
+                'highlight'=> $colours[$i],
                 'label'=> (float) array_search ($count, $counts)
             ];
+            ++$i;
         }
         return $data;
     }
@@ -265,61 +278,62 @@ class ChartController extends \BaseController {
     private function pieChartFormat($finalData){
         $categories = $finalData[0];
         $user_numbers = $finalData[1];
+        $colours = [
+            "#bf616a",
+		    "#5B90BF",
+		    "#d08770",
+		    "#ebcb8b",
+		    "#a3be8c",
+		    "#96b5b4",
+		    "#8fa1b3",
+		    "#b48ead",
+		    "#ab7967"
+        ];
 
         $data = array();
         $i=0;
         foreach($categories as $category){
             $data[] = [
                 'value'=> $user_numbers[$i],
-                'color'=>"#F7464A",
-                'highlight'=> "#FF5A5E",
+                'color'=>$colours[$i],
+                'highlight'=> $this->Colour($colours[$i], 10),
                 'label'=> $category
             ];
             ++$i;
         }
         return $data;
 
-        $data = [
-            [
-                'value'=> $user_numbers[0],
-                'color'=>"#F7464A",
-                'highlight'=> "#FF5A5E",
-                'label'=> $categories[0]
-            ],
-            [
-                'value'=> $user_numbers[1],
-                'color'=> "#46BFBD",
-                'highlight'=> "#5AD3D1",
-                'label'=> $categories[1]
-            ],
-            [
-                'value'=> $user_numbers[2],
-                'color'=> "#FDB45C",
-                'highlight'=> "#FFC870",
-                'label'=> $categories[2]
-            ],
-            [
-                'value'=> $user_numbers[3],
-                'color'=>"#3cb475",
-                'highlight'=> "#3cb475",
-                'label'=> $categories[3]
-            ],
-            [
-                'value'=> $user_numbers[4],
-                'color'=> "#7b4e8c",
-                'highlight'=> "#7b4e8c",
-                'label'=> $categories[4]
-            ],
-            [
-                'value'=> $user_numbers[5],
-                'color'=> "#742f81",
-                'highlight'=> "#742f81",
-                'label'=> $categories[5]
-            ]
-        ];
-        return $data;
-
     }
+
+    private function Colour($col, $amt) {
+
+        $usePound = false;
+
+        if($col[0] == "#") {
+            return $col = substr($col,1);
+            $usePound = true;
+        }
+
+		$num = intval($col,16);
+
+		$r = ($num >> 16) + $amt;
+
+		if ($r > 255) $r = 255;
+        else if  ($r < 0) $r = 0;
+
+		$b = (($num >> 8) & 0x00FF) + $amt;
+
+		if ($b > 255) $b = 255;
+        else if  ($b < 0) $b = 0;
+
+		$g = ($num & 0x0000FF) + $amt;
+
+		if ($g > 255) $g = 255;
+        else if ($g < 0) $g = 0;
+
+		return (string)($usePound?"#":"") + ($g | ($b << 8) | ($r << 16));
+
+	}
 
     private function cgpaToPie($classmates_cgpa, $classmates_id){
         //now divide the cgpa into 6 categories

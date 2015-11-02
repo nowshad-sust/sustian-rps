@@ -3,11 +3,19 @@
 class StatController extends \BaseController {
 
     public function showResultsDataTable(){
-        //find all results the user_id got
-        //grab results info with their corresponding course info
-        $results = Result::where('user_id',Auth::user()->id)
-                            ->with('Course')->get();
-        return View::make('stat.resultsDataTable')->with(['title'=>'Results','resultsInfo'=>$results]);
+        try{
+            //find all results the user_id got
+            //grab results info with their corresponding course info
+            $results = Result::where('user_id',Auth::user()->id)
+                ->with('Course')->get();
+            return View::make('stat.resultsDataTable')
+                ->with(['title'=>'Results',
+                    'resultsInfo'=>$results]);
+        }catch (Exception $ex){
+            return View::make('stat.resultsDataTable')
+                ->with(['title'=>'Results',
+                    'resultsInfo'=>[],'error'=>'error generating data table']);
+        }
     }
 
     public function showResultsTab(){
@@ -18,6 +26,7 @@ class StatController extends \BaseController {
         try{
             if($id != null){
                 $gradesList = [
+                    '0.00'    =>  'F',
                     '2.00'    =>  'C-',
                     '2.25'    =>  'C',
                     '2.50'    =>  'C+',
@@ -34,7 +43,8 @@ class StatController extends \BaseController {
                                                                 'gradesList'=>$gradesList]);
             }
         }catch(Exception $ex){
-
+                return Redirect::back()
+                    ->with(['error','error generating the edit form']);
         }
     }
     public function gpaBySemester($semester){
@@ -60,7 +70,11 @@ class StatController extends \BaseController {
         try{
             $user_id = Auth::user()->id;
             $taken_courses_id = Result::where('user_id',$user_id)->lists('course_id');
-            $results = Result::where('user_id',$user_id)->whereIn('course_id',$taken_courses_id)->with('Course')->get();
+            $results = Result::where('user_id',$user_id)
+                ->where('grade_point','!=',0.00)
+                ->whereIn('course_id',$taken_courses_id)
+                ->with('Course')
+                ->get();
             $CGPA = $this->calculateTotalCGPA($results);
 
             if($CGPA==0){
@@ -119,16 +133,31 @@ class StatController extends \BaseController {
                 if($id != null){
                     $result = Result::find($id);
                     if($result->delete()){
-                        return Redirect::route('showResult')->with(['success'=>'Result deleted']);
+                        return Redirect::route('resultsDataTable')->with(['success'=>'Result deleted']);
                     }else{
-                        return Redirect::route('showResult')->with(['error'=>'could not find result to delete']);
+                        return Redirect::route('resultsDataTable')->with(['error'=>'could not find result to delete']);
                     }
                 }
 
             }catch (Exception $ex){
-                return Redirect::route('showResult')->with(['error'=>'could not delete!']);
+                return Redirect::route('resultsDataTable')->with(['error'=>'could not delete!']);
             }
 
+    }
+
+    public function showDropList(){
+
+        $user_id = Auth::user()->id;
+
+        $drop_courses_info = Result::where('user_id',$user_id)
+            ->where('grade_point',0.00)
+            ->with('Course')
+            ->get();
+
+        return View::make('stat.dropList')->with([
+            'title' =>  'Drop Courses',
+            'dropInfo'  =>  $drop_courses_info
+        ]);
     }
 
     public function addResultForm(){
@@ -139,10 +168,11 @@ class StatController extends \BaseController {
         $userBatchId = Auth::user()->userinfo->batch_id;
         $user_id = Auth::user()->id;
 
-        $taken_courses_id = Result::where('user_id',$user_id)->lists('course_id');
+        $taken_courses_id = Result::where('user_id',$user_id)->where('grade_point','!=',0)->lists('course_id');
         $courseList = Course::whereNotIn('id',$taken_courses_id)->lists('course_number','id');
 
         $gradesList = [
+            '0.00'    =>  'F',
             '2.00'    =>  'C-',
             '2.25'    =>  'C',
             '2.50'    =>  'C+',
@@ -171,29 +201,44 @@ class StatController extends \BaseController {
             return Redirect::back()->withErrors($validation)->withInput();
         }else{
 
-
-
             $user_id = Auth::user()->id;
             $course_id = Course::where('id',$data['course_id'])->first()->id;
             $grade_point = (float) $data['grade_point'];
             $grade_letter = $this->getGradeLetter($grade_point);
 
-            $result = new Result();
-            $result->user_id = $user_id;
-            $result->course_id = $course_id;
-            $result->grade_point = $grade_point;
-            $result->grade_letter   = $grade_letter;
-
-            if($result->save()){
-                return Redirect::route('resultsDataTable')->with(['success'=>'Result added']);
+            //if result already exists then instead of creating a new one, just update the older one
+            if($result = Result::where('course_id',$course_id)->first()){
+                if($result->update([
+                    'grade_point' => $grade_point,
+                    'grade_letter'   => $grade_letter
+                ])){
+                    return Redirect::route('resultsDataTable')->with(['success'=>'Drop course result updated']);
+                }else{
+                    return Redirect::back()->withInput()->with(['error'=>'error adding drop course result']);
+                }
             }else{
-                return Redirect::back()->withInput()->with(['error'=>'error adding result']);
+                $result = new Result();
+                $result->user_id = $user_id;
+                $result->course_id = $course_id;
+                $result->grade_point = $grade_point;
+                $result->grade_letter   = $grade_letter;
+
+                if($result->save()){
+                    return Redirect::route('resultsDataTable')->with(['success'=>'Result added']);
+                }else{
+                    return Redirect::back()->withInput()->with(['error'=>'error adding result']);
+                }
             }
         }
     }
 
     private function getGradeLetter($grade_point){
         switch ($grade_point) {
+
+            case 0.00:
+                $grade_letter = 'F';
+                break;
+
             case 2.00:
                 $grade_letter = 'C-';
                 break;
@@ -237,7 +282,12 @@ class StatController extends \BaseController {
             //GPA: (course_credit X obtained_grade_point)/total_credits
             //total course_credit = add all course_credit from each result
             $semester_courses = Course::where('course_semester', $semester)->lists('id');
-            $results = Result::where('user_id',$user_id)->whereIn('course_id',$semester_courses)->with('Course')->get();
+            $results = Result::where('user_id',$user_id)
+                ->where('grade_point','!=',0.00)
+                ->whereIn('course_id',$semester_courses)
+                ->with('Course')
+                ->get();
+
             if($semester_courses==null||$results==null){
                 return 0;
             }
@@ -291,7 +341,7 @@ class StatController extends \BaseController {
 
 
             arsort($combinedArray);
-            $combinedArray=array_filter($combinedArray);
+            $combinedArray = array_filter($combinedArray);
             $compared_with = count($combinedArray);
 
 
@@ -319,7 +369,10 @@ class StatController extends \BaseController {
         try{
             $user_id = $classmate_id;
             $taken_courses_id = Result::where('user_id',$user_id)->lists('course_id');
-            $results = Result::where('user_id',$user_id)->whereIn('course_id',$taken_courses_id)->with('Course')->get();
+            $results = Result::where('user_id',$user_id)
+                ->where('grade_point','!=',0.00)
+                ->whereIn('course_id',$taken_courses_id)
+                ->with('Course')->get();
 
             return $CGPA = $this->calculateSingleCGPA($results);
 
