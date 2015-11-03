@@ -5,7 +5,7 @@
     <section class="panel">
         @include('includes.chartmenu')
 
-        @if($courseList!=null && $grades!=null && $cgpa!=null)
+        @if($courseList!=null && $cgpa!=null)
             <div class="panel-body">
                 <div class="tab-content tasi-tab">
                     <div class="tab-pane active" id="popular">

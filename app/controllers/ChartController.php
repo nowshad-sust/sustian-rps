@@ -50,14 +50,27 @@ class ChartController extends \BaseController {
 
             $gradesArray = array();
             $resultsArray = array();
+            $corresponding_courses = array();
+
             $i=0;
             //sort results as the $taken_courses__sorted_id
-            foreach($taken_courses_sorted_id as $taken_courses_sorted_id){
-                $resultsArray[] = Result::where('course_id',$taken_courses_sorted_id)->with('Course')->first();
-                $gradesArray[]  = (float) $resultsArray[$i]->grade_point;
+            foreach($taken_courses_sorted_id as $taken_course_sorted_id){
+                $temp = Result::where('course_id',$taken_course_sorted_id)
+                    ->where('grade_point','!=',0.00)
+                    ->with('Course')
+                    ->first();
+                if( $temp != null) {
+                    $corresponding_courses[] = Course::where('id',$taken_course_sorted_id)->pluck('course_number');
+                    $resultsArray[] = $temp;
+                    $gradesArray[]  = (float) $temp->grade_point;
+                }
                 ++$i;
             }
+
+            $progressiveCGPA = $this->getProgressiveCGPA($resultsArray);
+
             $list = $this->getCourseList();
+
             if(count($resultsArray)<=0){
                 return View::make('chart.course-cgpa')->with(['title'=>'Chart',
                     'courseList'=>null,
@@ -67,31 +80,52 @@ class ChartController extends \BaseController {
                 ]);
             }
 
-            $progressiveCGPA = $this->getProgressiveCGPA($resultsArray);
-
-
             return View::make('chart.course-cgpa')->with(['title'=>'Chart',
-                'courseList'=>$taken_courses_sorted_number,
+                'courseList'=>$corresponding_courses,
                 'cgpa'=>$progressiveCGPA,
                 'grades'=>$gradesArray,
                 'lists'=>$list
             ]);
         }catch(Exception $ex){
-            return Redirect::back()->with(['error'=>'Error generating subject vs CGPA graph']);
+            return Log::error($ex);
+            return Redirect::back()->with(['error'=>'Error generating CGPA graph']);
+        }
+    }
+
+    private function getProgressiveCGPA($results){
+        try{
+            $total_credits = 0;
+            $TGP = 0;
+            $progressiveCGPA = array();
+            $resultArray = array();
+
+            foreach($results as $result){
+                $resultArray[] = $result;
+                $total_credits += $result->course->course_credit;
+                $TGP += $result->grade_point*$result->course->course_credit;
+                $progressiveCGPA[] = (float) $TGP/$total_credits;
+            }
+            return $progressiveCGPA;
+
+        }catch (Exception $ex){
+            return Redirect::back()->with('error','Error generating subject vs CGPA graph function');
         }
     }
 
     public function showclasscgpa(){
 
         try{
-                $classmates_id = UserInfo::where('batch_id',Auth::user()->userInfo->batch_id)
-                ->where('dept_id',Auth::user()->userInfo->dept_id)->lists('user_id');
+            $classmates_id = UserInfo::where('batch_id',Auth::user()->userInfo->batch_id)
+                ->where('dept_id',Auth::user()->userInfo->dept_id)
+                ->lists('user_id');
 
             //calculate cgpa of each user
             $classmates_cgpa = array();
+
             foreach($classmates_id as $classmate_id){
                 $classmates_cgpa[] = $this->calculateUserCGPA($classmate_id);
             }
+
             $finalData =  $this->cgpaToPie($classmates_cgpa, $classmate_id);
             $list = $this->getCourseList();
             if((is_null($classmates_cgpa[0])&&count($classmates_cgpa)<=1) || $finalData == null){
@@ -122,8 +156,16 @@ class ChartController extends \BaseController {
         //with total cgpa list
         try{
             $user_id = Auth::user()->id;
-            $taken_courses_id = Result::where('user_id',$user_id)->lists('course_id');
-            $results = Result::where('user_id',$user_id)->whereIn('course_id',$taken_courses_id)->with('Course')->get();
+            $taken_courses_id = Result::where('user_id',$user_id)
+                ->where('grade_point','!=',0.00)
+                ->lists('course_id');
+
+            $results = Result::where('user_id',$user_id)
+                ->where('grade_point','!=',0.00)
+                ->whereIn('course_id',$taken_courses_id)
+                ->with('Course')
+                ->get();
+
             $CGPA = $this->calculateTotalCGPA($results);
 
             /*if($CGPA==null){
@@ -140,7 +182,6 @@ class ChartController extends \BaseController {
                     $semestersGPA[] = $this->calculateSemesterGPA($result->course->course_semester);
                     $semestersCGPA[] = $this->getCGPATillSemester($result->course->course_semester);
                 }
-
             }
 
             /*if($semestersCGPA==null){
@@ -160,6 +201,88 @@ class ChartController extends \BaseController {
         }
 
     }
+
+    private function grade_point_to_letter($gradePoint){
+        switch ($gradePoint) {
+            case 0.00:
+                return 'F';
+                break;
+            case 2.00:
+                return 'C-';
+                break;
+            case 2.25:
+                return 'C';
+                break;
+            case 2.50:
+                return 'C+';
+                break;
+            case 2.75:
+                return 'B-';
+                break;
+            case 3.00:
+                return 'B';
+                break;
+            case 3.25:
+                return 'B+';
+                break;
+            case 3.50:
+                return 'A-';
+                break;
+            case 3.75:
+                return 'A';
+                break;
+            case 4.00:
+                return 'A';
+                break;
+        };
+    }
+
+    private function getCGPATillSemester($semester){
+        try{
+            $user_id = Auth::user()->id;
+            $user_dept_id   = Auth::user()->userInfo->dept_id;
+            $user_batch_id  = Auth::user()->userInfo->batch_id;
+            //GPA: (course_credit X obtained_grade_point)/total_credits
+            //total course_credit = add all course_credit from each result
+            $semester_courses = Course::where('dept_id', $user_dept_id)
+                ->where('batch_id', $user_batch_id)
+                ->where('course_semester', '<=' ,$semester)
+                ->lists('id');
+
+            $results = Result::where('user_id',$user_id)
+                ->where('grade_point','!=',0.00)
+                ->whereIn('course_id',$semester_courses)
+                ->with('Course')->get();
+
+            $semester_course_list = array();
+
+            foreach($results as $result){
+                $semester_course_list[] = $result->course_id;
+            }
+
+            if($semester_courses==null||$results==null){
+                return 'course or semester data not found';
+            }
+
+            try{
+                $total_credits = 0;
+                $TGP = 0;
+                foreach($results as $result){
+                    $total_credits += $result->course->course_credit;
+                    $TGP += $result->grade_point*$result->course->course_credit;
+                }
+                $cgpa = $TGP/$total_credits;
+
+                return $cgpa;
+
+            }catch (Exception $ex){
+                return null;
+            }
+        }catch (Exception $ex){
+            return null;
+        }
+    }
+
     private function getCourseList(){
         $userInfo = Auth::user()->userInfo;
 
@@ -188,6 +311,7 @@ class ChartController extends \BaseController {
                             $CourseName = $courseInfo->course_title;
                             $results = Result::where('course_id',$course_id)->lists('grade_point');
                             $counts = array_count_values($results);
+
                             $data =  $this->pieChartFormatOfCourseWiseData($counts,$results);
                         }else{
                             throw new Exception;
@@ -220,35 +344,6 @@ class ChartController extends \BaseController {
         }
     }
 
-    private function getCGPATillSemester($semester){
-        try{
-            $user_id = Auth::user()->id;
-            //GPA: (course_credit X obtained_grade_point)/total_credits
-            //total course_credit = add all course_credit from each result
-            $semester_courses = Course::where('course_semester','<=',$semester)->lists('id');
-            $results = Result::where('user_id',$user_id)->whereIn('course_id',$semester_courses)->with('Course')->get();
-            if($semester_courses==null||$results==null){
-                return null;
-            }
-            try{
-                $total_credits = 0;
-                $TGP = 0;
-                foreach($results as $result){
-                    $total_credits += $result->course->course_credit;
-                    $TGP += $result->grade_point*$result->course->course_credit;
-                }
-                $cgpa = $TGP/$total_credits;
-
-                return $cgpa;
-
-            }catch (Exception $ex){
-                return null;
-            }
-        }catch (Exception $ex){
-            return null;
-        }
-    }
-
     private function pieChartFormatOfCourseWiseData($counts,$results){
         $data = array();
         $colours = [
@@ -268,7 +363,8 @@ class ChartController extends \BaseController {
                 'value'=> $count,
                 'color'=> $colours[$i],
                 'highlight'=> $colours[$i],
-                'label'=> (float) array_search ($count, $counts)
+                //convert the grade_point to grade_letter
+                'label'=> $this->grade_point_to_letter((float) array_search ($count, $counts))
             ];
             ++$i;
         }
@@ -296,7 +392,7 @@ class ChartController extends \BaseController {
             $data[] = [
                 'value'=> $user_numbers[$i],
                 'color'=>$colours[$i],
-                'highlight'=> $this->Colour($colours[$i], 10),
+                'highlight'=> "#ab7967",
                 'label'=> $category
             ];
             ++$i;
@@ -338,7 +434,15 @@ class ChartController extends \BaseController {
     private function cgpaToPie($classmates_cgpa, $classmates_id){
         //now divide the cgpa into 6 categories
         $user_number_in_categories = array();
-        $user_categories = array('<2.5','<3.0','<3.25','<3.5','<3.75','>=3.75');
+        $user_categories = [
+                '2.00-2.5',
+                '2.5-3.0',
+                '3.00-3.25',
+                '3.25-3.5',
+                '3.5-3.75',
+                '3.75-4.00'
+            ];
+
         for($i=0;$i<6;++$i){
             $user_number_in_categories[] = 0;
         }
@@ -370,44 +474,50 @@ class ChartController extends \BaseController {
         return $finalArray;
     }
 
-    private function getProgressiveCGPA($results){
-        try{
-            $total_credits = 0;
-            $TGP = 0;
-            $progressiveCGPA = array();
-            foreach($results as $result){
-                $total_credits += $result->course->course_credit;
-                $TGP += $result->grade_point*$result->course->course_credit;
-                $progressiveCGPA[] = $TGP/$total_credits;
-            }
-            return $progressiveCGPA;
-
-        }catch (Exception $ex){
-            return Redirect::back()->with('error','Error generating subject vs CGPA graph');
-        }
-    }
 
     private function calculateSemesterGPA($semester){
         try{
             $user_id = Auth::user()->id;
+            $user_dept_id   = Auth::user()->userInfo->dept_id;
+            $user_batch_id  = Auth::user()->userInfo->batch_id;
             //GPA: (course_credit X obtained_grade_point)/total_credits
             //total course_credit = add all course_credit from each result
-            $semester_courses = Course::where('course_semester', $semester)->lists('id');
-            $results = Result::where('user_id',$user_id)->whereIn('course_id',$semester_courses)->with('Course')->get();
-            if($semester_courses==null||$results==null){
-                return 0;
-            }
+            $semester_courses = Course::where('dept_id', $user_dept_id)
+                ->where('batch_id', $user_batch_id)
+                ->where('course_semester',$semester)
+                ->lists('id');
 
-            $total_credits = 0;
-            $TGP = 0;
+            $results = Result::where('user_id',$user_id)
+                ->where('grade_point','!=',0.00)
+                ->whereIn('course_id',$semester_courses)
+                ->with('Course')->get();
+
+            $semester_course_list = array();
+
             foreach($results as $result){
-                $total_credits += $result->course->course_credit;
-                $TGP += $result->grade_point*$result->course->course_credit;
+                $semester_course_list[] = $result->course_id;
             }
-            $gpa = $TGP/$total_credits;
-            return $gpa;
-        }catch (Exception $ex){
 
+            if($semester_courses==null||$results==null){
+                return 'course or semester data not found';
+            }
+
+            try{
+                $total_credits = 0;
+                $TGP = 0;
+                foreach($results as $result){
+                    $total_credits += $result->course->course_credit;
+                    $TGP += $result->grade_point*$result->course->course_credit;
+                }
+                $gpa = $TGP/$total_credits;
+
+                return $gpa;
+
+            }catch (Exception $ex){
+                return null;
+            }
+        }catch (Exception $ex){
+            return null;
         }
     }
 
@@ -415,8 +525,13 @@ class ChartController extends \BaseController {
     {
         try{
             $user_id = $classmate_id;
-            $taken_courses_id = Result::where('user_id',$user_id)->lists('course_id');
-            $results = Result::where('user_id',$user_id)->whereIn('course_id',$taken_courses_id)->with('Course')->get();
+            $taken_courses_id = Result::where('user_id',$user_id)
+                ->where('grade_point','!=',0.00)
+                ->lists('course_id');
+            $results = Result::where('user_id',$user_id)
+                ->whereIn('course_id',$taken_courses_id)
+                ->with('Course')
+                ->get();
 
             return $CGPA = $this->calculateTotalCGPA($results);
 

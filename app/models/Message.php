@@ -7,8 +7,12 @@ class Message extends \Eloquent {
 
     protected $guarded = ['id'];
 
-    public function message(){
+    public function sender(){
         return $this->belongsTo('User','sender_id','id');
+    }
+
+    public function receiver(){
+        return $this->belongsTo('User','receiver_id','id');
     }
 
 }

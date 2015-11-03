@@ -11,7 +11,7 @@ class MessageTableSeeder extends Seeder {
             [
                 'sender_id' =>  2,
                 'receiver_id'   =>  1,
-                'seen_status'   =>  0,
+                'seen_status'   => false,
                 'subject'   =>  'test message',
                 'message'   =>  'this is the body of the test message. this is for admin only',
                 'created_at' => date('Y-m-d H:i:s'),

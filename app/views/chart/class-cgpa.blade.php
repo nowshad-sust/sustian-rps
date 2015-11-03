@@ -62,7 +62,10 @@
                 animateScale: true,
                 multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"});
             */
-            var doughnutChartWithCustomLegend = new Chart(ctx).Doughnut(data,{tooltipTemplate:"<%=label%>: <%=value%>"});
+            var doughnutChartWithCustomLegend = new Chart(ctx).Doughnut(data,{
+                bezierCurve: false,
+                multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"
+            });
 
             legend(document.getElementById("doughnutChartCustomLegend"), data, doughnutChartWithCustomLegend, "<%=label%>: <%=value%>");
 
