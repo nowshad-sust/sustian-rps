@@ -30,7 +30,9 @@
                                 <p class="red">You have {{count($message)}} new messages</p>
                             </li>
                             <li>
+                                @if(Entrust::hasRole(Config::get('customConfig.roles.user')))
                                 <a href="{{route('writeMessage')}}" class="green"><i class="fa fa-pencil"></i> Send message</a>
+                                @endif
                             </li>
 
                             @foreach($message as $message)
@@ -53,7 +55,7 @@
                             @endforeach
 
                             <li>
-                                <a href="#">See older messages</a>
+                                <a href="{{route('seeAllMessages')}}" class="green"> see older messages</a>
                             </li>
                         </ul>
                     </li>

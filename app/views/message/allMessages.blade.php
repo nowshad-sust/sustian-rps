@@ -28,7 +28,7 @@
 
                         <td class="text-center">
                             <a class="btn btn-xs btn-info btn-edit" href="{{ route('messageDetails',$Info->id) }}">Details</a>
-                            <a class="btn btn-xs btn-success btn-edit" href="">Reply</a>
+                            <a class="btn btn-xs btn-success btn-edit" href="{{route('replyMessage',$Info->id)}}">Reply</a>
                         </td>
                     </tr>
 

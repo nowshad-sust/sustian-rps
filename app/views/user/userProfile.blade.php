@@ -5,7 +5,7 @@
         <div class="twt-feed blue-bg">
             <h1>{{$userInfo->userInfo->fullName}}</h1>
             <a href="#">
-                <img src="{{'../'.$userInfo->userInfo->avatar_url}}" alt="">
+                {{ HTML::image($userInfo->userInfo->avatar_url, 'alt') }}
             </a>
         </div>
         <div class="weather-category twt-category">

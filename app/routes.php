@@ -51,6 +51,8 @@ Route::group(array('before' => 'auth|activation'), function()
     Route::post('writeMessage',['as'=>'postMessage', 'uses'=>'MessageController@sendMessage']);
 	Route::get('messageDetails/{message_id}',['as'=>'messageDetails', 'uses'=>'MessageController@messageDetails']);
 	Route::get('seeAllMessages',['as'=>'seeAllMessages', 'uses'=>'MessageController@seeAllMessages']);
+	Route::get('replyMessage/{message_id}',['as'=>'replyMessage', 'uses'=>'MessageController@replyMessage']);
+    Route::post('replyMessage',['as'=>'postReply', 'uses'=>'MessageController@postReply']);
 
 	//STAT section
 	Route::get('resultsDataTable',['as'=>'resultsDataTable', 'uses'=>'StatController@showResultsDataTable']);

@@ -10,7 +10,7 @@
             <div class="heading-inbox row">
                 <div class="col-md-8">
                     <div class="compose-btn">
-                        <a class="btn btn-sm btn-primary" href="#"><i class="fa fa-reply"></i> Reply</a>
+                        <a class="btn btn-sm btn-primary" href="{{route('replyMessage',$messageDetails->id)}}"><i class="fa fa-reply"></i> Reply</a>
                     </div>
 
                 </div>
