@@ -54,7 +54,8 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'infancy.itbd@gmail.com', 'name' => 'Infancy Template'),
+	//'from' => array('address' => 'infancy.itbd@gmail.com', 'name' => 'Infancy Template'),
+	'from' => array('address' => 'sustrps@gmail.com', 'name' => 'SUST RPS'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +81,7 @@ return array(
 	|
 	*/
 
-	'username' => 'postmaster@sandbox175d9abbdfa34087b499278799f86447.mailgun.org',
+	'username' => 'postmaster@sandbox438256213d774df88ac0fc7e25d1caa0.mailgun.org',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +94,7 @@ return array(
 	|
 	*/
 
-	'password' => 'cbf548e2d27cbb1484f7cbf895267eb3',
+	'password' => '28fd74ca933e294396a37e53d493c119',
 
 	/*
 	|--------------------------------------------------------------------------
