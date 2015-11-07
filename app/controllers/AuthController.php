@@ -2,7 +2,8 @@
 
 class AuthController extends \BaseController {
 
-	public function login(){
+
+    public function login(){
 		return View::make('auth.login')
 					->with('title', 'Login');
 	}
@@ -65,8 +66,11 @@ class AuthController extends \BaseController {
 	}
 
 	public function dashboard(){
-		return View::make('dashboard')
-					->with(['title'=>'Dashboard']);
+		if(Entrust::hasRole(Config::get('customConfig.roles.user'))){
+			return DashboardController::userDashboard();
+		}elseif(Entrust::hasRole(Config::get('customConfig.roles.admin'))){
+            return DashboardController::adminDashboard();
+		}
 	}
 
 	public function changePassword(){

@@ -11,8 +11,8 @@
         <div class="weather-category twt-category">
             <ul>
                 <li>
-                    <h4>{{$userInfo->email}}</h4>
-                    Email
+                    <h4>{{$userInfo->updated_at->diffForHumans()}}</h4>
+                    Last activity
                 </li>
                 <li class="active">
                         @if($userInfo->userInfo->dept_id != null)
