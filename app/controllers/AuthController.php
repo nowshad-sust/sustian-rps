@@ -4,7 +4,7 @@ class AuthController extends \BaseController {
 
 
     public function login(){
-		return View::make('auth.login')
+		return View::make('home.login')
 					->with('title', 'Login');
 	}
 

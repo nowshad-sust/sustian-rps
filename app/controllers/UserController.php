@@ -8,7 +8,8 @@ class UserController extends \BaseController {
      */
     public function showRegisterForm(){
 
-        return View::make('user.registerForm')->with('title','Register');
+        //return View::make('user.registerForm')->with('title','Register');
+        return View::make('home.register')->with('title','Register');
     }
 
 

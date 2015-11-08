@@ -6,8 +6,7 @@
           <a href="{{route('dashboard')}}" class="logo" >result<span>sust</span></a>
           <!--logo end-->
 
-            <!-- notification option -->
-            <div class="nav notify-row" id="top_menu">
+            <div class="nav notify-row" id="top_menu" >
 
 
                 <ul class="nav top-menu">
@@ -59,41 +58,38 @@
                             </li>
                         </ul>
                     </li>
-
                     <!-- notification dropdown start-->
-                    <li id="header_notification_bar" class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                    <!--<li id="header_notification_bar" class="dropdown" >
 
-                            <i class="fa fa-bell-o"></i>
-                            @if($notification = Notification::where('status',1)->get())
-                                @if($count=count($notification)>0)
-                                    <span class="badge bg-warning">{{count($notification)}}</span>
-                                @endif
-                            @endif
-                        </a>
-                        <ul class="dropdown-menu extended notification">
-                            <div class="notify-arrow notify-arrow-yellow"></div>
-                            <li>
-                                <p class="yellow">You have {{count($notification)}} new notifications</p>
-                            </li>
-                            @foreach($notification as $notification)
-                                <li>
-                                        <span class="label label-success"><i class="fa fa-plus"></i></span>
-                                        {{$notification->notification_text}}
-                                        <span class="small italic"> {{$notification->updated_at->diffForHumans()}}</span>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </li>
+                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 
-                    <!-- notification dropdown end -->
+                             <i class="fa fa-bell-o"></i>
+                             @if($notification = Notification::where('status',1)->get())
+                                 @if($count=count($notification)>0)
+                                     <span class="badge bg-warning">{{count($notification)}}</span>
+                                 @endif
+                             @endif
+                         </a>
+                         
+                    </li>-->
+
                 </ul>
+
             </div>
 
-
-
-
+            <marquee 
+            style="width:55%;margin-top:1%;position:absolute;" 
+            behavior="scroll" 
+            direction="left"
+            speed="slow">
+            @foreach($notification as $notification)            
+              <span class="label label-success"><i class="fa fa-plus"></i></span>
+              {{$notification->notification_text}}
+              <span class="small italic"> {{$notification->updated_at->diffForHumans()}}</span>
+            @endforeach
+            </marquee>
           <div class="top-nav ">
+
               <ul class="nav pull-right top-menu">
 
                   <!-- user login dropdown start-->
@@ -111,8 +107,6 @@
                           <li><a href="{{route('logout')}}"><i class="fa fa-key"></i> Log Out</a></li>
                       </ul>
                   </li>
-
-                  <!-- user login dropdown end -->
 
               </ul>
           </div>

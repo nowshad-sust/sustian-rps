@@ -2,7 +2,7 @@
 @section('content')
     @include('includes.alert')
     {{ Form::open( array('route' => 'postMessage', 'method' => 'post', 'role' => 'form')) }}
-    <h2 class="form-signin-heading">Update Profile</h2>
+    <h2 class="form-signin-heading">Write a message</h2>
     <div class="panel-body">
 
         {{ Form::label('subject', 'Subject', array('' => '')) }}
