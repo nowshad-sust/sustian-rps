@@ -17,23 +17,23 @@ class HomeController extends BaseController {
 
 	public function showHome()
 	{
-		return View::make('home.home');
+		return View::make('home.home')->with('title','home');
 	}
 
 	public function showTest()
 	{
-		return View::make('home.test');
+		return View::make('home.test')->with('title','test');
 	}
 
 	public function showAbout(){
-		return View::make('home.about');
+		return View::make('home.about')->with('title','about');
 	}
 
 	public function showFeatures(){
-		return View::make('home.features');
+		return View::make('home.features')->with('title','features');
 	}
 
 	public function showContact(){
-		return View::make('home.contact');
+		return View::make('home.contact')->with('title','contact');
 	}
 }

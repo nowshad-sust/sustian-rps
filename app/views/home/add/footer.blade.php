@@ -5,22 +5,25 @@
             <div class="col-lg-3 col-sm-3">
                 <h1>contact info</h1>
                 <address>
-                    <p>Address: No.28-63877 street</p>
-                    <p>lorem ipsum city, Country</p>
+                    <p>Address: Surma R/A, Akhalia</p>
+                    <p>Sylhet city, Bangladesh</p>
 
-                    <p>Phone : (123) 456-7890</p>
-                    <p>Fax : (123) 456-7890</p>
-                    <p>Email : <a href="javascript:;">support@vectorlab.com</a></p>
+                    <p>Email : <a href="javascript:;">sustrps@gmail.com</a></p>
                 </address>
             </div>
             <div class="col-lg-5 col-sm-5">
-                <h1>latest tweet</h1>
+                <h1>A social service site</h1>
                 <div class="tweet-box">
-                    <i class="fa fa-twitter"></i>
-                    <em>Please follow <a href="javascript:;">@nettus</a> for all future updates of us! <a href="javascript:;">twitter.com/vectorlab</a></em>
+                <div class="text-center">
+                    <em>2015 &copy; <a target="_blank"href="javascript:;">nowshad</a></em>
+                    <br>
+                    <em>powered by <a target="_blank"href="javascript:;">SUST CSE Developers Network Lab</a></em>
+                    <h6>this site is not related to any official service of SUST. Developed with social responsibility</h6>
+                </div>
                 </div>
             </div>
             <div class="col-lg-3 col-sm-3 col-lg-offset-1">
+            
                 <h1>stay connected</h1>
                 <ul class="social-link-footer list-unstyled">
                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>

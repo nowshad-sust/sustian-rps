@@ -4,9 +4,9 @@
     <meta name="description" content="">
     <meta name="author" content="Mosaddek">
     <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-    <link rel="shortcut icon" href="frontend/img/favicon.png">
+    <link rel="shortcut icon" href="favicon-bar-chart-o.ico">
 
-    <title>FlatLab Frontend | Home</title>
+    <title>{{ $title }} - {{ Config::get('customConfig.names.siteName')}}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="frontend/css/bootstrap.min.css" rel="stylesheet">

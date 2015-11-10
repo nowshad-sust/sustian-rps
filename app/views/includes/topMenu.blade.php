@@ -3,7 +3,7 @@
               <div data-original-title="Toggle Navigation" data-placement="right" class="fa fa-bars tooltips"></div>
           </div>
           <!--logo start-->
-          <a href="{{route('dashboard')}}" class="logo" >result<span>sust</span></a>
+          <a href="{{route('dashboard')}}" class="logo" >SUST <span>RPS</span></a>
           <!--logo end-->
 
             <div class="nav notify-row" id="top_menu" >
@@ -88,6 +88,7 @@
               <span class="small italic"> {{$notification->updated_at->diffForHumans()}}</span>
             @endforeach
             </marquee>
+            
           <div class="top-nav ">
 
               <ul class="nav pull-right top-menu">
