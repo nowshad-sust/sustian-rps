@@ -25,7 +25,7 @@
     <![endif]-->
 </head>
 
-<body class="login-body">
+<div class="login-body">
 <div class="container">
     {{ Form::open(array('route' => 'login', 'method' => 'post', 'class' => 'form-signin')) }}
     <h2 class="form-signin-heading">log in now</h2>
@@ -92,5 +92,5 @@
 {{ HTML::script('js/jquery.js') }}
 {{ HTML::script('js/bootstrap.min.js') }}
 
-</body>
+</div>
 </html>

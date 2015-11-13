@@ -3,7 +3,10 @@
               <div data-original-title="Toggle Navigation" data-placement="right" class="fa fa-bars tooltips"></div>
           </div>
           <!--logo start-->
-          <a href="{{route('dashboard')}}" class="logo" >SUST <span>RPS</span></a>
+          <a class="logo" href="{{route('dashboard')}}">
+                {{ Config::get('customConfig.names.siteTitle.first')}}
+                <span>{{ Config::get('customConfig.names.siteTitle.last')}}</span>
+                </a>
           <!--logo end-->
 
             <div class="nav notify-row" id="top_menu" >

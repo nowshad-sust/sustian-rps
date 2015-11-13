@@ -47,12 +47,6 @@
                       </a>
                   </li>
 
-                  <li>
-                      <a href="{{route('results')}}">
-                          <i class="fa fa-bell-o"></i>
-                          <span>Results Tab</span>
-                      </a>
-                  </li>
 
                   @if(Entrust::hasRole(Config::get('customConfig.roles.admin')))
 

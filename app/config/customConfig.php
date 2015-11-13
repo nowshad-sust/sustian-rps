@@ -2,7 +2,11 @@
 
 return [
 	'names' =>[
-		'siteName' => 'SUST RPS'
+		'siteName' => 'SUSTian RPS',
+		'siteTitle'	=>	[
+			'first'	=>	'SUSTian',
+			'last'	=>	'RPS'
+		]
 	],
 	'roles' =>[
 		'admin' => 'admin',

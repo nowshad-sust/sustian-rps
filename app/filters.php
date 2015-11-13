@@ -73,7 +73,10 @@ Route::filter('guest', function()
 Route::filter('activation', function()
 {
 	if (Auth::user()->userInfo->activation == false){
-		//return 'please activate';
+		//logout if logged in
+		if(Auth::user()){
+			Auth::logout();
+		}
 		return Redirect::route('activationRequest')->with('warning','please activate your account first');
 	}
 });

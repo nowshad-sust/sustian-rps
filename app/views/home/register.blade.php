@@ -21,8 +21,8 @@
 
                 {{ Form::label('password_confirmation', 'Confirm Password', array('' => '')) }}
                 {{ Form::password('password_confirmation', array('class' => 'form-control', 'placeholder' => 'Confirm Password')) }}
-
-                {{ Form::submit('Register', array('class' => 'btn btn-lg btn-login btn-block')) }}
+                <br>
+                {{ Form::submit('Register', array('class' => 'btn btn-lg btn-login btn-info')) }}
             </div>
 
 

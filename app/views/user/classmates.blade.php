@@ -2,75 +2,42 @@
 @section('content')
     @include('includes.alert')
 
-    <div class="panel-body">
-        <table class="display table table-bordered table-stripe" id="example">
-            <thead>
-            <tr>
-                <th>Classmates</th>
+    <h3 class="text-center">Classmates</h3>
+    <h5 class="text-center">{{$classmatesInfo[0]->dept->dept}} - {{$classmatesInfo[0]->batch->batch}}</h5>
+    <div class="directory-info-row">
+            <div class="row">
+              @foreach($classmatesInfo as $Info)
+              <div class="col-md-6 col-sm-6">
+                  <div class="panel">
+                      <div class="panel-body">
+                          <div class="media">
+                              <a class="pull-left" href="{{ URL::route('showProfile',$Info->user_id) }}">
+                                  <img class="thumb media-object" src="{{'../'.$Info->avatar_url}}" alt="">
+                              </a>
 
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($classmatesInfo as $Info)
+                              <div class="media-body">
+                                  <h4>{{$Info->fullName}} <span class="text-muted small">
+                                  </span></h4>
+                                  <!--
+                                  <ul class="social-links">
+                                      <li><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                                      <li><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                                      <li><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="LinkedIn"><i class="fa fa-linkedin"></i></a></li>
+                                      <li><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Skype"><i class="fa fa-skype"></i></a></li>
+                                  </ul>
+                                  -->
+                                  <address>
+                                      registered {{$Info->created_at->diffForHumans()}}
+                                  </address>
+                                <a class="btn btn-primary" href="{{ URL::route('showProfile',$Info->user_id) }}">details</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              @endforeach
 
-                <tr class="">
-
-                    <td>
-                        <div class="media">
-                            <a href="{{ URL::route('showProfile',$Info->user_id) }}" class="pull-left media-thumb">
-                                <img style="height: 75px;" alt="" src="{{'../'.$Info->avatar_url}}" class="media-object">
-                            </a>
-                            <div class="media-body">
-                                <strong>{{$Info->fullName}}</strong>
-                                <small>registered {{$Info->created_at->diffForHumans()}}</small>
-                                <br>
-                                <a class="btn btn-xs btn-success btn-edit" href="{{ URL::route('showProfile',$Info->user_id) }}">details</a>
-                            </div>
-                        </div>
-                        <!--
-                        <aside class="profile-nav alt green-border">
-                            <section class="panel">
-                                <div class="user-heading alt green-bg">
-                                    <a href="">
-                                        <img alt="" src="{{'../'.$Info->avatar_url}}">
-                                    </a>
-                                    <h1>{{$Info->fullName}}</h1>
-                                    <p>Joined: {{$Info->created_at->diffForHumans()}}</p>
-                                    <div class="text-center">
-                                        <a class="btn btn-xs btn-success btn-edit" href="{{ URL::route('showProfile',$Info->user_id) }}">details</a>
-                                    </div>
-                                </div>
-
-                            </section>
-                        </aside>
-                        -->
-                    </td>
-                </tr>
-
-            @endforeach
-            </tbody>
-        </table>
+          </div>
     </div>
 
-
-
-@stop
-
-@section('style')
-    {{ HTML::style('assets/data-tables/DT_bootstrap.css') }}
-
-@stop
-
-
-@section('script')
-    {{ HTML::script('assets/data-tables/jquery.dataTables.js') }}
-    {{ HTML::script('assets/data-tables/DT_bootstrap.js') }}
-
-    <script type="text/javascript" charset="utf-8">
-        $(document).ready(function() {
-
-            $('#example').dataTable({
-            });
-        });
-    </script>
 @stop

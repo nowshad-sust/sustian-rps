@@ -22,6 +22,7 @@ Route::group(['before' => 'guest'], function(){
 	Route::get('about',['as'=>'about','uses'=>'HomeController@showAbout']);
 	Route::get('features',['as'=>'features','uses'=>'HomeController@showFeatures']);
 	Route::get('contact',['as'=>'contact','uses'=>'HomeController@showContact']);
+	Route::post('contact_request','HomeController@postContactUs');
 });
 
 Route::group(['before' => 'guest'], function(){
@@ -82,7 +83,7 @@ Route::group(array('before' => 'auth|activation'), function()
 
 	//Route::get('gpa',['as'=>'gpa','uses'=>'ChartController@calculateGPA']);
 	Route::get('gpa/{semester}',['as'=>'gpaBySemester','uses'=>'StatController@gpaBySemester']);
-	Route::get('results',['as'=>'results','uses'=>'StatController@showResultsTab']);
+	//Route::get('results',['as'=>'results','uses'=>'StatController@showResultsTab']);
 	Route::get('cgpa',['as'=>'cgpa','uses'=>'StatController@calculateCGPA']);
 
 });

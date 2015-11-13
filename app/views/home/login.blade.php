@@ -18,7 +18,9 @@
 		                    <a data-toggle="modal" href="#myModal"> Forgot Password?</a>
 		                </span>
             </label>
-            {{ Form::submit('Log in', array('class' => 'btn btn-lg btn-login btn-block')) }}
+            <div class="form-group">
+                {{ Form::submit('Log in', array('class' => 'btn btn-lg btn-login btn-success')) }}
+            </div>
         </div>
 
 

@@ -14,6 +14,43 @@ class HomeController extends BaseController {
 	|	Route::get('/', 'HomeController@showWelcome');
 	|
 	*/
+	public function postContactUs(){
+			//Get all the data and store it inside Store Variable
+	        $data = Input::all();
+
+	        //Validation rules
+	        $rules = array (
+	            //'username' => 'required', uncomment if you want to grab this field
+	            'email' => 'required|email',  //uncomment if you want to grabhis field
+	            'message' => 'required|min:5'
+	        );
+
+	        //Validate data
+	        $validator = Validator::make ($data, $rules);
+
+	        //If everything is correct than run passes.
+	        if ($validator -> passes()){
+
+	        	return Redirect::route('home')->with('success','contact service still under construction.
+	        		if you have anything to say please mail us: sustrps@gmail.com');
+	           Mail::send('home.add.contactus', $data, function($message) use ($data)
+	            {
+	                $message->from($data['email'] , $data['username']);
+	            });
+	            // Redirect to page
+	   return Redirect::route('home')
+	    ->with('message', 'Your message has been sent. Thank You!');
+
+
+	            //return View::make('contact');  
+	         }else{
+	   //return contact form with errors
+	            return Redirect::back()
+	            				->withErrors($validator)
+	            				->withInput();
+
+        }
+	}
 
 	public function showHome()
 	{
