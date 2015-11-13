@@ -43,7 +43,7 @@ Route::filter('auth', function()
 		}
 		else
 		{
-			return Redirect::guest('login');
+			return Redirect::guest('login')->with('warning','you are not logged in');
 		}
 	}
 });
@@ -67,7 +67,8 @@ Route::filter('auth.basic', function()
 
 Route::filter('guest', function()
 {
-	if (Auth::check()) return Redirect::to('/');
+	if (Auth::check())
+		return Redirect::to('/')->with('warning','you are already logged in!');
 });
 
 Route::filter('activation', function()

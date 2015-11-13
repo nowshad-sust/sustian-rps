@@ -18,7 +18,7 @@
                     <em>2015 &copy; <a target="_blank"href="javascript:;">nowshad</a></em>
                     <br>
                     <em>powered by <a target="_blank"href="javascript:;">SUST CSE Developers Network Lab</a></em>
-                    <h6>this site is not related to any official service of SUST. Developed with social responsibility</h6>
+                    <h6>this site is not related to any official service of SUST.</h6>
                 </div>
                 </div>
             </div>

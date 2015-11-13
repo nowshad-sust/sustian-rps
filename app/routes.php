@@ -16,14 +16,12 @@ Route::get('/',function(){
 });
 
 //filter not needed
-Route::group(['before' => 'guest'], function(){
 	Route::get('home',['as'=>'home','uses'=>'HomeController@showHome']);
 	Route::get('test',['as'=>'test','uses'=>'HomeController@showTest']);
 	Route::get('about',['as'=>'about','uses'=>'HomeController@showAbout']);
 	Route::get('features',['as'=>'features','uses'=>'HomeController@showFeatures']);
 	Route::get('contact',['as'=>'contact','uses'=>'HomeController@showContact']);
 	Route::post('contact_request','HomeController@postContactUs');
-});
 
 Route::group(['before' => 'guest'], function(){
 	Route::controller('password', 'RemindersController');

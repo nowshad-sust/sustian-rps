@@ -37,7 +37,7 @@
                         @else
                             <li><a href="{{route('contact')}}">Contact</a></li>
                         @endif
-
+                    @if(!Auth::user())
                         @if(Route::currentRouteName() == 'login')
                             <li class="active"><a href="{{route('login')}}">Login</a></li>
                         @else
@@ -49,7 +49,10 @@
                         @else
                             <li><a href="{{route('register')}}">Register</a></li>
                         @endif
-
+                    @else
+                        <li><a href="{{route('profile')}}">{{ Auth::user()->userInfo->fullName }}</a></li>
+                        <li><a class="btn btn-success" href="{{route('dashboard')}}">ENTER MAIN SITE</a></li>
+                    @endif
 
                 </ul>
             </div>

@@ -4,7 +4,7 @@
               <h6>2015 &copy;
               <a target="_blank" style="color: lightyellow;" href="http://nowshad.iit.space"> Nowshad</a></h6>
               <h5>Powered by <a target="_blank" style="color: snow;" href="http://scdnlab.com"> SCDN Lab</a></h5>
-              <h6>[ this site is not related to any official service of SUST. Developed with social responsibility ]</h6>
+              <h6>[ this site is not related to any official service of SUST.]</h6>
                 <a href="#" class="go-top">
                   <i class="fa fa-angle-up"></i>
               </a>
