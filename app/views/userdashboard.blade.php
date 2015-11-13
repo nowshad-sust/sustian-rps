@@ -54,7 +54,7 @@
             <div class="col-lg-8">
                 <!--custom chart start-->
                 <div class="border-head">
-                    <h3>Earning Graph</h3>
+                    <h3>CGPA Graph</h3>
                 </div>
                 <section class="panel">
         @if($chartData['courseList']!=null||$chartData['cgpa']!=null)
