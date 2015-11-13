@@ -232,7 +232,7 @@ class ChartController extends \BaseController {
                 return 'A';
                 break;
             case 4.00:
-                return 'A';
+                return 'A+';
                 break;
         };
     }
@@ -309,9 +309,10 @@ class ChartController extends \BaseController {
                         if($courseInfo->batch->batch == $userInfo->batch->batch
                         && $courseInfo->dept->dept == $userInfo->dept->dept){
                             $CourseName = $courseInfo->course_title;
-                            $results = Result::where('course_id',$course_id)->lists('grade_point');
-                            $counts = array_count_values($results);
+                            $results = Result::where('course_id',$course_id)
+                                                ->lists('grade_point');
 
+                            $counts = array_count_values($results);
                             $data =  $this->pieChartFormatOfCourseWiseData($counts,$results);
                         }else{
                             throw new Exception;
@@ -358,14 +359,15 @@ class ChartController extends \BaseController {
             "#ab7967"
         ];
         $i=0;
-        foreach($counts as $count){
+        foreach($counts as $key => $value){
+
             $data[] = [
-                'value'=> $count,
+                'value'=> $value,
                 'color'=> $colours[$i],
                 'highlight'=> $colours[$i],
                 //convert the grade_point to grade_letter
-                'label'=> $this->grade_point_to_letter((float) array_search ($count, $counts))
-            ];
+                'label'=> $this->grade_point_to_letter((float) $key)
+                ];
             ++$i;
         }
         return $data;
