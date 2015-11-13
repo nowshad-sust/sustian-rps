@@ -24,7 +24,7 @@ class DashboardController extends \BaseController{
         $obj = new DashboardController();
         
         //cgpa chart
-        $chartData = $obj->showcoursegrade();
+        $chartData = $obj->showcoursecgpa();
         
         //current cgpa
         $current_cgpa = round($obj->calculateCGPA(),2);
@@ -50,8 +50,8 @@ class DashboardController extends \BaseController{
     }
 
 
-    public function showcoursegrade(){
-
+    public function showcoursecgpa(){
+        //plot course vs CGPA graph
         try{
             $user_id = Auth::user()->id;
             $results = Result::where('user_id',$user_id)->get();
@@ -61,30 +61,71 @@ class DashboardController extends \BaseController{
             $taken_courses_sorted_id = $taken_courses->lists('id');
             $taken_courses_sorted_number = $taken_courses->lists('course_number');
 
-            //sort results as the $taken_courses__sorted_id
+            $gradesArray = array();
             $resultsArray = array();
-            foreach($taken_courses_sorted_id as $taken_courses_sorted_id){
-                $resultsArray[] = (float) Result::where('course_id',$taken_courses_sorted_id)->pluck('grade_point');
+            $corresponding_courses = array();
+
+            $i=0;
+            //sort results as the $taken_courses__sorted_id
+            foreach($taken_courses_sorted_id as $taken_course_sorted_id){
+                $temp = Result::where('course_id',$taken_course_sorted_id)
+                    ->where('grade_point','!=',0.00)
+                    ->with('Course')
+                    ->first();
+                if( $temp != null) {
+                    $corresponding_courses[] = Course::where('id',$taken_course_sorted_id)->pluck('course_number');
+                    $resultsArray[] = $temp;
+                    $gradesArray[]  = (float) $temp->grade_point;
+                }
+                ++$i;
             }
+
+            $progressiveCGPA = $this->getProgressiveCGPA($resultsArray);
+
             $list = $this->getCourseList();
 
             if(count($resultsArray)<=0){
+
                 return $chartData = [
-                'courseList'    =>  null,
-                'grades'        =>  null,
-                'lists'         =>  null
+                    'courseList'=>null,
+                    'cgpa'=>null,
+                    'grades'=>null,
+                    'lists'=>$list
                 ];
             }
-            return $chartData = [
-                'courseList'    =>  $taken_courses_sorted_number,
-                'grades'        =>  $resultsArray,
-                'lists'         =>  $list
-            ];
-        }catch (Exception $ex){
-            return Redirect::back()->with(['error'=>'could not find data to calculate']);
-        }
 
-       }
+            return $chartData = [
+                    'courseList'=>$corresponding_courses,
+                    'cgpa'=>$progressiveCGPA,
+                    'grades'=>$gradesArray,
+                    'lists'=>$list
+                ];
+
+        }catch(Exception $ex){
+            return Log::error($ex);
+            return Redirect::back()->with(['error'=>'Error generating CGPA graph']);
+        }
+    }
+
+    private function getProgressiveCGPA($results){
+        try{
+            $total_credits = 0;
+            $TGP = 0;
+            $progressiveCGPA = array();
+            $resultArray = array();
+
+            foreach($results as $result){
+                $resultArray[] = $result;
+                $total_credits += $result->course->course_credit;
+                $TGP += $result->grade_point*$result->course->course_credit;
+                $progressiveCGPA[] = (float) $TGP/$total_credits;
+            }
+            return $progressiveCGPA;
+
+        }catch (Exception $ex){
+            return Redirect::back()->with('error','Error generating subject vs CGPA graph function');
+        }
+    }
 
        private function getCourseList(){
         $userInfo = Auth::user()->userInfo;

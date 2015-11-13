@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="col-lg-7 about">
-            <h3>Welcome to SUST RPS</h3>
+            <h3>Welcome to SUSTian Result Processing Service</h3>
             <p>
                 This is a service for the students of SUST. As course results gets added to our calculations, we find it
                 harer to manage course informations, results, drop etc. So, thought to make something that'll make

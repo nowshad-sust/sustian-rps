@@ -54,10 +54,10 @@
                 </li>
                 <li>
                     <div class="element item view view-tenth" data-zlname="reverse-effect">
-                        {{ HTML::image('frontend/img/home/bar_chart_screen.png') }}
+                        {{ HTML::image('frontend/img/home/donut_chart_screen.png') }}}
                         <div class="mask">
                         <h2 style="color:white;">Overall Class condition</h2>
-                            <a data-zl-popup="link2" class="fancybox" rel="group" href="frontend/img/works/img6.jpg">
+                            <a data-zl-popup="link2" class="fancybox" rel="group" href="frontend/img/home/donut_chart_screen.png">
                                 <i class="fa fa-search"></i>
                             </a>
                         </div>
@@ -69,16 +69,6 @@
                         <div class="mask">
                         <h2 style="color:white;">Course-wise class statistics</h2>
                             <a data-zl-popup="link2" class="fancybox" rel="group" href="frontend/img/home/pie_chart_screen.png">
-                                <i class="fa fa-search"></i>
-                            </a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="element item view view-tenth" data-zlname="reverse-effect">
-                        {{ HTML::image('frontend/img/home/donut_chart_screen.png') }}
-                        <div class="mask">
-                            <a data-zl-popup="link2" class="fancybox" rel="group" href="frontend/img/home/donut_chart_screen.png">
                                 <i class="fa fa-search"></i>
                             </a>
                         </div>

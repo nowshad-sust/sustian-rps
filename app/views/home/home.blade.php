@@ -22,7 +22,7 @@
                          data-speed="400"
                          data-start="1000"
                          data-easing="easeOutExpo">
-                        Clean & Creative
+                        SUSTian Result Processing Service
                     </div>
 
                     <div class="caption lfr slide_subtitle dark-text"
@@ -31,7 +31,7 @@
                          data-speed="400"
                          data-start="2000"
                          data-easing="easeOutExpo">
-                        A Responsive Frontend Template
+                        An unofficial student service
                     </div>
                     <div class="caption lfr slide_desc"
                          data-x="670"
@@ -39,17 +39,17 @@
                          data-speed="400"
                          data-start="2500"
                          data-easing="easeOutExpo">
-                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem <br>
-                        accusantium doloremque laudantium, totam rem aperiam,<br>
-                        eaque ipsa quae ablic jiener.
+                        To keep your results organized and keep you aware of your condition 
+                        <br>SUSTian RPS is at your service.
                     </div>
-                    <a class="caption lfr btn yellow slide_btn" href="http://thevectorlab.net/flatlab" target="_blank"
+                    <a class="caption lfr btn yellow slide_btn"
+                    href="{{ route('features') }}"
                        data-x="670"
                        data-y="400"
                        data-speed="400"
                        data-start="3500"
                        data-easing="easeOutExpo">
-                        Watch Dashboard
+                        Watch Features
                     </a>
 
                 </li>
@@ -64,15 +64,7 @@
                          data-speed="400"
                          data-start="1500"
                          data-easing="easeOutExpo">
-                        YAHOOOOO. TWO IN ONE
-                    </div>
-                    <div class="caption lft slide_subtitle dark-text"
-                         data-x="10"
-                         data-y="180"
-                         data-speed="400"
-                         data-start="2000"
-                         data-easing="easeOutExpo">
-                        Admin & Fronend in a single bundle
+                        YAHOOO... Got it!
                     </div>
                     <div class="caption lft slide_desc dark-text"
                          data-x="10"
@@ -80,17 +72,19 @@
                          data-speed="400"
                          data-start="2500"
                          data-easing="easeOutExpo">
-                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem <br>
-                        accusantium doloremque laudantium, totam rem aperiam,<br>
-                        eaque ipsa quae ablic jiener.
+                        No need to use excel files to keep your records <br>
+                        Calculation Software or files for saving results !!!<br>
+                        Nope, this the perfect replacement of those things with more
+                        ease
                     </div>
-                    <a class="caption lft slide_btn btn red slide_item_left" href="#" target="_blank"
+                    <a class="caption lft slide_btn btn red slide_item_left" 
+                       href="{{ route('register') }}"
                        data-x="10"
                        data-y="360"
                        data-speed="400"
                        data-start="3000"
                        data-easing="easeOutExpo">
-                        Purchase Now
+                        Register
                     </a>
                     <div class="caption lft start"
                          data-x="640"
@@ -161,7 +155,7 @@
                          data-speed="400"
                          data-start="3500"
                          data-easing="easeOutExpo">
-                        Full Responsive
+                        Advanced Statistics
                     </div>
                     <div class="caption lfr slide_subtitle slide_item_left"
                          data-x="670"
@@ -169,7 +163,7 @@
                          data-speed="400"
                          data-start="4000"
                          data-easing="easeOutExpo">
-                        And Awesome Flat Design
+                        And Visual Data
                     </div>
                     <div class="caption lfr slide_desc slide_item_left"
                          data-x="670"
@@ -177,9 +171,9 @@
                          data-speed="400"
                          data-start="4500"
                          data-easing="easeOutExpo">
-                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem <br>
-                        accusantium doloremque laudantium, totam rem aperiam,<br>
-                        eaque ipsa quae ablic jiener.
+                        You can see whats going on your profile <br>
+                        as well as see your position in your batch.<br>
+                        Get ideas from different charts/graphs.
                     </div>
 
 
@@ -196,35 +190,8 @@
     <div class="row">
         <!--feature start-->
         <div class="text-center feature-head">
-            <h1>welcome to flatlab</h1>
-            <p>Professional html Template Perfect for Admin Dashboard</p>
-        </div>
-        <div class="col-lg-4 col-sm-4">
-            <section>
-                <div class="f-box">
-                    <i class=" fa fa-desktop"></i>
-                    <h2>responsive design</h2>
-                </div>
-                <p class="f-text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ablic jiener.</p>
-            </section>
-        </div>
-        <div class="col-lg-4 col-sm-4">
-            <section>
-                <div class="f-box active">
-                    <i class=" fa fa-code"></i>
-                    <h2>friendly code</h2>
-                </div>
-                <p class="f-text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ablic jiener.</p>
-            </section>
-        </div>
-        <div class="col-lg-4 col-sm-4">
-            <section>
-                <div class="f-box">
-                    <i class="fa fa-gears"></i>
-                    <h2>fully customizable</h2>
-                </div>
-                <p class="f-text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ablic jiener.</p>
-            </section>
+            <h1>welcome to SUSTian RPS</h1>
+            <p>A service for SUSTians</p>
         </div>
         <!--feature end-->
     </div>
@@ -233,12 +200,16 @@
         <div class="quote">
             <div class="col-lg-9 col-sm-9">
                 <div class="quote-info">
-                    <h1>developer friendly code</h1>
-                    <p>Bundled with awesome features, UI resource unlimited colors, advanced theme options & much more!</p>
+                    <h1>This is for you</h1>
+                    <p>
+                        Simple & user friendly use. Important Statistics & data.
+                        The days of pain is over :)
+                    </p>
+                        
                 </div>
             </div>
             <div class="col-lg-3 col-sm-3">
-                <a href="#" class="btn btn-danger purchase-btn">Purchase now</a>
+                <a href="{{ route('register') }}" class="btn btn-danger purchase-btn">Register now</a>
             </div>
         </div>
         <!--quote end-->

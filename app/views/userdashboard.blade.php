@@ -57,7 +57,7 @@
                     <h3>Earning Graph</h3>
                 </div>
                 <section class="panel">
-        @if($chartData['courseList']!=null||$chartData['grades']!=null)
+        @if($chartData['courseList']!=null||$chartData['cgpa']!=null)
         <div class="panel-body">
             <div class="tab-content tasi-tab">
                 <div class="tab-pane active" id="popular">
@@ -146,25 +146,34 @@
                 //labels: ["January", "February", "March", "April", "May", "June", "July"],
                 datasets: [
                     {
-                        label: "Grade",
+                        label: "CGPA",
                         fillColor: "rgba(151,187,205,0.2)",
                         strokeColor: "rgba(151,187,205,1)",
                         pointColor: "rgba(151,187,205,1)",
                         pointStrokeColor: "#fff",
                         pointHighlightFill: "#fff",
                         pointHighlightStroke: "rgba(151,187,205,1)",
+                        data: {{ json_encode($chartData['cgpa']) }}
+                    },
+                    {
+                        label: "Grade",
+                        fillColor: "rgba(220,220,220,0.2)",
+                        strokeColor: "rgba(220,220,220,1)",
+                        pointColor: "rgba(220,220,220,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(220,220,220,1)",
                         data: {{ json_encode($chartData['grades']) }}
                     }
                 ]
             };
             var ctx = document.getElementById('myChart').getContext('2d');
-            //var myLineChart = new Chart(ctx).Line(data, { bezierCurve: false});
-            var myBarChart = new Chart(ctx).Bar(data, { bezierCurve: true,
+            var myLineChart = new Chart(ctx).Line(data, { bezierCurve: false,
                 multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"});
+            //var myBarChart = new Chart(ctx).Bar(data, { bezierCurve: false});
+            myLineChart.generateLegend();
 
         })();
-
-
     </script>
 
 @stop
