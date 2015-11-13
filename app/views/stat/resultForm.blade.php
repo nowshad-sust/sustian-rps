@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
     @include('includes.alert')
-    {{ Form::open(array('route' => 'addResult', 'method' => 'post', 'role' => 'form')) }}
+    {{ Form::open(array('route' => 'postResult', 'method' => 'post', 'role' => 'form')) }}
     <h2 class="form-signin-heading">Add Result</h2>
     <div class="panel-body">
 

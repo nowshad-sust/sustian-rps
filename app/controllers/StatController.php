@@ -207,7 +207,11 @@ class StatController extends \BaseController {
             $grade_letter = $this->getGradeLetter($grade_point);
 
             //if result already exists then instead of creating a new one, just update the older one
-            if($result = Result::where('course_id',$course_id)->first()){
+            $result = Result::where('course_id',$course_id)
+                            ->where('user_id', $user_id)
+                            ->first();
+                             
+            if($result != null || !empty($result)){
                 if($result->update([
                     'grade_point' => $grade_point,
                     'grade_letter'   => $grade_letter
@@ -221,7 +225,7 @@ class StatController extends \BaseController {
                 $result->user_id = $user_id;
                 $result->course_id = $course_id;
                 $result->grade_point = $grade_point;
-                $result->grade_letter   = $grade_letter;
+                $result->grade_letter = $grade_letter;
 
                 if($result->save()){
                     return Redirect::route('resultsDataTable')->with(['success'=>'Result added']);

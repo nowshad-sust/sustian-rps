@@ -65,7 +65,7 @@ Route::group(array('before' => 'auth|activation'), function()
 	//STAT section
 	Route::get('resultsDataTable',['as'=>'resultsDataTable', 'uses'=>'StatController@showResultsDataTable']);
 	Route::get('addResult',['as'=>'addResult', 'uses'=>'StatController@addResultForm']);
-	Route::post('addResult',['as'=>'addResult', 'uses'=>'StatController@validateResult']);
+	Route::post('addResult',['as'=>'postResult', 'uses'=>'StatController@validateResult']);
 	Route::get('dropList', ['as'=>'dropList', 'uses'=>'StatController@showDropList']);
 	Route::get('editResult/{id}',['as'=>'editResult', 'uses'=>'StatController@showResultEditForm']);
 	Route::post('editResult',['as'=>'updateResult', 'uses'=>'StatController@updateResult']);
