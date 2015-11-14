@@ -12,7 +12,7 @@
                       <div class="panel-body">
                           <div class="media">
                               <a class="pull-left" href="{{ URL::route('showProfile',$Info->user_id) }}">
-                                  <img class="thumb media-object" src="{{'../'.$Info->avatar_url}}" alt="">
+                                  {{ HTML::image($Info->avatar_url, '', array( 'class'=>'thumb media-object' )) }}
                               </a>
 
                               <div class="media-body">
