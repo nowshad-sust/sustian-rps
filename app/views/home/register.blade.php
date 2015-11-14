@@ -4,7 +4,11 @@
 
     <div class="register-body">
         <div class="container">
-            {{ Form::open(array('route' => 'register', 'method' => 'post', 'class' => 'form-signin')) }}
+            {{ Form::open(array('route' =>  'register', 
+                                            'method' => 'post',
+                                            'class' => 'form-signin',
+                                            'onsubmit'=>'return confirm("Have you checked your Reg no?");'
+                                            )) }}
             <h2 class="form-signin-heading">User Registration</h2>
             <div class="login-wrap">
                 {{ Form::label('fullName', 'Full Name', array('' => '')) }}

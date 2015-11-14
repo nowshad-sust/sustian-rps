@@ -72,7 +72,7 @@
                 <div class="tab-content tasi-tab">
                     <div class="tab-pane active" id="popular">
                         <article class="media">
-                            <h4 class="text-center">you don't have enough data to populate the graph</h4>
+                            <h4 class="text-center">Looks like you haven't given any data yet!</h4>
                         </article>
                     </div>
                 </div>

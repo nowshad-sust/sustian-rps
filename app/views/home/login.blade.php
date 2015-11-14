@@ -3,7 +3,11 @@
     @include('includes.alert')
 
     <div class="container">
-        {{ Form::open(array('route' => 'login', 'method' => 'post', 'class' => 'form-signin')) }}
+        {{ Form::open(array('route' => 'login',
+                             'method' => 'post',
+                             'class' => 'form-signin',
+                             )) 
+        }}
         <h2 class="form-signin-heading">log in now</h2>
         <div class="login-wrap">
 

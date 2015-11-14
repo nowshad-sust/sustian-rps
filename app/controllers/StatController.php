@@ -329,6 +329,13 @@ class StatController extends \BaseController {
     public function getStanding(){
 
         try{
+
+            //check user has valid data to calculate
+            $user_cgpa = $this->calculateUserCGPA(Auth::user()->id);
+            if($user_cgpa == null || $user_cgpa <= 0){
+                return 'you have not given us enough data to get your position!';
+            }
+            
             //get cgpa list of each of your batch & dept
             //sort them by cgpa
             //get your position
