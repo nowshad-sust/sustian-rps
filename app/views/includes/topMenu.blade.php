@@ -6,6 +6,9 @@
           <a class="logo" href="{{route('dashboard')}}">
                 {{ Config::get('customConfig.names.siteTitle.first')}}
                 <span>{{ Config::get('customConfig.names.siteTitle.last')}}</span>
+                <span style="color:blue;font-size:10px;">
+                {{ Config::get('customConfig.names.siteTitle.version')}}
+                </span>
                 </a>
           <!--logo end-->
 

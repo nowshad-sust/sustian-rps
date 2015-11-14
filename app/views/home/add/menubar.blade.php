@@ -10,6 +10,9 @@
                 <a class="navbar-brand" href="{{route('home')}}">
                 {{ Config::get('customConfig.names.siteTitle.first')}}
                 <span>{{ Config::get('customConfig.names.siteTitle.last')}}</span>
+                <span style="color:blue;font-size:15px;">
+                {{ Config::get('customConfig.names.siteTitle.version')}}
+                </span>
                 </a>
             </div>
             <div class="navbar-collapse collapse ">

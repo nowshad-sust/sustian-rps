@@ -5,7 +5,8 @@ return [
 		'siteName' => 'SUSTian RPS',
 		'siteTitle'	=>	[
 			'first'	=>	'SUSTian',
-			'last'	=>	'RPS'
+			'last'	=>	'RPS',
+			'version'=>	'alpha'
 		]
 	],
 	'roles' =>[
