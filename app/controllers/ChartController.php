@@ -16,7 +16,8 @@ class ChartController extends \BaseController {
             //sort results as the $taken_courses__sorted_id
             $resultsArray = array();
             foreach($taken_courses_sorted_id as $taken_courses_sorted_id){
-                $resultsArray[] = (float) Result::where('course_id',$taken_courses_sorted_id)
+                $resultsArray[] = (float) Result::where('user_id', $user_id)
+                                                    ->where('course_id',$taken_courses_sorted_id)
                                                     ->pluck('grade_point');
             }
             
