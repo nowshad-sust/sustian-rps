@@ -160,12 +160,14 @@ class UserController extends \BaseController {
 
                 //deleting previous file
                 $prev_avatar_url = Auth::user()->userInfo->avatar_url;
-                if (File::exists($prev_avatar_url)) {
+                if($prev_avatar_url != 'uploads/image/defaultAvatar.png'){
+                    if (File::exists($prev_avatar_url)) {
                     File::delete($prev_avatar_url);
                 }
-                $prev_icon_url = Auth::user()->userInfo->icon_url;
-                if (File::exists($prev_icon_url)) {
-                    File::delete($prev_icon_url);
+                    $prev_icon_url = Auth::user()->userInfo->icon_url;
+                    if (File::exists($prev_icon_url)) {
+                        File::delete($prev_icon_url);
+                    }
                 }
 
                 $avatar_url = 'uploads/image/avatar/avatar-'.Auth::user()->id.'.jpg';
@@ -206,9 +208,11 @@ class UserController extends \BaseController {
     }
 
     public function showClassmates(){
-        //all users of the same batch & same dept
-        $classmatesInfo = UserInfo::where('batch_id',Auth::user()->userInfo->batch_id)
-                            ->where('dept_id',Auth::user()->userInfo->dept_id)->get();
+        //all activated users of the same batch & same dept
+        $classmatesInfo = UserInfo::where('activation',true)
+                            ->where('batch_id',Auth::user()->userInfo->batch_id)
+                            ->where('dept_id',Auth::user()->userInfo->dept_id)
+                            ->get();
 
         return View::make('user.classmates')->with(['title'=>'Classmates','classmatesInfo'=>$classmatesInfo]);
     }
