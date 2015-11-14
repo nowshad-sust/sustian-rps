@@ -5,7 +5,7 @@ class ChartController extends \BaseController {
     public function showcoursegrade(){
 
         try{
-            $user_id = Auth::user()->id;
+            $user_id = Auth::user()->userInfo->user_id;
             $results = Result::where('user_id',$user_id)->get();
             $taken_courses_id = $results->lists('course_id');
             $taken_courses = Course::whereIn('id',$taken_courses_id)->get();
@@ -16,8 +16,10 @@ class ChartController extends \BaseController {
             //sort results as the $taken_courses__sorted_id
             $resultsArray = array();
             foreach($taken_courses_sorted_id as $taken_courses_sorted_id){
-                $resultsArray[] = (float) Result::where('course_id',$taken_courses_sorted_id)->pluck('grade_point');
+                $resultsArray[] = (float) Result::where('course_id',$taken_courses_sorted_id)
+                                                    ->pluck('grade_point');
             }
+            
             $list = $this->getCourseList();
             if(count($resultsArray)<=0){
                 return View::make('chart.course-grade')->with(['title'=>'Chart',
@@ -41,7 +43,9 @@ class ChartController extends \BaseController {
         //plot course vs CGPA graph
         try{
             $user_id = Auth::user()->id;
-            $results = Result::where('user_id',$user_id)->get();
+            $results = Result::where('user_id',$user_id)
+                                ->where('grade_point','!=',0)
+                                ->get();
             $taken_courses_id = $results->lists('course_id');
             $taken_courses = Course::whereIn('id',$taken_courses_id)->get();
             $taken_courses = $taken_courses->sortBy('course_semester');
