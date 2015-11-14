@@ -54,7 +54,9 @@ class DashboardController extends \BaseController{
         //plot course vs CGPA graph
         try{
             $user_id = Auth::user()->id;
-            $results = Result::where('user_id',$user_id)->get();
+            $results = Result::where('user_id',$user_id)
+                                ->where('grade_point','!=',0)
+                                ->get();
             $taken_courses_id = $results->lists('course_id');
             $taken_courses = Course::whereIn('id',$taken_courses_id)->get();
             $taken_courses = $taken_courses->sortBy('course_semester');

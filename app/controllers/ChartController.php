@@ -455,7 +455,9 @@ class ChartController extends \BaseController {
         }
 
         foreach($classmates_cgpa as $cgpa){
-            if($cgpa<2.5){
+            if($cgpa<2.0){
+                
+            }elseif($cgpa<2.5){
                 ++$user_number_in_categories[0];
 
             }elseif($cgpa<3.00){
@@ -537,6 +539,7 @@ class ChartController extends \BaseController {
                 ->lists('course_id');
             $results = Result::where('user_id',$user_id)
                 ->whereIn('course_id',$taken_courses_id)
+                ->where('grade_point','!=',0.00)
                 ->with('Course')
                 ->get();
 
