@@ -31,7 +31,7 @@
                          data-speed="400"
                          data-start="2000"
                          data-easing="easeOutExpo">
-                        An unofficial student service
+                        শুধুমাত্র ছাত্রছাত্রীদের জন্য নির্মিত একটি সেবা
                     </div>
                     <div class="caption lfr slide_desc"
                          data-x="670"
@@ -39,8 +39,9 @@
                          data-speed="400"
                          data-start="2500"
                          data-easing="easeOutExpo">
-                        To keep your results organized and keep you aware of your condition 
-                        <br>SUSTian RPS is at your service.
+                        আপনার ফলাফল সংগঠিত রাখা এবং আপনার অবস্থা সম্পর্কে আপনাকে  সচেতন রাখতেই
+                        <br> রয়েছে SUSTian RPS আপনার সেবায় ।
+                        
                     </div>
                     <a class="caption lfr btn yellow slide_btn"
                     href="{{ route('features') }}"
@@ -49,7 +50,7 @@
                        data-speed="400"
                        data-start="3500"
                        data-easing="easeOutExpo">
-                        Watch Features
+                        ফিচারসমুহ দেখুন
                     </a>
 
                 </li>
@@ -64,7 +65,7 @@
                          data-speed="400"
                          data-start="1500"
                          data-easing="easeOutExpo">
-                        YAHOOO... Got it!
+                        ইয়াহু... পেয়েছি!
                     </div>
                     <div class="caption lft slide_desc dark-text"
                          data-x="10"
@@ -72,10 +73,13 @@
                          data-speed="400"
                          data-start="2500"
                          data-easing="easeOutExpo">
-                        No need to use excel files to keep your records <br>
-                        Calculation Software or files for saving results !!!<br>
-                        Nope, this the perfect replacement of those things with more
-                        ease
+                        হ্যাঁ, আপনাকে আর আপনার ফলাফল সংরক্ষণ এর জন্য ফাইল এ সেভ করে রাখতে হবে না,
+                        ফাইল ডিলিট হয়ে যাবার ভয় করতে হবে না ।
+                        <br>
+                        প্রয়োজন হবে না ক্যালকুলেটরের বাটন চাপতে
+                        চাপতে ক্লান্ত হবার অথবা নিজের অবথস্থান জানতে বাকিদের ফলাফল নিয়ে মাথা ঘামানোর।
+                        <br>
+                        আপনার জন্য সব'ই করে দিবে SUSTian RPS ।
                     </div>
                     <a class="caption lft slide_btn btn red slide_item_left" 
                        href="{{ route('register') }}"
@@ -84,7 +88,7 @@
                        data-speed="400"
                        data-start="3000"
                        data-easing="easeOutExpo">
-                        Register
+                        রেজিস্টার করুন
                     </a>
                     <div class="caption lft start"
                          data-x="640"
@@ -155,7 +159,7 @@
                          data-speed="400"
                          data-start="3500"
                          data-easing="easeOutExpo">
-                        Advanced Statistics
+                        উন্নত পরিসংখ্যান
                     </div>
                     <div class="caption lfr slide_subtitle slide_item_left"
                          data-x="670"
@@ -163,7 +167,7 @@
                          data-speed="400"
                          data-start="4000"
                          data-easing="easeOutExpo">
-                        And Visual Data
+                        এবং চাক্ষুষ তথ্য
                     </div>
                     <div class="caption lfr slide_desc slide_item_left"
                          data-x="670"
@@ -171,9 +175,11 @@
                          data-speed="400"
                          data-start="4500"
                          data-easing="easeOutExpo">
-                        You can see whats going on your profile <br>
-                        as well as see your position in your batch.<br>
-                        Get ideas from different charts/graphs.
+                        আপনার বর্তমান অবস্থা সম্পর্কে আপনি জানতে পারবেন
+                        <br>
+                        সেইসাথে আপনার ব্যাচ এ আপনার অবস্থান দেখতে পারবেন
+                        <br>
+                        বিভিন্ন চার্ট / গ্রাফ থেকে বিশদ ধারনা পেতে পারেন ।
                     </div>
 
 
@@ -190,8 +196,8 @@
     <div class="row">
         <!--feature start-->
         <div class="text-center feature-head">
-            <h1>welcome to SUSTian RPS</h1>
-            <p>A service for SUSTians</p>
+            <h1>স্বাগতম সাস্টিয়ান রেজাল্ট প্রোসেসিং সিস্টেম এ</h1>
+            <p>সাস্টিয়ানদের জন্য নির্মিত একটি সেবা</p>
         </div>
         <!--feature end-->
     </div>
@@ -200,16 +206,16 @@
         <div class="quote">
             <div class="col-lg-9 col-sm-9">
                 <div class="quote-info">
-                    <h1>This is for you</h1>
+                    <h1>এটি আপনারই জন্য</h1>
                     <p>
-                        Simple & user friendly use. Important Statistics & data.
-                        The days of pain is over :)
+                        খুবই সহজ এবং সাধারণ ব্যাবহার, গুরুত্বপূর্ণ পরিসংখ্যান এবং উপাত্ত আপনার ছাত্রজীবনকে করবে উন্নত।
+                         ফলাফল সামলানো নিয়ে কষ্টের দিন শেষ :)
                     </p>
                         
                 </div>
             </div>
             <div class="col-lg-3 col-sm-3">
-                <a href="{{ route('register') }}" class="btn btn-danger purchase-btn">Register now</a>
+                <a href="{{ route('register') }}" class="btn btn-danger purchase-btn">এখনই নিবন্ধন করুন</a>
             </div>
         </div>
         <!--quote end-->

@@ -43,17 +43,18 @@
         <div class="col-lg-7 about">
             <h3>Welcome to SUSTian Result Processing Service</h3>
             <p>
-                This is a service for the students of SUST. As course results gets added to our calculations, we find it
-                harer to manage course informations, results, drop etc. So, thought to make something that'll make
-                the task easier and student friendly. From that thought the SUSTian Rps project begin and here it is
-                in it's child version. Hopefully this will help you to get more organised and aware of your
-                condition. 
-           </p>
+                এটি শাবিপ্রবির ছাত্র-ছাত্রিদের  জন্য একটি সেবা । আমাদের বিশ্ববিদ্যালয় জীবনে যত দিন যেতে থাকে
+                রেসাল্টের সংখ্যাও তত বাড়তে থাকে । ফলে হিসেব রাখা কষ্টকর হয়ে যায় অনেক ক্ষেত্রেই এবং এই কারণে
+                অনেকেই ফলাফল সংক্রান্ত হিসেব-নিকেশ না করায় নিজেদের পরিস্থিতি সম্পর্কে জানে না । কিন্তু নিজেদের
+                অবস্থা স্মপর্কে সচেতন থাকা সবার জন্যই প্রয়োজনীয় । তাই ছাত্র-ছাত্রিদের সুবিধার কথা চিন্তা করেই
+                সম্পূর্ণ আনঅফিসিয়াল একটি সার্ভিসের অভাব থেকেই SUSTian RPS এর জন্ম ।
+
+            </p>
             <p>
-                This is a place where you can store your course results and manage them properly.
-                By watching different relevent stats you certainly can understand details of your current progress.
-                Also, we provide you with some visul data which can be a good use for students who want to see
-                long term stats.
+                এই প্রজেক্টটি কোনরূপ অফিশিয়াল সার্ভিসের সাথে সরাসরি যুক্ত নয় । সাইটটি তৈরি, রক্ষণাবেক্ষণ, ডাটা প্রাদানসহ
+                সকল কাজই ছাত্রদের দ্বারা পরিচালিত হয় । এখানে আপনার সকল তথ্য নিরাপদ কারণ - অন্য কোন ব্যবহারকারী আপনার
+                কোন তথ্য দেখতে বা ব্যবহার করতে পারবে না । সুতরাং আপনার তথ্য-উপাত্তের উৎসও আপনি নিজেই , ব্যবহারকারিও
+                আপনি । আপনার তথ্যের জন্য অন্য কেউ দায়বদ্ধ নয় । 
             </p>
         </div>
     </div>
