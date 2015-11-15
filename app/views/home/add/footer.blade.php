@@ -24,8 +24,13 @@
             </div>
             <div class="col-lg-3 col-sm-3 col-lg-offset-1">
             
-                <h1>stay connected</h1>
-                <ul class="social-link-footer list-unstyled">
+                <h1>ধন্যবাদ সাইটটিতে আসার জন্য</h1>
+                <p>
+                    সাইটটি এখনও নির্মানাধীন রয়েছে । যেকোন সমস্যা , পরামর্শ থাকলে জানাতে পারেন
+                    <a href="{{ route('contact') }}" > <b style="color: #568c0a;">এখানে</b></a>  অথবা লগইন করে মেসেজ পাঠাতে পারেন ।
+                </p>
+            <!--
+                 <ul class="social-link-footer list-unstyled">
                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                     <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                     <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
@@ -35,6 +40,7 @@
                     <li><a href="#"><i class="fa fa-github"></i></a></li>
                     <li><a href="#"><i class="fa fa-youtube"></i></a></li>
                 </ul>
+                -->
             </div>
         </div>
     </div>

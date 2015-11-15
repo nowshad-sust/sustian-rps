@@ -2,13 +2,16 @@
 @section('content')
     @include('includes.alert')
 
+
+
     <div class="container">
+        <div class="col-lg-7 col-sm-7 address">
         {{ Form::open(array('route' => 'login',
                              'method' => 'post',
                              'class' => 'form-signin',
                              )) 
         }}
-        <h2 class="form-signin-heading">log in now</h2>
+        <h2 class="form-signin-heading">log in</h2>
         <div class="login-wrap">
 
             {{ Form::text('email', '', array('class' => 'form-control', 'placeholder' => 'Email Address', 'autofocus')) }}
@@ -24,6 +27,7 @@
             </label>
             <div class="form-group">
                 {{ Form::submit('Log in', array('class' => 'btn btn-lg btn-login btn-success')) }}
+            </div>
             </div>
         </div>
 
