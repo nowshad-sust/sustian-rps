@@ -15,7 +15,7 @@
                 <h1>A social service site</h1>
                 <div class="tweet-box">
                 <div class="text-center">
-                    <em>2015 &copy; <a target="_blank"href="javascript:;">nowshad</a></em>
+                    <em>2015 &copy; <a target="_blank"href="javascript:;"> Nowshad</a></em>
                     <br>
                     <em>powered by <a target="_blank"href="javascript:;">SUST CSE Developers Network Lab</a></em>
                     <h6>this site is not related to any official service of SUST.</h6>
