@@ -8,8 +8,7 @@
 		"zizaco/entrust": "1.2.*@dev",
 		"barryvdh/laravel-ide-helper": "~1.11",
 		"guzzlehttp/guzzle": "~4.0",
-		"intervention/image": "^2.3",
-	  	"thomaswelton/laravel-google-analytics": "dev-master"
+		"intervention/image": "^2.3"
 	},
 	"require-dev": {
     	"way/generators": "~2.0",
