@@ -14,6 +14,6 @@
 
 @include('home.add.footer')
 
-
+    <script src="js/googleAnalytics.js"></script>
 </body>
 </html>

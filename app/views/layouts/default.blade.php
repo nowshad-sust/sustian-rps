@@ -15,6 +15,6 @@
 
 
     @include('includes.footer')
-
+    <script src="js/googleAnalytics.js"></script>
 </body>
 </html>
