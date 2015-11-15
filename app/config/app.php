@@ -127,6 +127,7 @@ return array(
 		'Way\Generators\GeneratorsServiceProvider', // Generators
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider', // IDE Helpers
 		'Intervention\Image\ImageServiceProvider', //Image Intervention
+		'Thomaswelton\LaravelGoogleAnalytics\LaravelGoogleAnalyticsServiceProvider',
 
 	),
 
@@ -196,6 +197,7 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Entrust'         => 'Zizaco\Entrust\EntrustFacade',
 		'Image' 		  => 'Intervention\Image\Facades\Image',
+        'GoogleAnalytics' => 'Thomaswelton\LaravelGoogleAnalytics\Facades\GoogleAnalytics',
 
 	),
 
