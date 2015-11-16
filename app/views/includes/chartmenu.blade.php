@@ -1,3 +1,11 @@
+
+<style>
+    .dropdown-menu {
+height: auto;
+max-height: 400px;
+overflow-x: hidden;
+}
+</style>
 <header class="panel-heading tab-bg-dark-navy-blue">
 
     <ul class="nav nav-tabs nav-justified ">
