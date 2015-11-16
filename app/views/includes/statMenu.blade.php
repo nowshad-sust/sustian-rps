@@ -1,7 +1,24 @@
-<ul class="breadcrumb">
-    <li><a href="{{route('resultsDataTable')}}"><i class="fa fa-home"></i> Data</a></li>
-    <li><a href="{{route('dropList')}}"> Drop List</a></li>
-    <li><a href="{{route('addResult')}}"> Add Result</a></li>
+<div style="background-color: lightgreen;">
+<ul class="nav nav-tabs nav-justified ">
+    @if(Route::currentRouteName() == 'resultsDataTable')
+        <li class="active"><a href="{{route('resultsDataTable')}}"><i class="fa fa-home"></i> Data</a></li>
+    @else
+        <li><a href="{{route('resultsDataTable')}}"><i class="fa fa-home"></i> Data</a></li>
+    @endif
+
+    @if(Route::currentRouteName() == 'dropList')
+        <li class="active"><a href="{{route('dropList')}}"> Drop List</a></li>
+    @else
+        <li><a href="{{route('dropList')}}"> Drop List</a></li>
+    @endif
+
+    @if(Route::currentRouteName() == 'addResult')
+        <li class="active"><a href="{{route('addResult')}}"> Add Result</a></li>
+    @else
+        <li><a href="{{route('addResult')}}"> Add Result</a></li>
+    @endif
+
+
     <li class="dropdown">
         <a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true">
             Semester Result
@@ -22,7 +39,18 @@
             <li><a tabindex="-1" href=""> Separated link </a></li>
         </ul>
     </li>
-    <li><a href="{{route('cgpa')}}"> CGPA</a></li>
-    <li><a href="{{route('classStanding')}}"> Class Standing</a></li>
+
+    @if(Route::currentRouteName() == 'cgpa')
+        <li class="active"><a href="{{route('cgpa')}}"> CGPA</a></li>
+    @else
+        <li><a href="{{route('cgpa')}}"> CGPA</a></li>
+    @endif
+
+    @if(Route::currentRouteName() == 'classStanding')
+    <li class="active"><a href="{{route('classStanding')}}"> Class Standing</a></li>
+    @else
+        <li><a href="{{route('classStanding')}}"> Class Standing</a></li>
+    @endif
 
 </ul>
+</div>

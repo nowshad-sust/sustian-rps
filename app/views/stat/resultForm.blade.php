@@ -1,6 +1,7 @@
 @extends('layouts.default')
 @section('content')
     @include('includes.alert')
+    @include('includes.statMenu')
     {{ Form::open(array('route' => 'postResult', 'method' => 'post', 'role' => 'form')) }}
     <h2 class="form-signin-heading">Add Result</h2>
     <div class="panel-body">
