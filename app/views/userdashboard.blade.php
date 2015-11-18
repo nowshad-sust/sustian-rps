@@ -82,6 +82,7 @@
                 <!--custom chart end-->
 
             </div>
+            <!--
             <div class="col-lg-4">
                 <div class="lock-screen" onload="startTime()">
 
@@ -100,7 +101,105 @@
             </div>
             </div>
         </div>
+        -->
+
+            <div class="col-lg-4">
+                @if($latest_post !=null)
+                <h4 class="text-center">Latest Post</h4>
+                <section class="panel">
+                    <div class="panel-body">
+                        <div class="fb-user-thumb">
+                            {{ HTML::image($latest_post->post_user->user_info->avatar_url, 'lock avatar') }}
+                        </div>
+                        <div class="fb-user-details">
+                            <h3><a href="#" class="#">{{ $latest_post->post_user->user_info->fullName }}</a></h3>
+                            <p>{{$latest_post->created_at->diffForHumans()}}</p>
+                        </div>
+                        <div class="clearfix"></div>
+                        <p class="fb-user-status">
+                            {{ $latest_post->post_body }}
+                        </p>
+                        @if(Auth::user()->id == $latest_post->post_user->id)
+                            <div class="fb-status-container fb-border">
+                                <div class="fb-time-action">
+                                    <button
+                                            id="edit"
+                                            data-toggle="modal"
+                                            post-id="{{$latest_post->id}}"
+                                            post-body="{{$latest_post->post_body}}"
+                                            data-action="edit",
+                                            class="btn btn-xs btn-warning">
+                                        Edit
+                                    </button>
+
+                                    <span>-</span>
+                                    <a id="delete"
+                                       class="btn btn-xs btn-danger"
+                                       href="{{ route('deletePost',$latest_post->id) }}"
+                                       title="delete your post">
+                                        Delete
+                                    </a>
+                                </div>
+
+                            </div>
+                        @endif
+                        <div class="fb-status-container fb-border">
+                            <div class="fb-time-action">
+                                <a href="{{route('posts')}}">see more posts</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+                @else
+                    <h4 class="text-center">No latest posts</h4>
+                @endif
+
+                <section class="panel profile-info">
+                    {{ Form::open( array('route'=>'submitpost','method' => 'post', 'role' => 'form')) }}
+                    {{ Form::textarea('post_body',null,
+                    ['class'=>'form-control',
+                    'rows' => 2,
+                    'class'=>'form-control input-lg p-text-area',
+                    'placeholder'=>'Shout to your classmates']) }}
+
+                    <footer class="panel-footer">
+                        {{ Form::submit('Post', array('class' => 'btn btn-danger pull-right')) }}
+                        <ul class="nav nav-pills">
+
+                        </ul>
+                    </footer>
+                    {{ Form::close() }}
+                </section>
+            </div>
+
         @endif
+
+            <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">?</button>
+                            <h4 class="modal-title">Edit Post</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            {{ Form::open(array('route'=>'updatePost','id'=>'update-form','method' => 'post', 'role' => 'form')) }}
+                            {{ Form::textarea('post_body',null,
+                            ['id' => 'form-post-body',
+                            'class'=>'form-control input-lg p-text-area',
+                            'placeholder'=>'Shout to your classmates']) }}
+                            {{ Form::hidden('post_id',null, ['id'=>'hidden_post_id']) }}
+                            <div class="form-group">
+                                {{ Form::submit('Update Post', array('class' => 'btn btn-default')) }}
+                            </div>
+                            {{ Form::close() }}
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 @stop
 
 
@@ -175,5 +274,17 @@
 
         })();
     </script>
+                <script>
+                    $('button').on('click', function(){
+                        var this_id = $(this).attr('post-id');
+                        var this_body = $(this).attr('post-body');
+                        var this_action = $(this).attr('data-action');
+                        if(this_action == 'edit'){
+                            $("#hidden_post_id").val(this_id);
+                            document.getElementById("form-post-body").defaultValue = this_body;
+                            $('#myModal').modal();
+                        }
+                    });
+                </script>
 
 @stop

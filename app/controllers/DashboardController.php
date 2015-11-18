@@ -38,6 +38,10 @@ class DashboardController extends \BaseController{
         //passed credits
         $passed_credits = $obj->getPassedCredits();
 
+        //latest post
+        $latest_post = $obj->getLatestPost();
+
+
         return View::make('userdashboard')
             ->with([
                 'title'             =>      'Dashboard',
@@ -45,9 +49,24 @@ class DashboardController extends \BaseController{
                 'passed_credits'    =>      $passed_credits,
                 'left_credits'      =>      $left_credits,
                 'drop_credits'      =>      $drop_credits,
-                'chartData'         =>      $chartData
+                'chartData'         =>      $chartData,
+                'latest_post'       =>      $latest_post
             ]);
     }
+
+    private function getLatestPost(){
+        $user_batch = Auth::user()->userInfo->batch->batch;
+        //find the last created post of that batch
+        $latest_post = Posts::where('batch',$user_batch)
+                            ->with('post_user')
+                            ->get()
+                            ->sortByDesc('created_at');
+        $latest_post = $latest_post->first();
+        if($latest_post == null)
+            return null;
+        return $latest_post;
+    }
+
 
 
     public function showcoursecgpa(){
@@ -108,6 +127,7 @@ class DashboardController extends \BaseController{
             return Redirect::back()->with(['error'=>'Error generating CGPA graph']);
         }
     }
+
 
     private function getProgressiveCGPA($results){
         try{

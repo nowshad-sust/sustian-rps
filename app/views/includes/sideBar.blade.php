@@ -47,6 +47,14 @@
                       </a>
                   </li>
 
+                  <li>
+
+                      <a href="{{route('posts')}}">
+                          <i class=" fa fa-clipboard"></i>
+                          <span>Posts</span>
+                      </a>
+                  </li>
+
 
                   @if(Entrust::hasRole(Config::get('customConfig.roles.admin')))
 

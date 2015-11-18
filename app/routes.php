@@ -49,10 +49,16 @@ Route::group(array('before' => 'auth|activation'), function()
 	Route::get('uploadAvatar',['as'=>'uploadAvatar', 'uses'=>'UserController@uploadAvatarForm']);
 	Route::post('uploadAvatar',['as'=>'storeAvatar', 'uses'=>'UserController@uploadAvatar']);
 
-	//all freelancers grid
+	//all classmates grid
 	Route::get('classmates',['as'=>'classmates', 'uses'=>'UserController@showClassmates']);
 	//others profile view
 	Route::get('showProfile/{id}', ['as'=>'showProfile', 'uses'=>'UserController@showOthersProfile']);
+
+	//posts section
+	Route::get('posts',['as'=>'posts', 'uses'=>'PostController@showAllPosts']);
+	Route::post('posts',['as'=>'submitpost', 'uses'=>'PostController@submitPost']);
+	Route::get('deletePost/{id}',['as'=>'deletePost', 'uses'=>'PostController@deletePost']);
+	Route::post('updatePost',['as'=>'updatePost','uses'=>'PostController@updatePost']);
 
 	//message section
 	Route::get('writeMessage',['as'=>'writeMessage', 'uses'=>'MessageController@showMessageForm']);
