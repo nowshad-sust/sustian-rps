@@ -31,7 +31,7 @@ class PostController extends \BaseController {
             $post = new Posts();
             $post->post_user_id = Auth::user()->id;
             $post->batch = Auth::user()->userInfo->batch->batch;
-            $post->post_body = nl2br($data['post_body']);
+            $post->post_body = $data['post_body'];
             if($post->save()){
                 return Redirect::route('posts')->with('success','Posted successfully');
             }else{
