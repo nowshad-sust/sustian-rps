@@ -33,6 +33,7 @@
                     <td>
                         <section class="panel">
                             <div class="panel-body">
+                            <p>{{ $post->id }}</p>
                                 <div class="fb-user-thumb">
                                     {{ HTML::image($post->post_user->user_info->avatar_url, 'lock avatar') }}
                                 </div>
@@ -127,9 +128,12 @@
         $(document).ready(function() {
 
             $('#example').dataTable({
+                "order": [],
+                "bSort": false,
             });
         });
     </script>
+
     <script>
         $('button').on('click', function(){
             var this_id = $(this).attr('post-id');

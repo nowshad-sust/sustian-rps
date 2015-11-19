@@ -4,12 +4,13 @@ class PostController extends \BaseController {
 
     public function showAllPosts(){
         $user_batch = Auth::user()->userInfo->batch->batch;
-
+        //find the last created post of that batch
         $latest_posts = Posts::where('batch',$user_batch)
-            ->with('post_user')
-            ->orderBy('created_at', 'desc')
-            ->get();
-        //$latest_posts = $latest_posts->orderBy('created_at', 'desc');
+                            ->orderBy('created_at','desc')
+                            ->with('post_user')
+                            ->get();
+        //return $latest_posts= $latest_posts->sortByDesc('created_at');
+
 
         return View::make('user.posts')->with('title', 'Posts')
                                         ->with('latest_posts', $latest_posts);
