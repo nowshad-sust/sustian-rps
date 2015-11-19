@@ -141,7 +141,7 @@ class UserController extends \BaseController {
         //icon path & avatar path
 
         $rules = array(
-            'image' => 'required|image|max:5000'
+            'image' => 'required|image|max:2000'
         );
 
         // run the validation rules on the inputs from the form
@@ -173,8 +173,8 @@ class UserController extends \BaseController {
                 $avatar_url = 'uploads/image/avatar/avatar-'.Auth::user()->id.'.jpg';
                 $icon_url = 'uploads/image/icon/icon-'.Auth::user()->id.'.jpg';
 
-                Image::make($image)->resize(200, 200)->save(public_path($avatar_url),100);
-                Image::make($image)->resize(50, 50)->save(public_path($icon_url),100);
+                Image::make($image)->resize(200, 200)->save(public_path($avatar_url));
+                Image::make($image)->resize(50, 50)->save(public_path($icon_url));
 
 
                 if($imageInfo = UserInfo::where('user_id',Auth::user()->id)
