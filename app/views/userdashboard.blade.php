@@ -117,7 +117,7 @@
                         </div>
                         <div class="clearfix"></div>
                         <p class="fb-user-status">
-                            {{ $latest_post->post_body }}
+                            {{ nl2br($latest_post->post_body) }}
                         </p>
                         @if(Auth::user()->id == $latest_post->post_user->id)
                             <div class="fb-status-container fb-border">
@@ -179,7 +179,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">?</button>
+                            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">x</button>
                             <h4 class="modal-title">Edit Post</h4>
                         </div>
                         <div class="modal-body">
