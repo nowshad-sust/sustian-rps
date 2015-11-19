@@ -7,8 +7,9 @@ class PostController extends \BaseController {
 
         $latest_posts = Posts::where('batch',$user_batch)
             ->with('post_user')
+            ->orderBy('created_at', 'desc')
             ->get();
-        $latest_posts = $latest_posts->sortByDesc('created_at');
+        //$latest_posts = $latest_posts->orderBy('created_at', 'desc');
 
         return View::make('user.posts')->with('title', 'Posts')
                                         ->with('latest_posts', $latest_posts);
