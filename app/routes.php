@@ -125,6 +125,7 @@ Route::group(array('before' => 'auth|admin'), function()
 	Route::post('editCourse',['as'=>'updateCourse', 'uses'=>'AdminController@editCourse']);
 
 	//users section
+	Route::get('users', ['as'=>'users','uses'=>'AdminController@showUsers']);
 
 });
 

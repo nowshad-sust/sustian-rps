@@ -22,10 +22,10 @@ class DashboardController extends \BaseController{
     public static function userDashboard(){
 
         $obj = new DashboardController();
-        
+
         //cgpa chart
         $chartData = $obj->showcoursecgpa();
-        
+
         //current cgpa
         $current_cgpa = round($obj->calculateCGPA(),2);
 
@@ -34,7 +34,7 @@ class DashboardController extends \BaseController{
 
         //credits left
         $left_credits = $obj->getLeftCredits();
-        
+
         //passed credits
         $passed_credits = $obj->getPassedCredits();
 
@@ -77,8 +77,10 @@ class DashboardController extends \BaseController{
                                 ->where('grade_point','!=',0)
                                 ->get();
             $taken_courses_id = $results->lists('course_id');
-            $taken_courses = Course::whereIn('id',$taken_courses_id)->get();
-            $taken_courses = $taken_courses->sortBy('course_semester');
+            $taken_courses = Course::whereIn('id',$taken_courses_id)
+                                    ->orderBy('course_semester','asc')
+                                    ->orderBy('course_number','asc')
+                                    ->get();;
             $taken_courses_sorted_id = $taken_courses->lists('id');
             $taken_courses_sorted_number = $taken_courses->lists('course_number');
 
@@ -89,7 +91,8 @@ class DashboardController extends \BaseController{
             $i=0;
             //sort results as the $taken_courses__sorted_id
             foreach($taken_courses_sorted_id as $taken_course_sorted_id){
-                $temp = Result::where('course_id',$taken_course_sorted_id)
+                $temp = Result::where('user_id', $user_id)
+                    ->where('course_id',$taken_course_sorted_id)
                     ->where('grade_point','!=',0.00)
                     ->with('Course')
                     ->first();
@@ -168,7 +171,7 @@ class DashboardController extends \BaseController{
                     ->whereIn('course_id',$taken_courses_id)
                     ->with('Course')
                     ->get(['course_id']);
-                
+
                 $drop_credits = 0;
 
                 foreach ($drop_courses as $course) {
@@ -176,7 +179,7 @@ class DashboardController extends \BaseController{
                 }
 
                 return $drop_credits;
-            
+
             }catch(Exception $ex){
                 return Redirect::back()->with(['error'=>'could not count CGPA']);
             }
@@ -199,7 +202,7 @@ class DashboardController extends \BaseController{
                 $credits_left = $offered_credits - $passed_credits;
 
                 return $credits_left;
-            
+
             }catch(Exception $ex){
                 return Redirect::back()->with(['error'=>'could not count CGPA']);
             }
@@ -214,7 +217,7 @@ class DashboardController extends \BaseController{
                     ->whereIn('course_id',$taken_courses_id)
                     ->with('Course')
                     ->get(['course_id']);
-                
+
                 $passed_credits = 0;
 
                 foreach ($passed_courses as $course) {
@@ -222,7 +225,7 @@ class DashboardController extends \BaseController{
                 }
 
                 return $passed_credits;
-            
+
             }catch(Exception $ex){
                 return Redirect::back()->with(['error'=>'could not count CGPA']);
             }

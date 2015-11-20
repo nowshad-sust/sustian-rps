@@ -20,7 +20,7 @@ class ChartController extends \BaseController {
                                                     ->where('course_id',$taken_courses_sorted_id)
                                                     ->pluck('grade_point');
             }
-            
+
             $list = $this->getCourseList();
             if(count($resultsArray)<=0){
                 return View::make('chart.course-grade')->with(['title'=>'Chart',
@@ -41,15 +41,17 @@ class ChartController extends \BaseController {
        }
 
     public function showcoursecgpa(){
-        //plot course vs CGPA graph
+        ///plot course vs CGPA graph
         try{
             $user_id = Auth::user()->id;
             $results = Result::where('user_id',$user_id)
                                 ->where('grade_point','!=',0)
                                 ->get();
             $taken_courses_id = $results->lists('course_id');
-            $taken_courses = Course::whereIn('id',$taken_courses_id)->get();
-            $taken_courses = $taken_courses->sortBy('course_semester');
+            $taken_courses = Course::whereIn('id',$taken_courses_id)
+                                    ->orderBy('course_semester','asc')
+                                    ->orderBy('course_number','asc')
+                                    ->get();
             $taken_courses_sorted_id = $taken_courses->lists('id');
             $taken_courses_sorted_number = $taken_courses->lists('course_number');
 
@@ -60,7 +62,8 @@ class ChartController extends \BaseController {
             $i=0;
             //sort results as the $taken_courses__sorted_id
             foreach($taken_courses_sorted_id as $taken_course_sorted_id){
-                $temp = Result::where('course_id',$taken_course_sorted_id)
+                $temp = Result::where('user_id', $user_id)
+                    ->where('course_id',$taken_course_sorted_id)
                     ->where('grade_point','!=',0.00)
                     ->with('Course')
                     ->first();
@@ -456,7 +459,7 @@ class ChartController extends \BaseController {
 
         foreach($classmates_cgpa as $cgpa){
             if($cgpa<2.0){
-                
+
             }elseif($cgpa<2.5){
                 ++$user_number_in_categories[0];
 

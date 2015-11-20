@@ -2,6 +2,14 @@
 
 class AdminController extends \BaseController {
 
+    public function showUsers(){
+
+        $Users = User::all();
+        //return $Users;
+        return View::make('admin.user.users')->with('title','Admin Dashborad')
+                                            ->with('Users',$Users);
+    }
+
     public function viewNotification(){
         $notification = Notification::all();
 

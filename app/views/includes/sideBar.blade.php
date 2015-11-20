@@ -58,6 +58,14 @@
 
                   @if(Entrust::hasRole(Config::get('customConfig.roles.admin')))
 
+                  <li>
+
+                      <a href="{{route('users')}}">
+                          <i class="fa fa-users"></i>
+                          <span>Users</span>
+                      </a>
+                  </li>
+
                       <li>
 
                           <a href="{{route('viewNotifications')}}">

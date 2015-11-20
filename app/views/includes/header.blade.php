@@ -4,7 +4,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <meta name="keyword" content="">
-        <link rel="shortcut icon" href="img/favicon.png">
+        <link rel="shortcut icon" href="favicon-bar-chart-o.ico">
 
         <meta name="google-site-verification" content="rPBp3ZzLT5IIGnetvnX84kW1UDCxCqRy_mRHpwetzoc" />
         <title>{{ $title }} - {{ Config::get('customConfig.names.siteName')}}</title>
