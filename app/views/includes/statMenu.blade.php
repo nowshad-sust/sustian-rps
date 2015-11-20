@@ -35,8 +35,6 @@
             <li><a tabindex="-1" href="{{route('gpaBySemester',8)}}"> 4/2 </a></li>
             <li><a tabindex="-1" href="{{route('gpaBySemester',9)}}"> 5/1 </a></li>
             <li><a tabindex="-1" href="{{route('gpaBySemester',10)}}"> 5/2 </a></li>
-            <li class="divider"></li>
-            <li><a tabindex="-1" href=""> Separated link </a></li>
         </ul>
     </li>
 
