@@ -36,7 +36,7 @@
                             </li>
                             <li>
                                 @if(Entrust::hasRole(Config::get('customConfig.roles.user')))
-                                <a href="{{route('writeMessage')}}" class="green"><i class="fa fa-pencil"></i> Send message</a>
+                                <a href="{{route('writeMessage')}}" class="green"><i class="fa fa-pencil"></i> Send message to admin</a>
                                 @endif
                             </li>
 
@@ -76,25 +76,25 @@
                                  @endif
                              @endif
                          </a>
-                         
+
                     </li>-->
 
                 </ul>
 
             </div>
 
-            <marquee 
-            style="width:55%;margin-top:1%;position:absolute;" 
-            behavior="scroll" 
+            <marquee
+            style="width:55%;margin-top:1%;position:absolute;"
+            behavior="scroll"
             direction="left"
             speed="slow">
-            @foreach($notification as $notification)            
+            @foreach($notification as $notification)
               <span class="label label-success"><i class="fa fa-plus"></i></span>
               {{$notification->notification_text}}
               <span class="small italic"> {{$notification->updated_at->diffForHumans()}}</span>
             @endforeach
             </marquee>
-            
+
           <div class="top-nav ">
 
               <ul class="nav pull-right top-menu">

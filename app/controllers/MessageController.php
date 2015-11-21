@@ -10,6 +10,52 @@ class MessageController extends \BaseController {
      *      :user_id
      *      :to [for admin only]
      */
+
+    public function showMessageToForm($receiver_id){
+      try{
+          if($receiver_id!=null){
+            $receiver = User::find($receiver_id);
+            if($receiver != null){
+
+              return View::make('message.messageToForm')->with('title','Send Message')
+                                                      ->with('receiver',$receiver);
+            }else{
+              throw new Exception();
+
+            }
+          }
+      }catch(Exception $ex){
+        return Redirect::back()->with('error','could not show the message form!');
+      }
+
+    }
+    public function postMessageTo(){
+      $rules =[
+          'subject'  =>  'required',
+          'message'  =>  'required'
+
+      ];
+      $data = Input::all();
+
+      $validation = Validator::make($data,$rules);
+
+      if($validation->fails()){
+          return Redirect::back()->withErrors($validation)->withInput();
+      }else{
+          $message = new Message();
+          $message->sender_id =   Auth::user()->id;
+          $message->receiver_id = $data['receiver_id'];//to admin for primary use only
+          $message->seen_status = false;
+          $message->subject = $data['subject'];
+          $message->message = $data['message'];
+          if($message->save()){
+              return Redirect::route('seeAllMessages')->with(['success'=>'Message Sent']);
+          }else{
+              return Redirect::back()->with(['error'=>'error sending message']);
+          }
+      }
+    }
+
     public function showMessageForm(){
         return View::make('message.messageForm')->with(['title'=>'Send Message']);
     }

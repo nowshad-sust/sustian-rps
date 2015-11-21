@@ -62,11 +62,11 @@ Route::group(array('before' => 'auth|activation'), function()
 
 	//message section
 	Route::get('writeMessage',['as'=>'writeMessage', 'uses'=>'MessageController@showMessageForm']);
-    Route::post('writeMessage',['as'=>'postMessage', 'uses'=>'MessageController@sendMessage']);
+  Route::post('writeMessage',['as'=>'postMessage', 'uses'=>'MessageController@sendMessage']);
 	Route::get('messageDetails/{message_id}',['as'=>'messageDetails', 'uses'=>'MessageController@messageDetails']);
 	Route::get('seeAllMessages',['as'=>'seeAllMessages', 'uses'=>'MessageController@seeAllMessages']);
 	Route::get('replyMessage/{message_id}',['as'=>'replyMessage', 'uses'=>'MessageController@replyMessage']);
-    Route::post('replyMessage',['as'=>'postReply', 'uses'=>'MessageController@postReply']);
+  Route::post('replyMessage',['as'=>'postReply', 'uses'=>'MessageController@postReply']);
 
 	//STAT section
 	Route::get('resultsDataTable',['as'=>'resultsDataTable', 'uses'=>'StatController@showResultsDataTable']);
@@ -127,5 +127,8 @@ Route::group(array('before' => 'auth|admin'), function()
 	//users section
 	Route::get('users', ['as'=>'users','uses'=>'AdminController@showUsers']);
 
-});
+	//message section
+	Route::get('writeMessageTo/{receiver_id}',['as'=>'writeMessageTo', 'uses'=>'MessageController@showMessageToForm']);
+	Route::post('writeMessageTo',['as'=>'postMessageTo', 'uses'=>'MessageController@postMessageTo']);
 
+});
