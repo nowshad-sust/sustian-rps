@@ -141,7 +141,7 @@ class UserController extends \BaseController {
         //icon path & avatar path
 
         $rules = array(
-            'image' => 'required|image|max:2000'
+            'image' => 'required|image|max:3000'
         );
 
         // run the validation rules on the inputs from the form

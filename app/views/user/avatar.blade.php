@@ -21,7 +21,7 @@
                     <a href="" class="btn btn-danger fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash"></i> Remove</a>
                 </div>
             </div>
-
+            <p>Max image size: 3MB</p>
             {{ Form::submit('Upload Avatar', array('class' => 'btn btn-primary')) }}
         </div>
         {{ Form::close() }}
