@@ -68,6 +68,7 @@
             </div>
         </div>
             @else
+            <div class="row">
             <div class="panel-body">
                 <div class="tab-content tasi-tab">
                     <div class="tab-pane active" id="popular">
@@ -77,6 +78,7 @@
                     </div>
                 </div>
             </div>
+          </div>
             @endif
                 </section>
                 <!--custom chart end-->
@@ -230,10 +232,10 @@
     var yyyy = today.getFullYear();
     if(dd<10){
         dd='0'+dd
-    } 
+    }
     if(mm<10){
         mm='0'+mm
-    } 
+    }
     var today = dd+'.'+mm+'.'+yyyy;
     document.getElementById("time").innerHTML = today;
     </script>
@@ -268,6 +270,7 @@
             };
             var ctx = document.getElementById('myChart').getContext('2d');
             var myLineChart = new Chart(ctx).Line(data, { bezierCurve: false,
+                responsive: true,
                 multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"});
             //var myBarChart = new Chart(ctx).Bar(data, { bezierCurve: false});
             myLineChart.generateLegend();

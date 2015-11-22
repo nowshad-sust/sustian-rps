@@ -385,7 +385,7 @@ class ChartController extends \BaseController {
         $categories = $finalData[0];
         $user_numbers = $finalData[1];
         $colours = [
-            "#bf616a",
+        "#bf616a",
 		    "#5B90BF",
 		    "#d08770",
 		    "#ebcb8b",
@@ -402,7 +402,7 @@ class ChartController extends \BaseController {
             $data[] = [
                 'value'=> $user_numbers[$i],
                 'color'=>$colours[$i],
-                'highlight'=> "#ab7967",
+                //'highlight'=> "#ab7967",
                 'label'=> $category
             ];
             ++$i;

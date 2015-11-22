@@ -4,8 +4,9 @@
 
     <section class="panel">
         @include('includes.chartmenu')
-
+        <div class="row">
         @if($courseList!=null||$grades!=null)
+        <div class="col-lg-11">
         <div class="panel-body">
             <div class="tab-content tasi-tab">
                 <div class="tab-pane active" id="popular">
@@ -28,6 +29,8 @@
                 </div>
             </div>
             @endif
+          </div>
+        </div>
     </section>
 
 @stop
@@ -40,7 +43,7 @@
             margin: 0 auto;
 
             background-color:whitesmoke;
-            width: 90%;
+            width: 80%;
             height: auto;
         }
     </style>
@@ -72,6 +75,7 @@
             var ctx = document.getElementById('myChart').getContext('2d');
             //var myLineChart = new Chart(ctx).Line(data, { bezierCurve: false});
             var myBarChart = new Chart(ctx).Bar(data, { bezierCurve: true,
+                responsive: true,
                 multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"});
 
         })();
