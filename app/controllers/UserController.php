@@ -35,9 +35,11 @@ class UserController extends \BaseController {
         }else{
             try{
                 //dept & batch extraction from reg_no
+                //batch should be 1111***### for admin registration
                 $batch = (int) substr($data['reg_no'],0,4);
                 $dept = (int) substr($data['reg_no'],4,3);
                 //extraction finished
+
 
                 //now find the batch id & dept id
                 $batch_id = Batch::where('batch',$batch)->first()->id;

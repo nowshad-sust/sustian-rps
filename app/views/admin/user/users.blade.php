@@ -15,6 +15,7 @@
                 <th>Batch</th>
                 <th>Reg. no</th>
                 <th>Joined</th>
+                <th>activation</th>
 
                 <th class="text-center">Action</th>
 
@@ -32,6 +33,11 @@
                     <td>{{$Info->userInfo->batch->batch}}</td>
                     <td>{{$Info->userInfo->reg_no}}</td>
                     <td>{{$Info->created_at->diffForHumans()}}</td>
+                    @if($Info->userInfo->activation == true)
+                    <td class="success">activated</td>
+                    @else
+                    <td class="danger">not activated</td>
+                    @endif
 
                     <td class="text-center">
                         <a class="btn btn-xs btn-success btn-edit" href="{{ URL::route('showProfile',$Info->userInfo->user_id) }}">details</a>
