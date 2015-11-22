@@ -41,7 +41,7 @@
                          data-easing="easeOutExpo">
                         আপনার ফলাফল সংগঠিত রাখা এবং আপনার অবস্থা সম্পর্কে আপনাকে  সচেতন রাখতেই
                         <br> রয়েছে SUSTian RPS আপনার সেবায় ।
-                        
+
                     </div>
                     <a class="caption lfr btn yellow slide_btn"
                     href="{{ route('features') }}"
@@ -81,7 +81,7 @@
                         <br>
                         আপনার জন্য সব'ই করে দিবে SUSTian RPS ।
                     </div>
-                    <a class="caption lft slide_btn btn red slide_item_left" 
+                    <a class="caption lft slide_btn btn red slide_item_left"
                        href="{{ route('register') }}"
                        data-x="10"
                        data-y="360"
@@ -211,7 +211,7 @@
                         খুবই সহজ এবং সাধারণ ব্যাবহার, গুরুত্বপূর্ণ পরিসংখ্যান এবং উপাত্ত আপনার ছাত্রজীবনকে করবে উন্নত।
                          ফলাফল সামলানো নিয়ে কষ্টের দিন শেষ :)
                     </p>
-                        
+
                 </div>
             </div>
             <div class="col-lg-3 col-sm-3">
@@ -228,8 +228,9 @@
     <div class="container">
         <div class="row">
             <h2 class="text-center">আজকের উক্তি</h2>
-            <h1>“Remember that people will always question the good things they hear about you,
-                and believe the bad ones without a second thought.”</h1>
+            <h1>“The best and most beautiful things in the world cannot be seen or even touched -
+               they must be felt with the heart"
+               <br> - Helen Keller</h1>
         </div>
     </div>
 </section>

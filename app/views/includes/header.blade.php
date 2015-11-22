@@ -1,9 +1,9 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <meta name="keyword" content="">
+        <meta name="description" content="A service for SUStians">
+        <meta name="author" content="Nowshad">
+        <meta name="keyword" content="rps">
         <link rel="shortcut icon" href="favicon-bar-chart-o.ico">
 
         <meta name="google-site-verification" content="rPBp3ZzLT5IIGnetvnX84kW1UDCxCqRy_mRHpwetzoc" />

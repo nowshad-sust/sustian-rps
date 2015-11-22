@@ -168,8 +168,12 @@ class StatController extends \BaseController {
         $userBatchId = Auth::user()->userinfo->batch_id;
         $user_id = Auth::user()->id;
 
-        $taken_courses_id = Result::where('user_id',$user_id)->where('grade_point','!=',0)->lists('course_id');
-        $courseList = Course::whereNotIn('id',$taken_courses_id)->lists('course_number','id');
+        $taken_courses_id = Result::where('user_id',$user_id)
+                                    //->where('grade_point','!=',0)
+                                    ->lists('course_id');
+        $courseList = Course::whereNotIn('id',$taken_courses_id)
+                              ->orderBy('course_semester','asc')
+                              ->lists('course_number','id');
 
         $gradesList = [
             '0.00'    =>  'F',
@@ -210,12 +214,13 @@ class StatController extends \BaseController {
             $result = Result::where('course_id',$course_id)
                             ->where('user_id', $user_id)
                             ->first();
-                             
+
             if($result != null || !empty($result)){
-                if($result->update([
-                    'grade_point' => $grade_point,
-                    'grade_letter'   => $grade_letter
-                ])){
+              $update = $result->update([
+                  'grade_point' => $grade_point,
+                  'grade_letter'   => $grade_letter
+              ]);
+                if($update){
                     return Redirect::route('resultsDataTable')->with(['success'=>'Drop course result updated']);
                 }else{
                     return Redirect::back()->withInput()->with(['error'=>'error adding drop course result']);
@@ -228,7 +233,7 @@ class StatController extends \BaseController {
                 $result->grade_letter = $grade_letter;
 
                 if($result->save()){
-                    return Redirect::route('resultsDataTable')->with(['success'=>'Result added']);
+                    return Redirect::route('addResult')->with(['success'=>'Result added']);
                 }else{
                     return Redirect::back()->withInput()->with(['error'=>'error adding result']);
                 }
@@ -335,7 +340,7 @@ class StatController extends \BaseController {
             if($user_cgpa == null || $user_cgpa <= 0){
                 return 'you have not given us enough data to get your position!';
             }
-            
+
             //get cgpa list of each of your batch & dept
             //sort them by cgpa
             //get your position

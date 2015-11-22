@@ -1,9 +1,9 @@
 <div style="background-color: lightgreen;">
 <ul class="nav nav-tabs nav-justified ">
     @if(Route::currentRouteName() == 'resultsDataTable')
-        <li class="active"><a href="{{route('resultsDataTable')}}"><i class="fa fa-home"></i> Data</a></li>
+        <li class="active"><a href="{{route('resultsDataTable')}}"><i class="fa fa-home"></i> All Results</a></li>
     @else
-        <li><a href="{{route('resultsDataTable')}}"><i class="fa fa-home"></i> Data</a></li>
+        <li><a href="{{route('resultsDataTable')}}"><i class="fa fa-home"></i> All Results</a></li>
     @endif
 
     @if(Route::currentRouteName() == 'dropList')

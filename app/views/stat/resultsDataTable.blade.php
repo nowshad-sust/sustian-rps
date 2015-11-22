@@ -8,6 +8,7 @@
             <thead>
             <tr>
                 <th>Course ID</th>
+                <th>Course Name</th>
                 <th>Semester</th>
                 <th>Course Credit</th>
                 <th>Grade point</th>
@@ -24,6 +25,7 @@
                     <tr class="">
                 @endif
                     <td>{{$Info->course->course_number}}</td>
+                    <td>{{$Info->course->course_title}}</td>
                     <td>{{$Info->course->course_semester}}</td>
                     <td>{{$Info->course->course_credit}}</td>
                     <td>{{$Info->grade_point}}</td>
