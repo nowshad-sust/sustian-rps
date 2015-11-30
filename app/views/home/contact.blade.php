@@ -1,6 +1,6 @@
 @extends('home.add.homelayout')
 @section('content')
-    @include('includes.alert')
+    
 
     <!--google map start-->
      <div class="contact-map">
@@ -30,6 +30,7 @@
             </div>
             <div class="col-lg-7 col-sm-7 address">
                 <h4>Send a Message</h4>
+                @include('includes.alert')
                 <div class="contact-form">
                 {{ Form:: open(array('role' => 'form',
                 					'action' => 'HomeController@postContactUs')) }}

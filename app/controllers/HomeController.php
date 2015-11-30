@@ -31,20 +31,23 @@ class HomeController extends BaseController {
 	        //If everything is correct than run passes.
 	        if ($validator -> passes()){
 
-	        	return Redirect::route('home')->with('success','contact service still under construction.
-	        		if you have anything to say please mail us: sustrps@gmail.com');
-	           Mail::send('home.add.contactus', $data, function($message) use ($data)
-	            {
-	                $message->from($data['email'] , $data['username']);
-	            });
-	            // Redirect to page
-	   return Redirect::route('home')
-	    ->with('message', 'Your message has been sent. Thank You!');
+	        	//return Redirect::route('home')->with('success','contact service still under construction.
+	        	//	if you have anything to say please mail us: sustrps@gmail.com');
+	           Mail::send('home.add.contactus', ['username'=>$data['username'],
+                                                'email'=>$data['email'],
+                                                'messageBody'=>$data['message']],
+                        function($message) {
+                            $message->to('sustrps@gmail.com','SUSTian RPS')
+                                    ->subject('contact us mail');
+                    });
+	           
+			   return Redirect::route('contact')
+			    ->with('success', 'Your message has been sent. Thank You!');
 
 
 	            //return View::make('contact');  
 	         }else{
-	   //return contact form with errors
+	   		//return contact form with errors
 	            return Redirect::back()
 	            				->withErrors($validator)
 	            				->withInput();

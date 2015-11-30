@@ -29,7 +29,7 @@
                           <span>Classmates</span>
                       </a>
                   </li>
-
+                  @if(Entrust::hasRole(Config::get('customConfig.roles.user')))
                   {{-- Results --}}
                   <li>
 
@@ -46,7 +46,7 @@
                           <span>Charts</span>
                       </a>
                   </li>
-
+                  @endif
                   <li>
 
                       <a href="{{route('posts')}}">
@@ -57,7 +57,7 @@
 
 
                   @if(Entrust::hasRole(Config::get('customConfig.roles.admin')))
-
+                  <li>Admin Rights</li>
                   <li>
 
                       <a href="{{route('users')}}">

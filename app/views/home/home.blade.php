@@ -228,9 +228,7 @@
     <div class="container">
         <div class="row">
             <h2 class="text-center">আজকের উক্তি</h2>
-            <h1>“The best and most beautiful things in the world cannot be seen or even touched -
-               they must be felt with the heart"
-               <br> - Helen Keller</h1>
+            <h1>“Only those who care about you can hear you when you’re quiet"</h1>
         </div>
     </div>
 </section>
