@@ -56,63 +56,18 @@
                 <div class="border-head">
                     <h3>Earning Graph</h3>
                 </div>
+                <script>
+(function(w,d,s,g,js,fs){
+  g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(f){this.q.push(f);}};
+  js=d.createElement(s);fs=d.getElementsByTagName(s)[0];
+  js.src='https://apis.google.com/js/platform.js';
+  fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
+}(window,document,'script'));
+</script>
                 <div class="custom-bar-chart">
-                    <ul class="y-axis">
-                        <li><span>100</span></li>
-                        <li><span>80</span></li>
-                        <li><span>60</span></li>
-                        <li><span>40</span></li>
-                        <li><span>20</span></li>
-                        <li><span>0</span></li>
-                    </ul>
-                    <div class="bar">
-                        <div class="title">JAN</div>
-                        <div class="value tooltips" data-original-title="80%" data-toggle="tooltip" data-placement="top" style="height: 80%;"></div>
-                    </div>
-                    <div class="bar ">
-                        <div class="title">FEB</div>
-                        <div class="value tooltips" data-original-title="50%" data-toggle="tooltip" data-placement="top" style="height: 50%;"></div>
-                    </div>
-                    <div class="bar ">
-                        <div class="title">MAR</div>
-                        <div class="value tooltips" data-original-title="40%" data-toggle="tooltip" data-placement="top" style="height: 40%;"></div>
-                    </div>
-                    <div class="bar ">
-                        <div class="title">APR</div>
-                        <div class="value tooltips" data-original-title="55%" data-toggle="tooltip" data-placement="top" style="height: 55%;"></div>
-                    </div>
-                    <div class="bar">
-                        <div class="title">MAY</div>
-                        <div class="value tooltips" data-original-title="20%" data-toggle="tooltip" data-placement="top" style="height: 20%;"></div>
-                    </div>
-                    <div class="bar ">
-                        <div class="title">JUN</div>
-                        <div class="value tooltips" data-original-title="39%" data-toggle="tooltip" data-placement="top" style="height: 39%;"></div>
-                    </div>
-                    <div class="bar">
-                        <div class="title">JUL</div>
-                        <div class="value tooltips" data-original-title="75%" data-toggle="tooltip" data-placement="top" style="height: 75%;"></div>
-                    </div>
-                    <div class="bar ">
-                        <div class="title">AUG</div>
-                        <div class="value tooltips" data-original-title="45%" data-toggle="tooltip" data-placement="top" style="height: 45%;"></div>
-                    </div>
-                    <div class="bar ">
-                        <div class="title">SEP</div>
-                        <div class="value tooltips" data-original-title="50%" data-toggle="tooltip" data-placement="top" style="height: 50%;"></div>
-                    </div>
-                    <div class="bar ">
-                        <div class="title">OCT</div>
-                        <div class="value tooltips" data-original-title="42%" data-toggle="tooltip" data-placement="top" style="height: 42%;"></div>
-                    </div>
-                    <div class="bar ">
-                        <div class="title">NOV</div>
-                        <div class="value tooltips" data-original-title="60%" data-toggle="tooltip" data-placement="top" style="height: 60%;"></div>
-                    </div>
-                    <div class="bar ">
-                        <div class="title">DEC</div>
-                        <div class="value tooltips" data-original-title="90%" data-toggle="tooltip" data-placement="top" style="height: 90%;"></div>
-                    </div>
+                    <div id="embed-api-auth-container"></div>
+<div id="chart-container"></div>
+<div id="view-selector-container"></div>
                 </div>
                 <!--custom chart end-->
             </div>
@@ -161,4 +116,65 @@
             </div>
         </div>
         @endif
+@stop
+
+@section('script')
+<script>
+
+gapi.analytics.ready(function() {
+
+  /**
+   * Authorize the user immediately if the user has already granted access.
+   * If no access has been created, render an authorize button inside the
+   * element with the ID "embed-api-auth-container".
+   */
+  gapi.analytics.auth.authorize({
+    container: 'embed-api-auth-container',
+    clientid: '1035808706718-o50h8nb0pml54l5e6c9cjtm7csqdbiob.apps.googleusercontent.com'
+  });
+
+
+  /**
+   * Create a new ViewSelector instance to be rendered inside of an
+   * element with the id "view-selector-container".
+   */
+  var viewSelector = new gapi.analytics.ViewSelector({
+    container: 'view-selector-container'
+  });
+
+  // Render the view selector to the page.
+  viewSelector.execute();
+
+
+  /**
+   * Create a new DataChart instance with the given query parameters
+   * and Google chart options. It will be rendered inside an element
+   * with the id "chart-container".
+   */
+  var dataChart = new gapi.analytics.googleCharts.DataChart({
+    query: {
+      metrics: 'ga:sessions',
+      dimensions: 'ga:date',
+      'start-date': '30daysAgo',
+      'end-date': 'yesterday'
+    },
+    chart: {
+      container: 'chart-container',
+      type: 'LINE',
+      options: {
+        width: '100%'
+      }
+    }
+  });
+
+
+  /**
+   * Render the dataChart on the page whenever a new view is selected.
+   */
+  viewSelector.on('change', function(ids) {
+    dataChart.set({query: {ids: ids}}).execute();
+  });
+
+});
+</script>
 @stop
