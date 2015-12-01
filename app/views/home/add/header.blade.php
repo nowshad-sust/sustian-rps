@@ -1,9 +1,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="Mosaddek">
-    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <meta name="description" content="A student service for SUSTians">
+    <meta name="author" content="Nowshad">
+    <meta name="keyword" content="SUST, student, service, result, rps">
     <link rel="shortcut icon" href="favicon-bar-chart-o.ico">
 
     <meta name="google-site-verification" content="rPBp3ZzLT5IIGnetvnX84kW1UDCxCqRy_mRHpwetzoc" />
