@@ -24,9 +24,9 @@
                                   </div>
 
                                   <div class="panel-body text-center">
-                                      <h5>
+                                      <h6>
                                           {{$value['info']->fullName}}
-                                      </h5>
+                                      </h6>
                                       <p class="price">{{$value['cgpa']}}</p>
                                   </div>
                               </section>
