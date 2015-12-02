@@ -65,7 +65,7 @@ Route::group(array('before' => 'auth|activation'), function()
 	Route::get('editResult/{id}',['as'=>'editResult', 'uses'=>'StatController@showResultEditForm']);
 	Route::post('editResult',['as'=>'updateResult', 'uses'=>'StatController@updateResult']);
 	Route::get('deleteResult/{id}',['as'=>'deleteResult', 'uses'=>'StatController@deleteResult']);
-	Route::get('classStanding',['as'=>'classStanding','uses'=>'StatController@getStanding']);
+	Route::get('classStanding',['as'=>'classStanding','uses'=>'StatController@getStanding2']);
 
 	//chart section
 	Route::get('chart/course-grade',['as'=>'chart.course-grade','uses'=>'ChartController@showcoursegrade']);

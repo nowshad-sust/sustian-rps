@@ -380,6 +380,83 @@ class StatController extends \BaseController {
         }
 
     }
+
+    public function getStanding2(){
+
+        try{
+
+            //check user has valid data to calculate
+            $user_cgpa = $this->calculateUserCGPA(Auth::user()->id);
+            if($user_cgpa == null || $user_cgpa <= 0){
+                return 'you have not given us enough data to get your position!';
+            }
+
+            //get cgpa list of each of your batch & dept
+            //sort them by cgpa
+            //get your position
+            $classmates_id = UserInfo::where('batch_id',Auth::user()->userInfo->batch_id)
+                                    ->where('dept_id',Auth::user()->userInfo->dept_id)
+                                    ->lists('user_id');
+
+            //calculate cgpa of each user
+            $classmates_cgpa = array();
+            foreach($classmates_id as $classmate_id){
+                $classmates_cgpa[] = $this->calculateUserCGPA($classmate_id);
+            }
+
+            //calculate cgpa of each user
+            $classmates_cgpa = array();
+            foreach($classmates_id as $classmate_id){
+                $classmates_cgpa[$classmate_id] = $this->calculateUserCGPA($classmate_id);
+            }
+
+            //$combinedArray = array_combine($classmates_id, $classmates_cgpa);
+
+            $combinedArray = array_filter($classmates_cgpa);
+
+            // foreach ($combinedArray as $id => $cgpa) {
+            //     echo $id.' = '.$cgpa;
+            // }
+
+            arsort($combinedArray, SORT_STRING | SORT_FLAG_CASE);
+            //return $combinedArray;
+            $position = 1;
+            $userposition = 1;
+            $RankingDetails = array();
+            foreach ($combinedArray as $id => $cgpa) {
+                $RankingDetails[$id]['info'] = UserInfo::where('user_id',$id)->first();
+                $RankingDetails[$id]['cgpa'] = $cgpa;
+                $RankingDetails[$id]['rank'] = $position;
+                if($id == Auth::user()->id){
+                    $userposition = $position;
+                }
+                $position++;
+            }
+
+            //return $RankingDetails;
+
+            $comparedWith = count($combinedArray);
+            
+            if($comparedWith < 1){
+
+                return View::make('stat.classStanding')->with(['title'=>'Class Standing',
+                    'standing'=>'not found',
+                    'comparison'=>$comparedWith]);
+            }else{
+
+                $classStanding = array_search(Auth::user()->userinfo->user_id,array_keys($combinedArray)) + 1;
+                return View::make('stat.classStanding')->with(['title'=>'Class Standing',
+                    'standing'=>$userposition,
+                    'ranking'=>$combinedArray,
+                    'RankingDetails'=>$RankingDetails,
+                    'comparison'=>$comparedWith]);
+            }
+
+        }catch (Exception $ex){
+            return Redirect::back()->with(['error'=>'standing could not be counted']);
+        }
+
+    }
     private function calculateUserCGPA($classmate_id)
     {
         try{
