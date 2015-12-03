@@ -169,11 +169,18 @@ class StatController extends \BaseController {
         $user_id = Auth::user()->id;
 
         $taken_courses_id = Result::where('user_id',$user_id)
-                                    //->where('grade_point','!=',0)
+                                    ->where('grade_point','!=',0)
                                     ->lists('course_id');
         $courseList = Course::whereNotIn('id',$taken_courses_id)
                               ->orderBy('course_semester','asc')
                               ->lists('course_number','id');
+
+        $newCourseList = array();
+        
+        foreach($courseList as $id=>$number){
+            $title = Course::where('course_number',$number)->pluck('course_title');
+            $newCourseList[$id] = $number.' - '.$title;
+        }
 
         $gradesList = [
             '0.00'    =>  'F',
@@ -188,7 +195,7 @@ class StatController extends \BaseController {
             '4.00'    =>  'A+'
         ];
 
-        return View::make('stat.resultForm')->with(['title'=>'Add Result','courseList'=>$courseList, 'gradeList'=>$gradesList]);
+        return View::make('stat.resultForm')->with(['title'=>'Add Result','courseList'=>$newCourseList, 'gradeList'=>$gradesList]);
     }
 
     public function validateResult(){

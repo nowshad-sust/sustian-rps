@@ -17,17 +17,16 @@
                           <div class="col-md-2">
                               <section class="panel">
                                   <div class="pro-img-box">
-                                      {{ HTML::image($value['info']->avatar_url, 'alt',array('width'=>'90%','height'=>'auto')) }}
+                                      {{ HTML::image($value['info']->avatar_url, 'alt',array('width'=>'auto','height'=>'150px')) }}
                                       <h2 class="adtocart" style="left:35%;">
                                           {{$value['rank']}}
                                       </h2>
                                   </div>
 
-                                  <div class="panel-body text-center">
-                                      <h6>
+                                  <div style="height:70px;" class="panel-body text-center">
+                                      <p>
                                           {{$value['info']->fullName}}
-                                      </h6>
-                                      <p class="price">{{$value['cgpa']}}</p>
+                                      </p>
                                   </div>
                               </section>
                           </div>

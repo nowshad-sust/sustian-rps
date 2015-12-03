@@ -16,7 +16,7 @@
         {{ Form::label('grade_point', 'Obtained Grade', array('' => '')) }}
         {{ Form::select('grade_point',$gradeList, null, array('class' => 'form-control')) }}
 
-
+        <br>
         {{ Form::submit('Add', array('class' => 'btn btn-lg btn-login btn-block')) }}
     </div>
 
