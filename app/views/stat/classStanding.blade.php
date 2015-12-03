@@ -17,13 +17,17 @@
                           <div class="col-md-2">
                               <section class="panel">
                                   <div class="pro-img-box">
-                                      {{ HTML::image($value['info']->avatar_url, 'alt',array('width'=>'auto','height'=>'150px')) }}
-                                      <h2 class="adtocart" style="left:35%;">
+                                      {{ HTML::image($value['info']->avatar_url, 'alt',array()) }}
+                                      <h2 class="adtocart text-center" style="left:35%;">
                                           {{$value['rank']}}
                                       </h2>
                                   </div>
 
-                                  <div style="height:70px;" class="panel-body text-center">
+                                  @if($key == Auth::user()->id)
+                                  <div style="height:70px;" class="panel-body text-center bg-info">
+                                  @else
+                                  <div style="height:70px;" class="panel-body text-center bg-success">
+                                  @endif
                                       <p>
                                           {{$value['info']->fullName}}
                                       </p>
