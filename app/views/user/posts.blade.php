@@ -23,8 +23,8 @@
             @if($latest_posts != null && count($latest_posts) >0 )
             <table class="dataTable" id="example" width="100%">
                 <thead>
-                <tr>
-                    <th><h3>Posts</h3></th>
+                <tr class='text-center'>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>

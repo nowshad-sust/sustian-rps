@@ -15,4 +15,8 @@ class Message extends \Eloquent {
         return $this->belongsTo('User','receiver_id','id');
     }
 
+    public function thread(){
+        return $this->belongsTo('Thread','thread_id','id');
+    }
+
 }

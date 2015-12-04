@@ -19,11 +19,13 @@ class CreateMessageTable extends Migration {
 			$table->integer('receiver_id')->unsigned();
 			$table->boolean('seen_status');
 			$table->string('subject');
+			$table->integer('thread_id')->unsigned;
 			$table->longText('message');
 			$table->timestamps();
 
             $table->foreign('sender_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('receiver_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('thread_id')->references('id')->on('thread')->onUpdate('cascade')->onDelete('cascade');
 		});
 	}
 
