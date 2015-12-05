@@ -4,6 +4,7 @@
 
     <div class="form-group last">
         <label class="control-label col-md-3">Image Upload</label>
+        <h6>please try to provide square shaped image</h6>
         {{ Form::open(array('role'=>'form','route' => 'storeAvatar', 'class' => 'form-horizontal','files' => true)) }}
         <div class="col-md-9">
             <div class="fileupload fileupload-new" data-provides="fileupload">
