@@ -49,7 +49,7 @@
             </div>
             <!-- notice board -->
             <div class="col-lg-4">
-                    <h4 class="text-center">Notice Board</h4>
+                    <h4 class="text-center">What's New !</h4>
                       <!--features carousel start-->
                       <section class="panel">
                           <div class="flat-carousal">

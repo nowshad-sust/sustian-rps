@@ -4,7 +4,7 @@
     @include('includes.statMenu')
 
     <div class="panel-body">
-
+        <h5>The ranking process: total credits passed -> total cgpa</h5>
         <h2>your position: <strong>{{$standing}}</strong> among {{$comparison}} of your classmates !</h2>
 
     </div>
@@ -30,6 +30,12 @@
                                   @endif
                                       <p>
                                           {{$value['info']->fullName}}
+                                      </p>
+                                      <p>
+                                          {{$value['credits']}}
+                                      </p>
+                                      <p>
+                                          {{$value['cgpa']}}
                                       </p>
                                   </div>
                               </section>

@@ -407,32 +407,39 @@ class StatController extends \BaseController {
 
             //calculate cgpa of each user
             $classmates_cgpa = array();
+            $classmates_passed_credits = array();
             foreach($classmates_id as $classmate_id){
-                $classmates_cgpa[] = $this->calculateUserCGPA($classmate_id);
+                $classmates_cgpa[$classmate_id]['cgpa'] = $this->calculateUserCGPA($classmate_id);
+                $classmates_cgpa[$classmate_id]['credits'] = $this->getPassedCredits($classmate_id);
             }
 
-            //calculate cgpa of each user
-            $classmates_cgpa = array();
-            foreach($classmates_id as $classmate_id){
-                $classmates_cgpa[$classmate_id] = $this->calculateUserCGPA($classmate_id);
-            }
-
+            //return $classmates_cgpa;
             //$combinedArray = array_combine($classmates_id, $classmates_cgpa);
 
             $combinedArray = array_filter($classmates_cgpa);
 
-            // foreach ($combinedArray as $id => $cgpa) {
-            //     echo $id.' = '.$cgpa;
-            // }
+            foreach ($combinedArray as $key => $value) {
+                if($value['cgpa'] == null){
+                    unset($combinedArray[$key]);
+                }
+            }
+            
+            uasort($combinedArray, function($a, $b) { 
+                $rdiff = $b['credits'] - $a['credits'];
+                if ($rdiff) return $rdiff; 
+                return $a['cgpa'] <= $b['cgpa']; 
+            });
 
-            arsort($combinedArray, SORT_STRING | SORT_FLAG_CASE);
             //return $combinedArray;
+            
             $position = 1;
             $userposition = 1;
             $RankingDetails = array();
-            foreach ($combinedArray as $id => $cgpa) {
+
+            foreach ($combinedArray as $id => $value) {
                 $RankingDetails[$id]['info'] = UserInfo::where('user_id',$id)->first();
-                $RankingDetails[$id]['cgpa'] = $cgpa;
+                $RankingDetails[$id]['cgpa'] = $value['cgpa'];
+                $RankingDetails[$id]['credits'] = $value['credits'];
                 $RankingDetails[$id]['rank'] = $position;
                 if($id == Auth::user()->id){
                     $userposition = $position;
@@ -464,6 +471,30 @@ class StatController extends \BaseController {
         }
 
     }
+
+    public function getPassedCredits($user_id){
+        try{
+                $taken_courses_id = Result::where('user_id',$user_id)->lists('course_id');
+                $passed_courses = Result::where('user_id',$user_id)
+                    ->where('grade_point','!=',0.00)
+                    ->whereIn('course_id',$taken_courses_id)
+                    ->with('Course')
+                    ->get(['course_id']);
+
+                $passed_credits = 0;
+
+                foreach ($passed_courses as $course) {
+                    $passed_credits += (float) $course->course->course_credit;
+                }
+
+                return $passed_credits;
+
+            }catch(Exception $ex){
+                return Redirect::back()->with(['error'=>'could not count CGPA']);
+            }
+    }
+
+
     private function calculateUserCGPA($classmate_id)
     {
         try{
