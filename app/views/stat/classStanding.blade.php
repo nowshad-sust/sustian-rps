@@ -31,12 +31,6 @@
                                       <p>
                                           {{$value['info']->fullName}}
                                       </p>
-                                      <p>
-                                          {{$value['credits']}}
-                                      </p>
-                                      <p>
-                                          {{$value['cgpa']}}
-                                      </p>
                                   </div>
                               </section>
                           </div>
