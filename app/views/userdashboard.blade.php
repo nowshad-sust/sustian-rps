@@ -5,7 +5,8 @@
         <!--admin view of dashboard-->
         @if(Entrust::hasRole(Config::get('customConfig.roles.user')))
         <div class="row state-overview">
-            <div class="col-lg-3 col-sm-6">
+        <div class="col-lg-8">
+            <div class="col-lg-6 col-sm-6">
                 <section class="panel">
                     <div class="symbol terques">
                         <i class="fa fa-user"></i>
@@ -15,8 +16,6 @@
                         <p>Credits Passed</p>
                     </div>
                 </section>
-            </div>
-            <div class="col-lg-3 col-sm-6">
                 <section class="panel">
                     <div class="symbol yellow">
                         <i class="fa fa-shopping-cart"></i>
@@ -27,7 +26,16 @@
                     </div>
                 </section>
             </div>
-            <div class="col-lg-3 col-sm-6">
+            <div class="col-lg-6 col-sm-6">
+                <section class="panel">
+                    <div class="symbol blue">
+                        <i class="fa fa-bar-chart-o"></i>
+                    </div>
+                    <div class="value">
+                        <h1 class=" count4">{{ $current_cgpa }}</h1>
+                        <p>Current CGPA</p>
+                    </div>
+                </section>
                 <section class="panel">
                     <div class="symbol red">
                         <i class="fa fa-tags"></i>
@@ -38,16 +46,38 @@
                     </div>
                 </section>
             </div>
-            <div class="col-lg-3 col-sm-6">
-                <section class="panel">
-                    <div class="symbol blue">
-                        <i class="fa fa-bar-chart-o"></i>
-                    </div>
-                    <div class="value">
-                        <h1 class=" count4">{{ $current_cgpa }}</h1>
-                        <p>Current CGPA</p>
-                    </div>
-                </section>
+            </div>
+            <!-- notice board -->
+            <div class="col-lg-4">
+                    <h4 class="text-center">Notice Board</h4>
+                      <!--features carousel start-->
+                      <section class="panel">
+                          <div class="flat-carousal">
+                              <div id="owl-demo" class="owl-carousel owl-theme">
+                                  <div class="item">
+                                      <h1>NEW UPDATES LAUNCHED !!!</h1>
+                                      <div class="text-center">
+                                          <a href="javascript:;" class="view-all">View All</a>
+                                      </div>
+                                  </div>
+                                  <div class="item">
+                                      <h1>New Messaging system added</h1>
+                                      <div class="text-center">
+                                          <a href="javascript:;" class="view-all">View All</a>
+                                      </div>
+                                  </div>
+                                  <div class="item">
+                                      <h1>Adding results - is now easier with both course id and full Name.</h1>
+                                      <div class="text-center">
+                                          <a href="javascript:;" class="view-all">View All</a>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </section>
+                      <!--features carousel end-->
+
+                      
             </div>
         </div>
         <div class="row">
@@ -206,6 +236,7 @@
 
 
 @section('style')
+{{ HTML::style('css/owl.carousel.css') }}
     <style type="text/css">
         canvas {
             display: block;
@@ -218,11 +249,39 @@
         }
     </style>
 
+
+
 @stop
 
 
 @section('script')
     {{HTML::script('js/Chart.min.js')}}
+    {{HTML::script('js/owl.carousel.js')}}
+
+    <script>
+
+      //owl carousel
+
+      $(document).ready(function() {
+          $("#owl-demo").owlCarousel({
+              navigation : true,
+              slideSpeed : 100,
+              paginationSpeed : 300,
+              singleItem : true,
+              autoPlay:true
+
+          });
+      });
+
+      //custom select box
+
+      $(function(){
+          $('select.styled').customSelect();
+      });
+
+  </script>
+
+
 
     <script>
     var today = new Date();

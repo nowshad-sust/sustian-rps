@@ -49,7 +49,7 @@ Route::group(array('before' => 'auth|activation'), function()
 	Route::get('deletePost/{id}',['as'=>'deletePost', 'uses'=>'PostController@deletePost']);
 	Route::post('updatePost',['as'=>'updatePost','uses'=>'PostController@updatePost']);
 
-	//message section
+	//OLD message section
 	Route::get('writeMessage',['as'=>'writeMessage', 'uses'=>'MessageController@showMessageForm']);
   	Route::post('writeMessage',['as'=>'postMessage', 'uses'=>'MessageController@sendMessage']);
 	Route::get('messageDetails/{message_id}',['as'=>'messageDetails', 'uses'=>'MessageController@messageDetails']);
@@ -57,9 +57,11 @@ Route::group(array('before' => 'auth|activation'), function()
 	Route::get('replyMessage/{message_id}',['as'=>'replyMessage', 'uses'=>'MessageController@replyMessage']);
   	Route::post('replyMessage',['as'=>'postReply', 'uses'=>'MessageController@postReply']);
 
+  	//NEW messages section
   	Route::get('messages',['as'=>'messages', 'uses'=>'MessageController@showNewMessages']);
   	Route::get('messages/view/{thread_id}',['as'=>'messages.view', 'uses'=>'MessageController@ViewNewMessage']);
   	Route::post('messages/send/{thread_id}',['as'=>'messages.send', 'uses'=>'MessageController@postNewMessage']);
+  	Route::get('thread/new/{user_id}',['as'=>'thread.new', 'uses'=>'MessageController@newThread']);
 
 
 	//STAT section

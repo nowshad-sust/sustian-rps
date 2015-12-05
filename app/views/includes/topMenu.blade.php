@@ -43,7 +43,7 @@
                             @foreach($message as $message)
                                 @if($sender_info = User::where('id',$message->sender_id)->first())
                                 <li>
-                                    <a href="{{route('messageDetails',$message->id)}}">
+                                    <a href="{{route('messages.view',$message->thread_id)}}">
                                         <span class="photo">
                                             {{ HTML::image($sender_info->userInfo->icon_url, 'alt', array( 'width' => 35, 'height' => 35 )) }}
                                         </span>
@@ -60,7 +60,7 @@
                             @endforeach
 
                             <li>
-                                <a href="{{route('seeAllMessages')}}" class="green"> see older messages</a>
+                                <a href="{{route('messages')}}" class="green"> see all messages</a>
                             </li>
                         </ul>
                     </li>

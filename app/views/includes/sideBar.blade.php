@@ -21,6 +21,15 @@
                           <span>Profile</span>
                       </a>
                   </li>
+
+                  <li>
+
+                      <a href="{{route('messages')}}">
+                          <i class="fa fa-envelope-o"></i>
+                          <span>Messages</span>
+                      </a>
+                  </li>
+
                   {{-- Carrier Accounts --}}
                   <li>
 

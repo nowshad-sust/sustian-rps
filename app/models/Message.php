@@ -7,6 +7,8 @@ class Message extends \Eloquent {
 
     protected $guarded = ['id'];
 
+    protected $touches = array('Thread');
+
     public function sender(){
         return $this->belongsTo('User','sender_id','id');
     }

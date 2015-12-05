@@ -17,6 +17,7 @@ class CreateThreadTable extends Migration {
 			$table->increments('id');
 			$table->integer('owner1_id')->unsigned();
 			$table->integer('owner2_id')->unsigned();
+			$table->timestamps();
 			
 			$table->foreign('owner1_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
 			$table->foreign('owner2_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');

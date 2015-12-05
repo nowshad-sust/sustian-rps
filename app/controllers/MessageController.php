@@ -56,7 +56,37 @@ class MessageController extends \BaseController {
       }
     }
 
+    public function newThread($user_id){
+      $self_id =  Auth::user()->id;
+      
+      //check thread already exists
+      $check1 = Thread::where('owner1_id',$self_id)
+                ->Where('owner2_id',$user_id)
+                ->first();
+
+      $check2 = Thread::where('owner1_id',$user_id)
+                ->Where('owner2_id',$self_id)
+                ->first();
+
+      if($check1 != null || $check2 != null)
+        return 'you already have a message thread open with this user';
+
+      else{
+          $thread = new Thread();
+          $thread->owner1_id = $self_id;
+          $thread->owner2_id = $user_id;
+
+          if($thread->save()){
+            return Redirect::route('messages.view',$thread->id)->with('success','New message thread created');
+          }else{
+            return Redirect::back()->with('error','Thread creation failed');
+          }
+      }
+
+    }
+
     public function ViewNewMessage($thread_id){
+      try{
         $user_id = Auth::user()->id;
         $currentThread = Thread::where('id',$thread_id)
                               ->with('owner1')
@@ -66,23 +96,54 @@ class MessageController extends \BaseController {
         if($currentThread->owner1_id != $user_id && $currentThread->owner2_id != $user_id)
           return 'you do not have right to see the message thread';
 
+        $update = DB::table('message')->where('thread_id',$currentThread->id)
+                                      ->where('receiver_id',$user_id)
+                                      ->where('seen_status', false)
+                                      ->update(array('seen_status' => true));
+
+
         $threads = Thread::where('owner1_id',$user_id)
                 ->orWhere('owner2_id',$user_id)
                 ->with('owner1')
                 ->with('owner2')
-                //->with('Message')
+                ->orderBy('updated_at','DESC')
                 ->get();
 
-      $messages = $currentThread->message->sortBYDESC('created_at');
+      $messages = $currentThread->message->sortBY('created_at');
       //return $messages;
       if($currentThread->owner1_id == $user_id){
         $otherUserInfo = $currentThread->owner2;
         $userInfo = $currentThread->owner1;
       }
+
       elseif($currentThread->owner2_id == $user_id){
         $otherUserInfo = $currentThread->owner1;
         $userInfo = $currentThread->owner2;
       }
+
+      $users_having_threads = array();
+      //self-enlist
+      $users_having_threads[] = Auth::user()->id;
+      
+      foreach ($threads as $thread) {
+        if($thread->owner1_id != Auth::user()->id)
+          $users_having_threads[] = $thread->owner1->id;
+        elseif($thread->owner2_id != Auth::user()->id)
+          $users_having_threads[] = $thread->owner2->id;
+      }
+
+      //get users who dont have a thread with this user already
+      if(Entrust::hasRole(Config::get('customConfig.roles.admin'))){
+          $classmatesInfo = UserInfo::whereNotIn('id',$users_having_threads)
+                                      ->get();  
+      }else{
+          $classmatesInfo = UserInfo::where('dept_id',Auth::user()->userInfo->dept_id)
+                            ->where('batch_id',Auth::user()->userInfo->batch_id)
+                            ->whereNotIn('id',$users_having_threads)
+                            ->get();
+      }
+      
+
 
 
       return View::make('message.messages')->with('title','Message Box')
@@ -90,7 +151,12 @@ class MessageController extends \BaseController {
                                             ->with('currentThread',$currentThread)
                                             ->with('userInfo',$userInfo)
                                             ->with('otherUserInfo',$otherUserInfo)
-                                            ->with('messages',$messages);
+                                            ->with('messages',$messages)
+                                            ->with('otherClassmates', $classmatesInfo);
+      }catch(Exception $ex){
+        return Redirect::back()->with('error', 'messeging system error');
+      }
+        
     } 
 
     public function showNewMessages(){
@@ -98,14 +164,9 @@ class MessageController extends \BaseController {
       $user_id = Auth::user()->id;
       $thread = Thread::where('owner1_id',$user_id)
                 ->orWhere('owner2_id',$user_id)
-                ->with('owner1')
-                ->with('owner2')
-                ->with('Message')
-                ->get();
+                ->first();
 
-      //return $thread;
-      return View::make('message.messages')->with('title','Message Box')
-                                            ->with('threads',$thread);
+      return Redirect::route('messages.view',$thread->id);
     }
 
     public function showMessageForm(){
@@ -151,7 +212,8 @@ class MessageController extends \BaseController {
             $message->thread_id = $thread_id;
 
             if($message->save()){
-                return Redirect::route('messages.view',$thread->id)->with(['success'=>'Message Sent']);
+                $thread->touch();
+                return Redirect::route('messages.view',$thread->id);
             }else{
                 return Redirect::back()->with(['error'=>'error sending message']);
             }

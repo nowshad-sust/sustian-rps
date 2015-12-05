@@ -20,7 +20,7 @@
 
                       </ul>
                       
-                      <ul class="chat-list chat-user">
+                      <ul class="chat-list chat-user" style="height: 35vh; overflow: auto">
                         @foreach($threads as $thread)
                           @if(Route::getCurrentRoute()->getParameter('thread_id') == $thread->id)
                           <li class="active">
@@ -29,10 +29,10 @@
                           @endif
                               <a href="{{ route('messages.view',$thread->id) }}">
                                   @if($thread->owner1_id != Auth::user()->id)
-                                  {{ HTML::image($thread->owner1->userInfo->icon_url, 'alt', array( 'width' => 35, 'height' => 35,'class'=>'img-circle' )) }}
+                                  {{ HTML::image($thread->owner1->userInfo->icon_url, '', array( 'width' => 35, 'height' => 35,'class'=>'img-circle' )) }}
                                   <span>{{ $thread->owner1->userInfo->fullName }}</span>
                                   @elseif($thread->owner2_id != Auth::user()->id)
-                                  {{ HTML::image($thread->owner2->userInfo->icon_url, 'alt', array( 'width' => 35, 'height' => 35,'class'=>'img-circle' )) }}
+                                  {{ HTML::image($thread->owner2->userInfo->icon_url, '', array( 'width' => 35, 'height' => 35,'class'=>'img-circle' )) }}
                                   <span>{{ $thread->owner2->userInfo->fullName }}</span>
                                   @endif
                                   <!--
@@ -46,7 +46,7 @@
 
                       <footer>
                               <a class="chat-avatar" href="javascript:;">
-                                  {{ HTML::image(Auth::user()->userInfo->icon_url, 'alt', array( 'width' => 35, 'height' => 35 )) }}
+                                  {{ HTML::image(Auth::user()->userInfo->icon_url, '', array( 'width' => 35, 'height' => 35 )) }}
                               </a>
                               <div class="user-status">
                               <p>
@@ -107,79 +107,40 @@
                       </tfoot>
                       </table>
                       
-
-                      <footer>
+                      
+                      <div class="footer">
+                      
                       {{ Form::open(array('route' => ['messages.send',$currentThread->id], 'method' => 'post', 'role' => 'form')) }}
                           <div class="chat-txt">
-                              {{ Form::text('message', null, array('class' => 'form-control', 'autofocus')) }}
+                              {{ Form::text('message', null, array('class' => 'form-control','placeholder'=>'type a new message')) }}
                           </div>
                           {{ Form::submit('Send', array('class' => 'btn btn-danger pull-right')) }}
                         {{ Form::close() }}
-                      </footer>
+                      
+                      </div>
+                      
                   </aside>
                   <aside class="right-side">
                       <div class="user-head">
-                          <a href="#" class="chat-tools btn-success"><i class="fa fa-cog"></i> </a>
-                          <a href="#" class="chat-tools btn-key"><i class="fa fa-key"></i> </a>
+                          <h4>Open New Message Thread</h4>
                       </div>
                       <div class="invite-row">
-                          <h4 class="pull-left">People</h4>
+                          <h4 class="pull-left">Classmates</h4>
                       </div>
-                      <ul class="chat-available-user">
+                      <ul class="chat-available-user" style="float:left; height: 55vh; overflow: auto">
+                        @foreach($otherClassmates as $classmate)
                           <li>
-                              <a href="chat_room.html">
-                                  <i class="fa fa-circle text-success"></i>
-                                  Jonathan Smith
-                                  <span class="text-muted">3h:22m</span>
+                              <a href="{{ route('thread.new',$classmate->user_id) }}">
+                                  {{ HTML::image($classmate->icon_url, 'alt', array( 'width' => 30, 'height' => 30,'class'=>'img-circle' )) }}
+                                  {{$classmate->fullName}}
                               </a>
                           </li>
-                          <li>
-                              <a href="chat_room.html">
-                                  <i class="fa fa-circle text-success"></i>
-                                  Jhone Due
-                                  <span class="text-muted">1h:2m</span>
-                              </a>
-                          </li>
-                          <li>
-                              <a href="chat_room.html">
-                                  <i class="fa fa-circle text-success"></i>
-                                  Franklyn Kalley
-                                  <span class="text-muted">2h:32m</span>
-                              </a>
-                          </li>
-                          <li>
-                              <a href="chat_room.html">
-                                  <i class="fa fa-circle text-danger"></i>
-                                  Anjelina joe
-                                  <span class="text-muted">3h:22m</span>
-                              </a>
-                          </li>
-                          <li>
-                              <a href="chat_room.html">
-                                  <i class="fa fa-circle text-warning"></i>
-                                  Aliace Stalvien
-                                  <span class="text-muted">1h:12m</span>
-                              </a>
-                          </li>
-                          <li>
-                              <a href="chat_room.html">
-                                  <i class="fa fa-circle text-muted"></i>
-                                  Stive jones
-                                  <!--<span class="text-muted">3h:22m</span>-->
-                              </a>
-                          </li>
-                          <li>
-                              <a href="chat_room.html">
-                                  <i class="fa fa-circle text-muted"></i>
-                                  Jonathan Smith
-                                  <!--<span class="text-muted">3h:22m</span>-->
-                              </a>
-                          </li>
+                        @endforeach
                       </ul>
                       <footer>
-                          <a href="#" class="guest-on">
+                          <a href="{{route('writeMessage')}}" class="guest-on">
                               <i class="fa fa-check"></i>
-                              Guest Access On
+                              report bug
                           </a>
                       </footer>
                   </aside>
@@ -194,7 +155,7 @@
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function() {
 
-            $('#example').dataTable({
+            var table = $('#example').dataTable({
                 "order": [],
                 "bSort": false,
                 "bFilter": false,
@@ -203,6 +164,7 @@
                 "paging":         false
 
             });
+            table.parent().scrollTop(9999);
 
           $('#searchbox').on( 'keyup click', function () {
                  $('#example').DataTable().search(
