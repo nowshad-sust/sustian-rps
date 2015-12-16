@@ -86,6 +86,13 @@ Route::group(array('before' => 'auth|activation'), function()
 	//Route::get('results',['as'=>'results','uses'=>'StatController@showResultsTab']);
 	Route::get('cgpa',['as'=>'cgpa','uses'=>'StatController@calculateCGPA']);
 
+	//mass data entry section
+	Route::get('data-entry', ['as'=>'data.entry','uses'=>'ManagerController@index']);
+	Route::get('data-add/{course_id}', ['as'=>'data.add','uses'=>'ManagerController@addCourseResultForm']);
+	Route::put('data-add/{result_id}', ['as'=>'data.add.result','uses'=>'ManagerController@addCourseResultForOneUser']);
+	Route::post('data-add/new', ['as'=>'data.add.new.result','uses'=>'ManagerController@addNewCourseResultForOneUser']);
+	Route::get('delete-course-result/{result_id}',['as'=>'delete.course.result','uses'=>'ManagerController@deleteCourseResult']);
+
 });
 
 Route::group(array('before' => 'auth|admin'), function()
@@ -126,5 +133,6 @@ Route::group(array('before' => 'auth|admin'), function()
 	//message section
 	Route::get('writeMessageTo/{receiver_id}',['as'=>'writeMessageTo', 'uses'=>'MessageController@showMessageToForm']);
 	Route::post('writeMessageTo',['as'=>'postMessageTo', 'uses'=>'MessageController@postMessageTo']);
+
 
 });

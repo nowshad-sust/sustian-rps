@@ -66,39 +66,38 @@
 
 
                   @if(Entrust::hasRole(Config::get('customConfig.roles.admin')))
-                  <li>Admin Rights</li>
                   <li>
-
                       <a href="{{route('users')}}">
-                          <i class="fa fa-users"></i>
-                          <span>Users</span>
+                      <i class="fa fa-users"></i>
+                      <span>Users</span>
                       </a>
                   </li>
+                  <li class="sub-menu dcjq-parent-li">
+                      <a class="dcjq-parent">
+                          <i class="fa fa-laptop"></i>
+                          <span>Admin Data Add</span>
+                      <span class="dcjq-icon"></span></a>
+                      <ul class="sub" style="display: block;">
 
-                      <li>
-
+                        <li>
                           <a href="{{route('viewNotifications')}}">
                               <i class="fa fa-bell-o"></i>
                               <span>Notifications</span>
                           </a>
-                      </li>
-
-                      <li>
-
-                          <a href="{{route('showDept')}}">
-                              <i class="fa fa-bell-o"></i>
-                              <span>Departments</span>
-                          </a>
-                      </li>
-
-                      <li>
+                        </li>
+                        <li>
+                            <a href="{{route('showDept')}}">
+                                <i class="fa fa-bell-o"></i>
+                                <span>Departments</span>
+                            </a>
+                        </li>
+                        <li>
 
                           <a href="{{route('showBatch')}}">
                               <i class="fa fa-bell-o"></i>
                               <span>Batch</span>
                           </a>
                       </li>
-
                       <li>
 
                           <a href="{{route('showCourse')}}">
@@ -106,8 +105,45 @@
                               <span>Course</span>
                           </a>
                       </li>
-                      @endif
+                      </ul>
+                  </li>
 
+                  <li class="sub-menu dcjq-parent-li">
+                      <a class="dcjq-parent">
+                          <i class="fa fa-laptop"></i>
+                          <span>Manage Data</span>
+                      <span class="dcjq-icon"></span></a>
+                      <ul class="sub" style="display: block;">
+
+                        <li>
+                          <a href="{{route('data.entry')}}">
+                              <i class="fa fa-bell-o"></i>
+                              <span>Data Entry</span>
+                          </a>
+                        </li>
+                        <li>
+                            <a href="{{route('showDept')}}">
+                                <i class="fa fa-bell-o"></i>
+                                <span>Departments</span>
+                            </a>
+                        </li>
+                        <li>
+
+                          <a href="{{route('showBatch')}}">
+                              <i class="fa fa-bell-o"></i>
+                              <span>Batch</span>
+                          </a>
+                      </li>
+                      <li>
+
+                          <a href="{{route('showCourse')}}">
+                              <i class="fa fa-bell-o"></i>
+                              <span>Course</span>
+                          </a>
+                      </li>
+                      </ul>
+                  </li>
+                @endif
 
               </ul>
               <!-- sidebar menu end-->

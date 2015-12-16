@@ -11,6 +11,7 @@ return [
 	],
 	'roles' =>[
 		'admin' => 'admin',
-		'user' => 'user'
+		'user' => 'user',
+		'manager' => 'manager'
 	]
 ];

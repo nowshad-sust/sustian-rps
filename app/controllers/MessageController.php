@@ -29,6 +29,7 @@ class MessageController extends \BaseController {
       }
 
     }
+    
     public function postMessageTo(){
       $rules =[
           'subject'  =>  'required',
@@ -93,6 +94,7 @@ class MessageController extends \BaseController {
                               ->with('owner2')
                               ->with('Message')
                               ->first();
+                              
         if($currentThread->owner1_id != $user_id && $currentThread->owner2_id != $user_id)
           return 'you do not have right to see the message thread';
 
