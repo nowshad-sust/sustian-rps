@@ -4,10 +4,82 @@ class AdminController extends \BaseController {
 
     public function showUsers(){
 
-        $Users = User::all();
-        //return $Users;
+        $Users = Role::where('name', 'user')
+                        ->with('users')
+                        ->get();
+
         return View::make('admin.user.users')->with('title','Admin Dashborad')
                                             ->with('Users',$Users);
+    }
+
+    public function showManagers(){
+        $managers = Role::where('name', 'manager')
+                        ->with('users')
+                        ->get();
+
+        //return $managers[0]->users;
+        return View::make('admin.user.users')->with('title','Admin Dashborad')
+                                                ->with('Users',$managers);
+        
+    }
+
+    public function makeManager($user_id){
+
+        try{
+
+            $user = User::with('roles')->find($user_id);
+            $roles = $user->roles;
+
+            foreach ($roles as $role) {
+                if($role->name == 'manager' || $role->name == 'admin'){
+                    return Redirect::back()->with('warning','This user is already a manager or an admin');
+                }
+            }
+
+            $user->attachRole(3);
+            $save = $user->save();
+            
+            if($save){
+              return Redirect::back()->with('success','user has been made a manager');  
+            }
+
+        }catch(Exception $ex){
+            return Redirect::back()->with('error','Something went wrong');
+        }
+    }
+
+    public function removeManager($user_id){
+
+        try{
+
+            $user = User::with('roles')->find($user_id);
+            $roles = $user->roles;
+
+            if($user->hasRole('manager'))
+            {
+                $user->detachRole(3);
+                $save = $user->save();
+            }else{
+                return Redirect::back()->with('warning','user is not a manager');
+            }
+            
+        if($save){
+            return Redirect::back()->with('success','user has been removed from manager');
+            }
+        }catch(Exception $ex){
+            return Redirect::back()->with('error','manager removal error');
+        }
+    }
+
+    public function showAdmin(){
+        $admin = Role::where('name', 'admin')
+                        ->with('users')
+                        ->get();
+
+        //return $managers[0]->users;
+        return View::make('admin.user.users')->with('title','Admin Dashborad')
+                                                ->with('Users',$admin);
+        
     }
 
     public function viewNotification(){

@@ -85,30 +85,43 @@
                               <span>Course</span>
                           </a>
                         </li>
-
-                        <li>
-                            <a href="{{route('showDept')}}">
-                                <i class="fa fa-bell-o"></i>
-                                <span>Departments</span>
-                            </a>
-                        </li>
-                        <li>
-
-                          <a href="{{route('showBatch')}}">
-                              <i class="fa fa-bell-o"></i>
-                              <span>Batch</span>
-                          </a>
-                      </li>
                       </ul>
                   </li>
                   @endif
 
                   @if(Entrust::hasRole(Config::get('customConfig.roles.admin')))
-                  <li>
-                      <a href="{{route('users')}}">
-                      <i class="fa fa-users"></i>
-                      <span>Users</span>
-                      </a>
+                  
+                  <li class="sub-menu dcjq-parent-li">
+                      <a class="dcjq-parent">
+                          <i class="fa fa-users"></i>
+                          <span>Users Panel</span>
+                      <span class="dcjq-icon"></span></a>
+                      <ul class="sub" style="display: block;">
+
+                        <li>
+                          <a href="{{route('users')}}">
+                              <i class="fa fa-users"></i>
+                              <span>Normal users</span>
+                          </a>
+                        </li>
+                        
+                        <li>
+
+                          <a href="{{route('managers.show')}}">
+                              <i class="fa fa-users"></i>
+                              <span>Managers</span>
+                          </a>
+                        </li>
+
+                        <li>
+
+                          <a href="{{route('admin.show')}}">
+                              <i class="fa fa-users"></i>
+                              <span>admins</span>
+                          </a>
+                        </li>
+
+                      </ul>
                   </li>
                   <li class="sub-menu dcjq-parent-li">
                       <a class="dcjq-parent">

@@ -18,14 +18,12 @@
                 <th>activation</th>
 
                 <th class="text-center">Action</th>
-                @if($Users[0]->name != 'admin')
                 <th class="text-center">Rights</th>
-                @endif                
 
             </tr>
             </thead>
             <tbody>
-            @foreach($Users[0]->users as $Info)
+            @foreach($managers[0]->users as $Info)
 
                 <tr class="">
                     <td>{{$Info->id}}</td>
@@ -46,13 +44,10 @@
                         <a class="btn btn-xs btn-success btn-edit" href="{{ URL::route('showProfile',$Info->userInfo->user_id) }}">details</a>
                         <a class="btn btn-xs btn-info btn-edit" href="{{ URL::route('writeMessageTo',$Info->userInfo->user_id) }}">message</a>
                     </td>
-                    @if($Users[0]->name != 'admin')
-                        @if($Users[0]->name == 'user')
-                        <td><a class="btn btn-xs btn-info btn-edit" href="{{ URL::route('manager.make',$Info->id) }}">make manager</a></td>
-                        @elseif($Users[0]->name == 'manager')
-                        <td><a class="btn btn-xs btn-info btn-edit" href="{{ URL::route('manager.remove',$Info->id) }}">remove manager</a></td>
-                        @endif
-                    @endif
+                    <td class="text-center">
+                        <a class="btn btn-xs btn-success btn-edit" href="{{ URL::route('showProfile',$Info->userInfo->user_id) }}">details</a>
+                        <a class="btn btn-xs btn-info btn-edit" href="{{ URL::route('writeMessageTo',$Info->userInfo->user_id) }}">message</a>
+                    </td>
 
                 </tr>
 

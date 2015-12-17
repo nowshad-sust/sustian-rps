@@ -103,11 +103,25 @@ Route::group(array('before' => 'manager'), function()
 	Route::post('add-course', ['as'=>'course.add.post','uses'=>'ManagerController@addCourse']);
 	Route::get('edit-course/{id}',['as'=>'course.edit.form','uses'=>'ManagerController@showCourseEditForm']);
 	Route::put('edit-course/{id}',['as'=>'course.edit.put', 'uses'=>'ManagerController@editCourse']);
-	Route::get('delete-course/{id}',['as'=>'course.delete','uses'=>'ManagerController@deleteCourse']);	
+	Route::get('delete-course/{id}',['as'=>'course.delete','uses'=>'ManagerController@deleteCourse']);
 });
 
 Route::group(array('before' => 'auth|admin'), function()
 {
+	/* user panel */
+	//normal users section
+	Route::get('users', ['as'=>'users','uses'=>'AdminController@showUsers']);
+	//managers
+	Route::get('managers',['as'=>'managers.show', 'uses'=>'AdminController@showManagers']);
+	Route::get('make-manager/{user_id}',['as'=>'manager.make', 'uses'=>'AdminController@makeManager']);
+	Route::get('remove-manager/{user_id}',['as'=>'manager.remove', 'uses'=>'AdminController@removeManager']);
+
+	//admin
+	Route::get('admin',['as'=>'admin.show', 'uses'=>'AdminController@showAdmin
+		']);
+	//Route::get('managers',['as'=>'managers.show', 'uses'=>'AdminController@showManagers']);
+
+
 	//notification section
 	Route::get('addNotification',['as'=>'addNotification', 'uses'=>'AdminController@showNotificationForm']);
 	Route::post('addNotification',['as'=>'addNotification', 'uses'=>'AdminController@addNotification']);
@@ -137,9 +151,6 @@ Route::group(array('before' => 'auth|admin'), function()
 	Route::get('deleteCourse/{id}',['as'=>'deleteCourse','uses'=>'AdminController@deleteCourse']);
 	Route::get('editCourse/{id}',['as'=>'editCourse','uses'=>'AdminController@showCourseEditForm']);
 	Route::post('editCourse',['as'=>'updateCourse', 'uses'=>'AdminController@editCourse']);
-
-	//users section
-	Route::get('users', ['as'=>'users','uses'=>'AdminController@showUsers']);
 
 	//message section
 	Route::get('writeMessageTo/{receiver_id}',['as'=>'writeMessageTo', 'uses'=>'MessageController@showMessageToForm']);
