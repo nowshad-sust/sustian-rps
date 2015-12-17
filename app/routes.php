@@ -86,13 +86,24 @@ Route::group(array('before' => 'auth|activation'), function()
 	//Route::get('results',['as'=>'results','uses'=>'StatController@showResultsTab']);
 	Route::get('cgpa',['as'=>'cgpa','uses'=>'StatController@calculateCGPA']);
 
+});
+
+Route::group(array('before' => 'manager'), function()
+{
 	//mass data entry section
 	Route::get('data-entry', ['as'=>'data.entry','uses'=>'ManagerController@index']);
 	Route::get('data-add/{course_id}', ['as'=>'data.add','uses'=>'ManagerController@addCourseResultForm']);
 	Route::put('data-add/{result_id}', ['as'=>'data.add.result','uses'=>'ManagerController@addCourseResultForOneUser']);
 	Route::post('data-add/new', ['as'=>'data.add.new.result','uses'=>'ManagerController@addNewCourseResultForOneUser']);
 	Route::get('delete-course-result/{result_id}',['as'=>'delete.course.result','uses'=>'ManagerController@deleteCourseResult']);
-
+	
+	//course section
+	Route::get('show-course',['as'=>'course.show','uses'=>'ManagerController@showCourseList']);
+	Route::get('add-course', ['as'=>'course.add.form','uses'=>'ManagerController@showCourseAddForm']);
+	Route::post('add-course', ['as'=>'course.add.post','uses'=>'ManagerController@addCourse']);
+	Route::get('edit-course/{id}',['as'=>'course.edit.form','uses'=>'ManagerController@showCourseEditForm']);
+	Route::put('edit-course/{id}',['as'=>'course.edit.put', 'uses'=>'ManagerController@editCourse']);
+	Route::get('delete-course/{id}',['as'=>'course.delete','uses'=>'ManagerController@deleteCourse']);	
 });
 
 Route::group(array('before' => 'auth|admin'), function()

@@ -1,6 +1,6 @@
 @extends('layouts.default')
     @section('content')
-        @include('manager.managerMenu')
+        <!--@include('manager.managerMenu')-->
         @include('includes.alert')
 
         <div class="panel-body">

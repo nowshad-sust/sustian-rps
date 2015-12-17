@@ -103,12 +103,18 @@ Route::filter('csrf', function()
 
 Route::filter('admin',function(){
 	if(! Entrust::hasRole(Config::get('customConfig.roles.admin'))){
-		return Redirect::to('/');
+		return Redirect::back();
+	}
+});
+
+Route::filter('manager',function(){
+	if(! Entrust::hasRole(Config::get('customConfig.roles.manager'))){
+		return Redirect::back();
 	}
 });
 
 Route::filter('user',function(){
 	if(! Entrust::hasRole(Config::get('customConfig.roles.user'))){
-		return Redirect::to('/');
+		return Redirect::back();
 	}
 });
