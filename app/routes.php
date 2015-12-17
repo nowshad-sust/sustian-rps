@@ -117,8 +117,7 @@ Route::group(array('before' => 'auth|admin'), function()
 	Route::get('remove-manager/{user_id}',['as'=>'manager.remove', 'uses'=>'AdminController@removeManager']);
 
 	//admin
-	Route::get('admin',['as'=>'admin.show', 'uses'=>'AdminController@showAdmin
-		']);
+	Route::get('admin',['as'=>'admin.show', 'uses'=>'AdminController@showAdmin']);
 	//Route::get('managers',['as'=>'managers.show', 'uses'=>'AdminController@showManagers']);
 
 
