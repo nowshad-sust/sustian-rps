@@ -17,7 +17,7 @@ class AdminController extends \BaseController {
                         ->with('users')
                         ->get();
 
-        return $managers;
+        //return $managers;
         return View::make('admin.user.users')->with('title','Admin Dashborad')
                                                 ->with('Users',$managers);
         
