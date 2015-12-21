@@ -309,14 +309,17 @@ class ChartController extends \BaseController {
             else{
                 try{
                     $userInfo = Auth::user()->userinfo;
-                    if(Course::find($course_id)!=null){
-                        //unauthorised access
-                        //check user has access to that course info
-                        $courseInfo = Course::find($course_id);
-
+                    $courseInfo = Course::where('dept_id', Auth::user()->userInfo->dept->id)
+                                        ->where('batch_id',Auth::user()->userInfo->batch->id)
+                                        ->find($course_id);
+                    //for unauthorised access
+                    //check user has access to that course info
+                    if($courseInfo){
                         if($courseInfo->batch->batch == $userInfo->batch->batch
                         && $courseInfo->dept->dept == $userInfo->dept->dept){
+
                             $CourseName = $courseInfo->course_title;
+                            //get all results of that course by id
                             $results = Result::where('course_id',$course_id)
                                                 ->lists('grade_point');
 

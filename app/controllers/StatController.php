@@ -19,8 +19,24 @@ class StatController extends \BaseController {
     }
 
     public function showResultsTab(){
-        return View::make('stat.resultsTab')->with(['title'=>'Results Tab']);
-    }
+
+        try{
+
+            $user_dept = Auth::user()->userInfo->dept->id;
+            $user_batch = Auth::user()->userInfo->batch->id; 
+
+            return $courses = Course::where('dept_id',$dept_id)
+                                ->where('batch_id',$batch_id)
+                                ->with('result')
+                                ->get();
+
+            return View::make('stat.resultsTab')->with(['title'=>'Results Tab'])
+                                                ->with('dropInfo',[]);
+        }catch (Exception $ex){
+            return View::make('stat.resultsTab')->with(['title'=>'Results Tab'])
+                                                ->with('dropInfo',[]);;
+        }
+    }        
 
     public function showResultEditForm($id){
         try{
@@ -171,14 +187,20 @@ class StatController extends \BaseController {
         $taken_courses_id = Result::where('user_id',$user_id)
                                     ->where('grade_point','!=',0)
                                     ->lists('course_id');
-        $courseList = Course::whereNotIn('id',$taken_courses_id)
-                              ->orderBy('course_semester','asc')
-                              ->lists('course_number','id');
+        $courseList = Course::where('dept_id', Auth::user()->userInfo->dept->id)
+                            ->where('batch_id',Auth::user()->userInfo->batch->id)
+                            ->whereNotIn('id',$taken_courses_id)
+                            ->orderBy('course_semester','asc')
+                            ->lists('course_number','id');
 
         $newCourseList = array();
         
         foreach($courseList as $id=>$number){
-            $title = Course::where('course_number',$number)->pluck('course_title');
+            $title = Course::where('dept_id', Auth::user()->userInfo->dept->id)
+                            ->where('batch_id',Auth::user()->userInfo->batch->id)
+                            ->where('course_number',$number)
+                            ->pluck('course_title');
+                            
             $newCourseList[$id] = $number.' - '.$title;
         }
 

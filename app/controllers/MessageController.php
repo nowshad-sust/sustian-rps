@@ -69,8 +69,18 @@ class MessageController extends \BaseController {
                 ->Where('owner2_id',$self_id)
                 ->first();
 
-      if($check1 != null || $check2 != null)
-        return 'you already have a message thread open with this user';
+      if($check2 != null){
+        //redirect to that thread
+        return $check2;
+        return Redirect::route('messages.view',$check2->id)->with('warning','message thread already exists!');
+        //return 'you already have a message thread open with this user';
+      }
+      if($check1 != null){
+        return $check1;
+        //redirect to that thread
+        return Redirect::route('messages.view',$check1->id)->with('warning','message thread already exists!');
+        //return 'you already have a message thread open with this user';
+      }
 
       else{
           $thread = new Thread();

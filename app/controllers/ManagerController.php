@@ -258,7 +258,12 @@ class ManagerController extends \BaseController {
 
     public function showCourseList(){
 
-        $courseInfo = Course::with(['dept','batch'])->get();
+        $courseInfo = Course::where('dept_id', Auth::user()->userInfo->dept->id)
+        					->where('batch_id',Auth::user()->userInfo->batch->id)
+        					->with('dept')
+        					->with('batch')
+        					->get();
+        					
         return View::make('manager.course.courseList')->with(['title'=>'Courses','courseInfo'=>$courseInfo]);
     }
 

@@ -36,7 +36,8 @@
                             </li>
                             <li>
                                 @if(Entrust::hasRole(Config::get('customConfig.roles.user')))
-                                <a href="{{route('writeMessage')}}" class="green"><i class="fa fa-pencil"></i> Send message to admin</a>
+                                <!--try to connect to admin thread-->
+                                <a href="{{route('messages.view',1)}}" class="green"><i class="fa fa-pencil"></i> Send message to admin</a>
                                 @endif
                             </li>
 

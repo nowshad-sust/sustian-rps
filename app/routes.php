@@ -83,7 +83,7 @@ Route::group(array('before' => 'auth|activation'), function()
 
 	//Route::get('gpa',['as'=>'gpa','uses'=>'ChartController@calculateGPA']);
 	Route::get('gpa/{semester}',['as'=>'gpaBySemester','uses'=>'StatController@gpaBySemester']);
-	//Route::get('results',['as'=>'results','uses'=>'StatController@showResultsTab']);
+	Route::get('results',['as'=>'results','uses'=>'StatController@showResultsTab']);
 	Route::get('cgpa',['as'=>'cgpa','uses'=>'StatController@calculateCGPA']);
 
 });
