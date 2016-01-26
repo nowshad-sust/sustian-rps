@@ -47,6 +47,7 @@
                 </section>
             </div>
             </div>
+
             <!-- notice board -->
             <div class="col-lg-4">
                     <h4 class="text-center">What's New !</h4>
@@ -237,6 +238,7 @@
 
 @section('style')
 {{ HTML::style('css/owl.carousel.css') }}
+
     <style type="text/css">
         canvas {
             display: block;
@@ -257,12 +259,19 @@
 @section('script')
     {{HTML::script('js/Chart.min.js')}}
     {{HTML::script('js/owl.carousel.js')}}
-
+    
+    
+<!--
+    {{HTML::script('js/count.js')}}
+    <script type="text/javascript">
+        countUp1(100.7);
+    </script>
+    
     <script>
-
+-->
       //owl carousel
-
-      $(document).ready(function() {
+<script type="text/javascript">
+    $(document).ready(function() {
           $("#owl-demo").owlCarousel({
               navigation : true,
               slideSpeed : 100,
@@ -278,9 +287,8 @@
       $(function(){
           $('select.styled').customSelect();
       });
-
-  </script>
-
+</script>
+      
 
 
     <script>

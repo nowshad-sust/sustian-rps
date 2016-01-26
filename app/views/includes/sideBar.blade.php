@@ -42,7 +42,7 @@
                   {{-- Results --}}
                   <li>
 
-                      <a href="{{route('resultsDataTable')}}">
+                      <a href="{{route('addResult')}}">
                           <i class="fa fa-table"></i>
                           <span>Results</span>
                       </a>

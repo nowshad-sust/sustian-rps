@@ -1,21 +1,23 @@
-<div style="background-color: lightgreen;">
-<ul class="nav nav-tabs nav-justified ">
-    @if(Route::currentRouteName() == 'resultsDataTable')
-        <li class="active"><a href="{{route('resultsDataTable')}}"><i class="fa fa-home"></i> All Results</a></li>
+<div class="panel-heading tab-bg-dark-navy-blue">
+<div>
+<ul class="nav nav-tabs nav-justified">
+
+    @if(Route::currentRouteName() == 'addResult')
+        <li class="active"><a href="{{route('addResult')}}">Add Result</a></li>
     @else
-        <li><a href="{{route('resultsDataTable')}}"><i class="fa fa-home"></i> All Results</a></li>
+        <li><a href="{{route('addResult')}}"> Add Result</a></li>
+    @endif
+
+    @if(Route::currentRouteName() == 'resultsDataTable')
+        <li class="active"><a href="{{route('resultsDataTable')}}"> All Results</a></li>
+    @else
+        <li><a href="{{route('resultsDataTable')}}"> All Results</a></li>
     @endif
 
     @if(Route::currentRouteName() == 'dropList')
         <li class="active"><a href="{{route('dropList')}}"> Drop List</a></li>
     @else
         <li><a href="{{route('dropList')}}"> Drop List</a></li>
-    @endif
-
-    @if(Route::currentRouteName() == 'addResult')
-        <li class="active"><a href="{{route('addResult')}}"> Add Result</a></li>
-    @else
-        <li><a href="{{route('addResult')}}"> Add Result</a></li>
     @endif
 
 
@@ -51,4 +53,5 @@
     @endif
 
 </ul>
+</div>
 </div>

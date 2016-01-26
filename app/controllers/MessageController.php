@@ -71,14 +71,13 @@ class MessageController extends \BaseController {
 
       if($check2 != null){
         //redirect to that thread
-        return $check2;
-        return Redirect::route('messages.view',$check2->id)->with('warning','message thread already exists!');
+
+        return Redirect::route('messages.view',$check2->id);
         //return 'you already have a message thread open with this user';
       }
       if($check1 != null){
-        return $check1;
-        //redirect to that thread
-        return Redirect::route('messages.view',$check1->id)->with('warning','message thread already exists!');
+        
+        return Redirect::route('messages.view',$check1->id);
         //return 'you already have a message thread open with this user';
       }
 
@@ -98,6 +97,9 @@ class MessageController extends \BaseController {
 
     public function ViewNewMessage($thread_id){
       try{
+
+        //for the first messages
+
         $user_id = Auth::user()->id;
         $currentThread = Thread::where('id',$thread_id)
                               ->with('owner1')
@@ -166,7 +168,7 @@ class MessageController extends \BaseController {
                                             ->with('messages',$messages)
                                             ->with('otherClassmates', $classmatesInfo);
       }catch(Exception $ex){
-        return Redirect::back()->with('error', 'messeging system error');
+        return Redirect::back();//->with('error', 'messeging system error');
       }
         
     } 

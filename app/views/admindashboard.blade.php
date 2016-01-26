@@ -119,6 +119,16 @@
 @stop
 
 @section('script')
+
+<!--
+    counting effect animation
+    {{HTML::script('js/count.js')}}
+
+    <script type="text/javascript">
+        countUp();
+    </script>
+-->
+
 <script>
 
 gapi.analytics.ready(function() {

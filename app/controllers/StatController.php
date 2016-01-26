@@ -18,6 +18,39 @@ class StatController extends \BaseController {
         }
     }
 
+    public function showAllResults(){
+        try{
+            
+            //show semesterwise results table
+
+            //find all results the user_id got
+            //grab results info with their corresponding course info
+            $results = Result::where('user_id',Auth::user()->id)
+                ->with('Course')->get();
+
+            //group the results by course semester
+            $result = array();
+            foreach ($results as $data) {
+              $id = $data['course']->course_semester;
+              if (isset($result[$id])) {
+                 $result[$id][] = $data;
+              } else {
+                 $result[$id] = array($data);
+              }
+            }
+
+            //return $result;
+
+            return View::make('stat.allResults')
+                ->with(['title'=>'Results',
+                    'resultsInfo'=>$result]);
+        }catch (Exception $ex){
+            return View::make('stat.allResults')
+                ->with(['title'=>'Results',
+                    'resultsInfo'=>[],'error'=>'error generating data table']);
+        }   
+    }
+
     public function showResultsTab(){
 
         try{
@@ -185,7 +218,7 @@ class StatController extends \BaseController {
         $user_id = Auth::user()->id;
 
         $taken_courses_id = Result::where('user_id',$user_id)
-                                    ->where('grade_point','!=',0)
+                                    //->where('grade_point','!=',0)
                                     ->lists('course_id');
         $courseList = Course::where('dept_id', Auth::user()->userInfo->dept->id)
                             ->where('batch_id',Auth::user()->userInfo->batch->id)

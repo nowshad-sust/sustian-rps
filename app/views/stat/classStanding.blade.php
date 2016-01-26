@@ -24,12 +24,14 @@
                                   </div>
 
                                   @if($key == Auth::user()->id)
-                                  <div style="height:70px;" class="panel-body text-center bg-info">
+                                  <div style="height:90px;" class="panel-body text-center bg-info">
                                   @else
-                                  <div style="height:70px;" class="panel-body text-center bg-success">
+                                  <div style="height:90px;" class="panel-body text-center bg-success">
                                   @endif
                                       <p>
                                           {{$value['info']->fullName}}
+                                      <br>
+                                          credits passed: {{$value['credits']}} & cgpa: {{round($value['cgpa'],2)}}
                                       </p>
                                   </div>
                               </section>
