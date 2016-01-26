@@ -3,6 +3,7 @@
         @include('includes.statMenu')
         @include('includes.alert')
     <div class="panel-body">
+    <a class="btn btn-success" href="{{ route('addResult') }}">Add Result</a>
     @foreach($resultsInfo as $semesterResults)
         <table class="display table table-bordered table-stripe" id="example">
             <thead>
