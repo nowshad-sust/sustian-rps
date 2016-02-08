@@ -33,8 +33,6 @@
         </div>
 
 
-
-
         {{ Form::close() }}
 
                 <!-- Modal -->
