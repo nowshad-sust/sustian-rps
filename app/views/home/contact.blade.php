@@ -2,14 +2,11 @@
 @section('content')
     
 
-    <!--google map start-->
+     <!--google map start-->
      <div class="contact-map">
-     	<iframe height="350" width="100%" frameborder="1" style="border:0" 
-     	src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJDXicvltVUDcRIFX8P64N47I&key=AIzaSyCmBIZwvl92mFo_jZMTpz3YDp8MXEouPWg"
-     	 allowfullscreen></iframe>
+         <div id="map-canvas" style="width: 100%; height: 400px"></div>
      </div>
      <!--google map end-->
-
      <!--container start-->
     <div class="container">
 
@@ -58,4 +55,33 @@
     <!--container end-->
 
 @stop
+
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&AMP;sensor=false"></script>
+
+
+  <script>
+
+      //google map
+      function initialize() {
+          var myLatlng = new google.maps.LatLng(24.9090290, 91.8382000);
+          var mapOptions = {
+              zoom: 15,
+              center: myLatlng,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+          }
+          var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+          var marker = new google.maps.Marker({
+              position: myLatlng,
+              map: map,
+              title: 'SUSTian RPS headquarter'
+          });
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+
+
+
+  </script>
+
       

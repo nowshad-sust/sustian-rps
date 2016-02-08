@@ -14,8 +14,11 @@
             <div class="login-wrap">
                 {{ Form::label('fullName', 'Full Name', array('' => '')) }}
                 {{ Form::text('fullName', '', array('class' => 'form-control', 'autofocus')) }}
-
-                {{ Form::label('reg_no', 'Reg no* (fixed once given)', array('' => '')) }}
+                <br>
+                {{ Form::label('reg_no', 'Reg no*', array('' => '')) }}
+                <span class="label-info" style="color:white;">fixed once given. your dept
+                                                and batch will be extracted from this info. 
+                                                so be cautious.</span>
                 {{ Form::text('reg_no', null, array('class' => 'form-control', 'autofocus')) }}
 
                 {{ Form::label('email', 'Email', array('' => '')) }}

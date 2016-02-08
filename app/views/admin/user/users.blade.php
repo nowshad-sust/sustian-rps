@@ -44,7 +44,9 @@
 
                     <td class="text-center">
                         <a class="btn btn-xs btn-success btn-edit" href="{{ URL::route('showProfile',$Info->userInfo->user_id) }}">details</a>
-                        <a class="btn btn-xs btn-info btn-edit" href="{{ URL::route('writeMessageTo',$Info->userInfo->user_id) }}">message</a>
+                        <!--<a class="btn btn-xs btn-info btn-edit" href="{{ URL::route('writeMessageTo',$Info->userInfo->user_id) }}">message</a>-->
+                        <a class="btn btn-xs btn-info btn-edit" href="{{route('thread.new',$Info->userInfo->user_id)}}">message</a>
+
                     </td>
                     @if($Users[0]->name != 'admin')
                         @if($Users[0]->name == 'user')

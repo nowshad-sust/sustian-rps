@@ -43,6 +43,7 @@ class MessageController extends \BaseController {
       if($validation->fails()){
           return Redirect::back()->withErrors($validation)->withInput();
       }else{
+        
           $message = new Message();
           $message->sender_id =   Auth::user()->id;
           $message->receiver_id = $data['receiver_id'];//to admin for primary use only

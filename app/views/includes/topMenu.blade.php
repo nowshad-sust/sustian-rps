@@ -48,8 +48,8 @@
                                         <span class="photo">
                                             {{ HTML::image($sender_info->userInfo->icon_url, 'alt', array( 'width' => 35, 'height' => 35 )) }}
                                         </span>
+                                        from <span class="from">{{ $sender_info->userInfo->fullName }}<br>
                                         <span class="subject">{{ $message->subject }}</span>
-                                        <span class="from">{{ $sender_info->userInfo->fullName }}<br>
                                         <span class="time">{{ $message->updated_at->diffForHumans() }} </span>
                                         </span>
                                         <span class="message">

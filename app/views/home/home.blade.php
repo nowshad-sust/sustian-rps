@@ -227,8 +227,8 @@
 <section class="parallax1">
     <div class="container">
         <div class="row">
-            <h2 class="text-center">আজকের উক্তি</h2>
-            <h1>“Only those who care about you can hear you when you’re quiet"</h1>
+            <h2 class="text-center">Quote of February</h2>
+            <h1>“Learn to Respond, Not React"</h1>
         </div>
     </div>
 </section>

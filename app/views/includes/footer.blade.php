@@ -1,5 +1,5 @@
     <!--footer start-->
-    <footer class="site-footer">
+    <footer class="site-footer" style="position:absolute; width:100%;">
           <div class="text-center">
               <h6>2015 &copy;
               <a target="_blank" style="color: lightyellow;" href="http://nowshad.iit.space"> Nowshad</a></h6>

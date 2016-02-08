@@ -34,7 +34,7 @@
         {{ Form::label('fullName', 'Full Name', array('' => '')) }}
         {{ Form::text('fullName', '', array('class' => 'form-control', 'placeholder' => 'Mario Gomez', 'autofocus')) }}
 
-        {{ Form::label('reg_no', 'Reg no* (fixed once given)', array('' => '')) }}
+        {{ Form::label('reg_no', 'Reg no* (fixed once given. your dept and batch will be extracted from this info. so be cautious.)', array('' => '')) }}
         {{ Form::text('reg_no', null, array('class' => 'form-control', 'placeholder' => '20********','autofocus')) }}
 
         {{ Form::label('email', 'Email', array('' => '')) }}

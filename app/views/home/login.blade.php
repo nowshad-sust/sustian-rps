@@ -15,6 +15,7 @@
         <div class="login-wrap">
 
             {{ Form::text('email', '', array('class' => 'form-control', 'placeholder' => 'Email Address', 'autofocus')) }}
+            <br>
             {{ Form::password('password', array('class' => 'form-control', 'placeholder' => 'Password')) }}
 
             <label class="checkbox">
