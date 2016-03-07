@@ -31,4 +31,5 @@
     <script src="frontend/js/html5shiv.js"></script>
     <script src="frontend/js/respond.min.js"></script>
     <![endif]-->
+    @yield('style')
 </head>

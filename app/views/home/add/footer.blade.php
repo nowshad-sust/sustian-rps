@@ -62,7 +62,7 @@
 {{ HTML::script('frontend/assets/revolution_slider/rs-plugin/js/jquery.themepunch.revolution.min.js') }}
 {{ HTML::script('frontend/js/common-scripts.js') }}
 {{ HTML::script('frontend/js/revulation-slide.js') }}
-{{ HTML::script('') }}
+@yield('script')
 
 
 <script>

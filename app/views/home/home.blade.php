@@ -227,7 +227,7 @@
 <section class="parallax1">
     <div class="container">
         <div class="row">
-            <h2 class="text-center">Quote of February</h2>
+            <h2 class="text-center">Quote of March</h2>
             <h1>“Learn to Respond, Not React"</h1>
         </div>
     </div>

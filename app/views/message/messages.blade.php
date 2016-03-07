@@ -138,7 +138,7 @@
                         @endforeach
                       </ul>
                       <footer>
-                          <a href="{{route('writeMessage')}}" class="guest-on">
+                          <a href="{{route('thread.new',1)}}" class="guest-on">
                               <i class="fa fa-check"></i>
                               report bug
                           </a>

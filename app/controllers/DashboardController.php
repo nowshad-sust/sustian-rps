@@ -5,6 +5,11 @@ class DashboardController extends \BaseController{
 
     public static function adminDashboard(){
         //get admin view info
+        $resgisteredUserNumber = User::count();
+
+        //total inactive user number        
+        $totalInactiveUserNumber = UserInfo::where('activation',false)->count();
+
         //total activated user number
         $totalUserNumber = UserInfo::where('activation',true)->count();
 
@@ -14,6 +19,8 @@ class DashboardController extends \BaseController{
         return View::make('admindashboard')
             ->with([
                 'title'             =>      'Dashboard',
+                'resgisteredUserNumber' => $resgisteredUserNumber,
+                'totalInactiveUserNumber'   =>      $totalInactiveUserNumber,
                 'totalUserNumber'   =>      $totalUserNumber,
                 'totalResultNumber' =>      $totalResultNumber
             ]);
