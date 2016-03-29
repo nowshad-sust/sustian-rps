@@ -5,13 +5,13 @@ class DashboardController extends \BaseController{
 
     public static function adminDashboard(){
         //get admin view info
-        $resgisteredUserNumber = User::count();
+        $resgisteredUserNumber = User::count()-1;
 
         //total inactive user number        
         $totalInactiveUserNumber = UserInfo::where('activation',false)->count();
 
         //total activated user number
-        $totalUserNumber = UserInfo::where('activation',true)->count();
+        $totalUserNumber = UserInfo::where('activation',true)->count()-1;
 
         //total results added
         $totalResultNumber = Result::count();

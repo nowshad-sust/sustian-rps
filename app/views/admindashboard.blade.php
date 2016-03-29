@@ -11,7 +11,7 @@
                         <i class="fa fa-bar-chart-o"></i>
                     </div>
                     <div class="value">
-                        <h1 class=" count4">{{$resgisteredUserNumber-1}}</h1>
+                        <h1 class=" count4">{{$resgisteredUserNumber}}</h1>
                         <p>Total registered users</p>
                     </div>
                 </section>
