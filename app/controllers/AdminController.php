@@ -368,7 +368,7 @@ class AdminController extends \BaseController {
                 $Course->course_credit = $data['course_credit'];
 
                 if($Course->save()){
-                    return Redirect::route('showCourse')->with(['success'=>'Course added']);
+                    return Redirect::back()->with(['success'=>'Course added']);
                 }else{
                     return Redirect::back()->withInput()->with(['error'=>'Course adding failed']);
                 }
@@ -462,7 +462,7 @@ class AdminController extends \BaseController {
                     'course_title' => $data['course_title'],
                     'course_credit' => $data['course_credit']
                 ])){
-                    return Redirect::route('showCourse')->with(['success'=>'Course info update']);
+                    return Redirect::back()->with(['success'=>'Course info update']);
                 }else{
                     return Redirect::back()->withInput()->with(['error'=>'Course update failed']);
                 }

@@ -485,7 +485,7 @@ class StatController extends \BaseController {
                 return $a['cgpa'] <= $b['cgpa']; 
             });
 
-            //return $combinedArray;
+            return $combinedArray;
             
             $position = 1;
             $userposition = 1;
@@ -502,7 +502,7 @@ class StatController extends \BaseController {
                 $position++;
             }
 
-            //return $RankingDetails;
+            return $RankingDetails;
 
             $comparedWith = count($combinedArray);
             

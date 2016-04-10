@@ -315,7 +315,7 @@ class ManagerController extends \BaseController {
                 $Course->course_credit = $data['course_credit'];
 
                 if($Course->save()){
-                    return Redirect::route('data.entry')->with(['success'=>'Course added']);
+                    return Redirect::back()->with(['success'=>'Course added']);
                 }else{
                     return Redirect::back()->withInput()->with(['error'=>'Course adding failed']);
                 }
@@ -386,7 +386,7 @@ class ManagerController extends \BaseController {
                 	]);
 
                 if($update){
-                    return Redirect::route('data.entry')->with(['success'=>'Course info update']);
+                    return Redirect::back()->with(['success'=>'Course info update']);
                 }else{
                     return Redirect::back()->withInput()->with(['error'=>'Course update failed']);
                 }

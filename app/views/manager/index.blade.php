@@ -68,6 +68,7 @@
         $(document).ready(function() {
 
             $('#example').dataTable({
+                stateSave: true,
                 "order": [[ 3, "asc" ]]
             });
 
