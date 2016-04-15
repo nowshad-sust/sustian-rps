@@ -227,11 +227,28 @@
 <section class="parallax1">
     <div class="container">
         <div class="row">
-            <h2 class="text-center">Quote of March</h2>
-            <h1>“Learn to Respond, Not React"</h1>
+            <h2 class="text-center">Quote For You</h2>
+            <br>
+            <h2 class="text-center"><quote id="quote"></quote></h3>
         </div>
     </div>
 </section>
 <!--parallax end-->
+
+
+{{HTML::script('js/jquery-1.11.3.min.js')}}
+
+<script type="text/javascript">
+$(document).ready(function(){
+    
+    $.getJSON("http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&callback=", function(a) {
+        $("quote").append("<p>"+a[0].content + "<br> - " +a[0].title+"</p>")
+    });
+
+        
+});
+</script>
+
+
 
 @stop

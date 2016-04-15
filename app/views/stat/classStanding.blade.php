@@ -5,7 +5,6 @@
 
     <div class="panel-body">
         <h5>The ranking process: total credits passed -> total cgpa</h5>
-        <h6>please be patient. we'll fix the bug ASAP</h6>
         <h2>your position: <strong>{{$standing}}</strong> among {{$comparison}} of your classmates !</h2>
 
     </div>
