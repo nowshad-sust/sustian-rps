@@ -480,12 +480,13 @@ class StatController extends \BaseController {
             }
             
             uasort($combinedArray, function($a, $b) { 
-                $rdiff = $b['credits'] - $a['credits'];
-                if ($rdiff) return $rdiff; 
+                $rdiff = ceil($b['credits'] - $a['credits']);
+                if ($rdiff) 
+                    return $rdiff; 
                 return $a['cgpa'] <= $b['cgpa']; 
             });
 
-            return $combinedArray;
+            //return $combinedArray;
             
             $position = 1;
             $userposition = 1;
@@ -502,7 +503,7 @@ class StatController extends \BaseController {
                 $position++;
             }
 
-            return $RankingDetails;
+            //return $RankingDetails;
 
             $comparedWith = count($combinedArray);
             
