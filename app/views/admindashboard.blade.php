@@ -49,7 +49,17 @@
                     </div>
                 </section>
             </div>
-            
+            <div class="col-lg-3 col-sm-6">
+                <section class="panel">
+                    <div class="symbol blue">
+                        <i class="fa fa-book"></i>
+                    </div>
+                    <div class="value">
+                        <h1 class=" count3">{{ $totalCourseNumber }}</h1>
+                        <p>Total course</p>
+                    </div>
+                </section>
+            </div>
         </div>
 
         @endif

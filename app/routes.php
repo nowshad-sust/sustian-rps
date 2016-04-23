@@ -27,10 +27,13 @@ Route::group(array('before' => 'auth|activation'), function()
 {
 	//login section
 	Route::get('logout', ['as' => 'logout', 'uses' => 'AuthController@logout']);
-	Route::get('dashboard', array('as' => 'dashboard', 'uses' => 'AuthController@dashboard'));
 	Route::get('change-password', array('as' => 'password.change', 'uses' => 'AuthController@changePassword'));
 	Route::post('change-password', array('as' => 'password.doChange', 'uses' => 'AuthController@doChangePassword'));
 
+Route::group(array('before' => 'approval'), function()
+{
+
+	Route::get('dashboard', array('as' => 'dashboard', 'uses' => 'AuthController@dashboard'));
 	//profile section
 	Route::get('profile', ['as'=>'profile', 'uses'=>'UserController@viewProfile']);
 	Route::get('updateProfile',['as'=>'updateProfile', 'uses'=>'UserController@showProfileUpdateForm']);
@@ -85,6 +88,8 @@ Route::group(array('before' => 'auth|activation'), function()
 	Route::get('gpa/{semester}',['as'=>'gpaBySemester','uses'=>'StatController@gpaBySemester']);
 	Route::get('results',['as'=>'results','uses'=>'StatController@showResultsTab']);
 	Route::get('cgpa',['as'=>'cgpa','uses'=>'StatController@calculateCGPA']);
+
+});
 
 });
 

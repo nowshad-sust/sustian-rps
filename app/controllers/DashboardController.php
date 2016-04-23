@@ -16,13 +16,17 @@ class DashboardController extends \BaseController{
         //total results added
         $totalResultNumber = Result::count();
 
+        //total course entry
+        $totalCourseNumber = Course::count();
+
         return View::make('admindashboard')
             ->with([
                 'title'             =>      'Dashboard',
                 'resgisteredUserNumber' => $resgisteredUserNumber,
                 'totalInactiveUserNumber'   =>      $totalInactiveUserNumber,
                 'totalUserNumber'   =>      $totalUserNumber,
-                'totalResultNumber' =>      $totalResultNumber
+                'totalResultNumber' =>      $totalResultNumber,
+                'totalCourseNumber' =>      $totalCourseNumber
             ]);
     }
 

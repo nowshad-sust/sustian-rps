@@ -1,6 +1,6 @@
 @extends('home.add.homelayout')
 @section('content')
-    @include('includes.alert')
+    
 
 
 
@@ -12,6 +12,7 @@
                              )) 
         }}
         <h2 class="form-signin-heading">log in</h2>
+        @include('includes.alert')
         <div class="login-wrap">
 
             {{ Form::text('email', '', array('class' => 'form-control', 'placeholder' => 'Email Address', 'autofocus')) }}

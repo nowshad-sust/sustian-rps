@@ -18,6 +18,7 @@ class CreateUserinfoTable extends Migration {
 			$table->integer('user_id')->unsigned();
 			$table->string('fullName');
 			$table->boolean('activation');
+			$table->boolean('approval');
 			$table->string('activation_key')->nullable();
 			$table->string('reg_no')->nullable();
 			$table->integer('batch_id')->unsigned()->nullable();

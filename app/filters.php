@@ -82,6 +82,16 @@ Route::filter('activation', function()
 	}
 });
 
+Route::filter('approval', function()
+{
+	if (Auth::user()->userInfo->approval == false){
+	
+		return View::make('user.notApproved')
+					->with('title', 'Not Approved')
+					->with('warning','please wait for the approval of your account by the representative of your batch.');
+	}
+});
+
 /*
 |--------------------------------------------------------------------------
 | CSRF Protection Filter

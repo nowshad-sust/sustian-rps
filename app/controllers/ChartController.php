@@ -321,8 +321,11 @@ class ChartController extends \BaseController {
                             $CourseName = $courseInfo->course_title;
                             //get all results of that course by id
                             $results = Result::where('course_id',$course_id)
+                                                ->orderBy('grade_point')
                                                 ->lists('grade_point');
-
+                            $result_self = Result::where('course_id', $course_id)
+                                                ->where('user_id', Auth::user()->id)
+                                                ->first();
                             $counts = array_count_values($results);
                             $data =  $this->pieChartFormatOfCourseWiseData($counts,$results);
                         }else{
@@ -348,6 +351,7 @@ class ChartController extends \BaseController {
                     'course_title'  =>  $CourseName,
                     'data'  =>  $data,
                     'lists'    =>  $list,
+                    'result_self'   =>  $result_self
                 ]);
 
             }

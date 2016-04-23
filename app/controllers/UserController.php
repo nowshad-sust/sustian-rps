@@ -9,7 +9,17 @@ class UserController extends \BaseController {
     public function showRegisterForm(){
 
         //return View::make('user.registerForm')->with('title','Register');
-        return View::make('home.register')->with('title','Register');
+
+        $department = Dept::orderBy('deptName')->lists('deptName','id');
+        $batch = Batch::lists('batch','id');
+        
+        if(($key = array_search('1111', $batch)) !== false) {
+            unset($batch[$key]);
+        }
+
+        return View::make('home.register')->with('title','Register')
+                                            ->with('batch',$batch)
+                                            ->with('department',$department);
     }
 
 
@@ -20,6 +30,8 @@ class UserController extends \BaseController {
     public function validateRegistration(){
         $rules =[
             'fullName'              =>  'required',
+            'department'            =>  'required',
+            'batch'                 =>  'required',
             'reg_no'                =>  'required|unique:userinfo,reg_no|digits:10',
             'email'                 =>  'required|email|unique:users',
             'password'              =>  'required|confirmed',
@@ -34,13 +46,22 @@ class UserController extends \BaseController {
             return Redirect::back()->withErrors($validation)->withInput(Input::except('password', 'password_confirmation'));
         }else{
             try{
+                //new code block
+                $batch_id = Batch::findOrFail($data['batch'])->pluck('id');
+                $dept_id = Dept::findOrFail($data['department'])->pluck('id');
+                //finding ends
+
+                if($batch_id==null||$dept_id==null){
+                    throw new Exception;
+                }
+
+
+                /*old code to extract dept & batch from registration number
                 //dept & batch extraction from reg_no
                 //batch should be 1111***### for admin registration
                 $batch = (int) substr($data['reg_no'],0,4);
                 $dept = (int) substr($data['reg_no'],4,3);
                 //extraction finished
-
-
                 //now find the batch id & dept id
                 $batch_id = Batch::where('batch',$batch)->first()->id;
                 $dept_id = Dept::where('deptCode',$dept)->first()->id;
@@ -49,6 +70,7 @@ class UserController extends \BaseController {
                 if($batch_id==null||$dept_id==null){
                     throw new Exception;
                 }
+                */
             }catch (Exception $ex){
                 return Redirect::back()->withInput()->with(['error'=>'no valid batch or dept could be extracted from the given registration number,
                                                 please recheck your registration number']);
@@ -70,6 +92,7 @@ class UserController extends \BaseController {
                 $user_info->fullName = $data['fullName'];
                 $user_info->user_id = $user->id;
                 $user_info->activation = false;
+                $user_info->approval = true;
                 $user_info->activation_key = $confirmation_code;
                 $user_info->reg_no  = $data['reg_no'];
                 $user_info->batch_id = $batch_id;

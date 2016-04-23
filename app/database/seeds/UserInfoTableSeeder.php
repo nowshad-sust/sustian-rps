@@ -13,6 +13,7 @@ class UserInfoTableSeeder extends Seeder {
                 'user_id'   =>  1,
                 'activation' => true,
                 'activation_key' => null,
+                'approval'  => true,
                 'reg_no'  =>    '2012331000',
                 'batch_id'  => 1,
                 'dept_id'  =>  1,
