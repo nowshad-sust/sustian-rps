@@ -37,7 +37,7 @@
                             <tr><td height="15"></td></tr>
                             <tr>
                                 <td>
-                                    <a href="{{ URL::to('register/activation/'.$confirmation_code) }}" style="background-color: #7087A3; font-size: 12px; padding: 10px 15px; color: #fff; text-decoration: none"> Activate</a>
+                                    <a href="{{ route('activate',$confirmation_code) }}" style="background-color: #7087A3; font-size: 12px; padding: 10px 15px; color: #fff; text-decoration: none"> Activate</a>
                                 </td>
                             </tr>
                             </tbody>

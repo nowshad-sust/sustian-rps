@@ -18,7 +18,7 @@ Route::group(['before' => 'guest'], function(){
 	Route::post('login', array('uses' => 'AuthController@doLogin'));
 	Route::get('register',['as'=>'register','uses'=>'UserController@showRegisterForm']);
 	Route::post('register',['uses'=>'UserController@validateRegistration']);
-	Route::get('register/activation/{key}',['uses'=>'ActivationController@activate']);
+	Route::get('register/activation/{key}',['as'=>'activate','uses'=>'ActivationController@activate']);
 	Route::get('activationRequest', ['as'=>'activationRequest', 'uses'=>'ActivationController@viewActivationRequest']);
 	Route::post('sendActivationLink',['as'=>'sendActivationLink','uses'=>'ActivationController@sendActivationLink']);
 });
