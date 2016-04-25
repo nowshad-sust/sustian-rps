@@ -47,9 +47,12 @@ class UserController extends \BaseController {
         }else{
             try{
                 //new code block
-                $batch_id = Batch::findOrFail($data['batch'])->pluck('id');
-                $dept_id = Dept::findOrFail($data['department'])->pluck('id');
+                $batch_id = Batch::findOrFail($data['batch']);
+                $dept_id = Dept::findOrFail($data['department']);
                 //finding ends
+
+                $batch_id = $batch_id->id;
+                $dept_id = $dept_id->id;
 
                 if($batch_id==null||$dept_id==null){
                     throw new Exception;

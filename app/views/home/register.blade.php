@@ -7,7 +7,7 @@
             {{ Form::open(array('route' =>  'register', 
                                             'method' => 'post',
                                             'class' => 'form-signin',
-                                            'onsubmit'=>'return confirm("are you sure you have given the correct registration number?");'
+                                            'onsubmit'=>'return confirm("are you sure you have given the correct registration number, dept and batch?");'
                                             )) }}
             <h2 class="form-signin-heading">User Registration</h2>
             @include('includes.alert')
