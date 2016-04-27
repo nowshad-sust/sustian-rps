@@ -12,7 +12,11 @@
                         <article class="media">
                             <h4 class="text-center">Class CGPA Population</h4>
                             <h5 class="text-center">{{$course_title}}</h5>
+                            @if($result_self)
                             <h6 class="text-center"> <b>Your Result:</b> {{ $result_self->grade_letter }}</h6>
+                            @else
+                            <h6 class="text-center"> <b> You have not entered resutlt of this course</b></h6>
+                            @endif
                             <canvas id="myChart" ></canvas>
                         </article>
                     </div>
