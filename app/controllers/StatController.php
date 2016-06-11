@@ -39,11 +39,22 @@ class StatController extends \BaseController {
               }
             }
 
-            //return $result;
+            $keys = [];   
+            foreach ($result as $key => $value) {
+                $keys[]  =  $key;
+            };
+
+            sort($keys);
+            
+            $sortedResults = [];
+
+            foreach ($keys as $key) {
+                 $sortedResults[$key] = $result[$key];
+             } 
 
             return View::make('stat.allResults')
                 ->with(['title'=>'Results',
-                    'resultsInfo'=>$result]);
+                    'resultsInfo'=>$sortedResults]);
         }catch (Exception $ex){
             return View::make('stat.allResults')
                 ->with(['title'=>'Results',
