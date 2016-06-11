@@ -12,7 +12,7 @@
         {{ Form::select('grade_point',$gradesList, null, array('class' => 'form-control')) }}
 
         {{ Form::hidden('id',$resultInfo->id) }}
-        {{ Form::submit('Add', array('class' => 'btn btn-lg btn-login btn-block')) }}
+        {{ Form::submit('Update', array('class' => 'btn btn-lg btn-login btn-block')) }}
     </div>
 
     {{ Form::close() }}

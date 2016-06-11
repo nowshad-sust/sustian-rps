@@ -184,13 +184,21 @@ class ChartController extends \BaseController {
             $available_semesters = array();
             $semestersGPA = array();
             $semestersCGPA = array();
+            
             foreach($results as $result){
                 if(!in_array($result->course->course_semester, $available_semesters)){
                     $available_semesters[]= $result->course->course_semester;
-                    $semestersGPA[] = $this->calculateSemesterGPA($result->course->course_semester);
-                    $semestersCGPA[] = $this->getCGPATillSemester($result->course->course_semester);
                 }
             }
+            sort($available_semesters);
+
+            foreach ($available_semesters as $semester) {
+                $semestersGPA[] = $this->calculateSemesterGPA($semester);
+                $semestersCGPA[] = $this->getCGPATillSemester($semester);
+            }
+
+            //return $available_semesters;
+
 
             /*if($semestersCGPA==null){
                 return Redirect::back()->with(['error'=>'could not calculate your data']);
